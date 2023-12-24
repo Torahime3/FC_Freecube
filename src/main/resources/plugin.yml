@@ -1,0 +1,9 @@
+author: Torahime
+name: Freecube
+version: '${version}'
+main: fr.torahime.freecube.Freecube
+api-version: '1.20'
+commands:
+  fc:
+    description: test command
+    permission: freecube.player.fc
