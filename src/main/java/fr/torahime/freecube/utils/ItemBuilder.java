@@ -2,12 +2,18 @@ package fr.torahime.freecube.utils;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import net.kyori.adventure.text.Component;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.Banner;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +21,7 @@ public class ItemBuilder {
 
     private ItemStack item;
 
-    private Menu menuToOpen = null;
+    private List<Pattern> patterns = new ArrayList<Pattern>();
 
     public ItemBuilder(final ItemStack item) {
         this.item = item;
@@ -23,11 +29,6 @@ public class ItemBuilder {
 
     public ItemBuilder(final Material material) {
         this.item = new ItemStack(material);
-    }
-
-    public ItemBuilder(final Material material, final Menu menu) {
-        this.item = new ItemStack(material);
-        this.menuToOpen = menu;
     }
 
     public ItemBuilder(final Material material, final int amount) {
@@ -44,6 +45,28 @@ public class ItemBuilder {
         final ItemMeta meta = this.item.getItemMeta();
         meta.lore(lores);
         return this.setMeta(meta);
+    }
+
+    public ItemBuilder addPattern(Pattern pattern){
+        this.patterns.add(pattern);
+        return this;
+    }
+
+    public ItemBuilder addPattern(Pattern... pattern){
+        this.patterns.addAll(Arrays.asList(pattern));
+        return this;
+    }
+
+    public ItemBuilder addPattern(PatternType patternType, DyeColor color){
+        this.patterns.add(new Pattern(color, patternType));
+        return this;
+    }
+
+    public ItemBuilder applyPatterns(){
+        BannerMeta im = (BannerMeta) this.item.getItemMeta();
+        im.setPatterns(this.patterns);
+        this.item.setItemMeta(im);
+        return this;
     }
 
     public ItemBuilder setLore(final Component... lores) {

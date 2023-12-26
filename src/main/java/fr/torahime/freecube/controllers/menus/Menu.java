@@ -18,6 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Menu implements Listener {
 
@@ -25,11 +26,10 @@ public class Menu implements Listener {
     protected ArrayList<ItemStack> menuItems;
     protected TextComponent invName;
     protected Inventory inv;
+    protected HashMap<Integer, Runnable> interactions;
 
     public Menu(){
-        this.player = null;
-        this.invName = Component.text("DefaultMenu");
-        this.inv = Bukkit.createInventory(null, 9, this.invName);
+        this(null, Component.text("Menu"), 9);
     }
 
     public Menu(Player player, TextComponent invName, int size){
@@ -40,6 +40,7 @@ public class Menu implements Listener {
         this.invName = invName;
         this.inv = Bukkit.createInventory(null, size, this.invName);
         this.menuItems = new ArrayList<>();
+        this.interactions = new HashMap<>();
     }
 
     public void openMenu(){
@@ -60,6 +61,22 @@ public class Menu implements Listener {
     protected void addItem(ItemStack item, int slot){
         this.menuItems.add(item);
         this.inv.setItem(slot, item);
+    }
+
+    protected void addItem(ItemStack item, int slot, Runnable interaction){
+        this.addItem(item, slot);
+        this.interactions.put(slot, interaction);
+    }
+
+    @EventHandler
+    public void onItemClick(InventoryClickEvent event){
+
+        ItemStack item = event.getCurrentItem();
+        int slot = event.getRawSlot();
+        if(item == null) return;
+
+        if(this.interactions.containsKey(slot)) this.interactions.get(slot).run();
+
     }
 
     @EventHandler

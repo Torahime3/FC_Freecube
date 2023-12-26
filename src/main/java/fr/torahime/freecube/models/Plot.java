@@ -9,6 +9,7 @@ public class Plot {
     private int id;
     private static HashMap<Integer, Plot> plots = new HashMap<>();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
+    private final int MAX_MEMBERS = 16;
 
     public Plot(int id, UUID owner) {
         this.id = id;
@@ -25,7 +26,7 @@ public class Plot {
     }
 
     public boolean addPlayer(UUID playerUUID, PlotRoles plotRole) {
-        if(isPlayerPresent(playerUUID)) {
+        if(members.size() < MAX_MEMBERS && isPlayerPresent(playerUUID)) {
             return false;
         }
         members.put(playerUUID, plotRole);

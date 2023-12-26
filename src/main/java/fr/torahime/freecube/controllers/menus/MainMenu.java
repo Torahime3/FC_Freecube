@@ -10,12 +10,16 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
@@ -36,21 +40,45 @@ public class MainMenu extends Menu {
         spawn.setDisplayName(Component.text("Aller au spawn du monde").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
         spawn.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour aller au spawn du monde").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
 
-        ItemBuilder myPlots = new ItemBuilder(Material.OAK_SIGN, new PlotMenu(this.player));
+        ItemBuilder myPlots = new ItemBuilder(Material.OAK_SIGN);
         myPlots.setDisplayName(Component.text("Mes Zones").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
 
         ItemBuilder freeZone = new ItemBuilder(Material.PAPER);
         freeZone.setDisplayName(Component.text("Trouver une zone libre").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
         freeZone.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour trouver une zone libre").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
 
-        int headIndex = 0;
+
         if(PlotIdentifier.isInPlot(this.player.getLocation()) && PlotIdentifier.isPlotClaimed(this.player.getLocation())) {
 
-            for(UUID playerID : Plot.getPlot(PlotIdentifier.getPlotIndex(this.player.getLocation())).getMembers()) {
+            Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
+
+            int headIndex = (4 * 9);
+            for(UUID playerID : plot.getMembers()) {
                 ItemBuilder membersHead = new ItemBuilder(Material.PLAYER_HEAD);
                 membersHead.setDisplayName(Component.text(Objects.requireNonNull(Bukkit.getPlayer(playerID)).getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
-                this.addItem(membersHead.getItem(), headIndex + 36);
+                membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE).append(Component.text(plot.getMemberRole(player.getUniqueId()).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
+                this.addItem(membersHead.getItem(), headIndex);
                 headIndex++;
+            }
+
+            if(plot.getOwner() == this.player.getUniqueId()){
+
+                ItemBuilder bannerAddMember = new ItemBuilder(Material.GREEN_BANNER);
+                bannerAddMember.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRAIGHT_CROSS),
+                        new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM),
+                        new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP),
+                        new Pattern(DyeColor.GREEN, PatternType.BORDER)).applyPatterns();
+                bannerAddMember.setDisplayName(Component.text("[+] Ajouter un membre").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN));
+                bannerAddMember.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+
+                ItemBuilder bannerRemoveMember = new ItemBuilder(Material.RED_BANNER);
+                bannerRemoveMember.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE),
+                        new Pattern(DyeColor.RED, PatternType.BORDER)).applyPatterns();
+                bannerRemoveMember.setDisplayName(Component.text("[-] Supprimer un membre").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.RED));
+                bannerRemoveMember.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+
+                this.addItem(bannerAddMember.getItem(), headIndex);
+                this.addItem(bannerRemoveMember.getItem(), headIndex + 1);
             }
         }
 //        ItemBuilder playerHead = new ItemBuilder(Material.PLAYER_HEAD);
@@ -80,7 +108,7 @@ public class MainMenu extends Menu {
 
         //Set buttons (items) in inventory
         this.addItem(spawn.getItem(), 0);
-        this.addItem(myPlots.getItem(), 1);
+        this.addItem(myPlots.getItem(), 1, () -> new PlotMenu(player).openMenu());
         this.addItem(freeZone.getItem(), 2);
 //        this.addItem(playerHead.getItem(), 4);
 //        this.addItem(options.getItem(), 6);
@@ -94,17 +122,5 @@ public class MainMenu extends Menu {
 
     }
 
-    @EventHandler
-    public void onItemClick(InventoryClickEvent event){
-
-        ItemStack item = event.getCurrentItem();
-        if(item == null) return;
-
-        if(item.getType() == Material.OAK_SIGN) {
-            new PlotMenu(this.player).openMenu();
-        }
-
-
-    }
 
 }

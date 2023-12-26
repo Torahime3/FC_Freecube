@@ -7,3 +7,6 @@ commands:
   fc:
     description: test command
     permission: freecube.player.fc
+  tp:
+    description: tp command
+    permission: freecube.player.tp
