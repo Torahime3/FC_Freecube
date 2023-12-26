@@ -1,0 +1,99 @@
+package fr.torahime.freecube.controllers.menus;
+
+import fr.torahime.freecube.utils.ItemBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+
+public class Menu implements Listener {
+
+    protected Player player;
+    protected ArrayList<ItemStack> menuItems;
+    protected TextComponent invName;
+    protected Inventory inv;
+
+    public Menu(){
+        this.player = null;
+        this.invName = Component.text("DefaultMenu");
+        this.inv = Bukkit.createInventory(null, 9, this.invName);
+    }
+
+    public Menu(Player player, TextComponent invName, int size){
+        if(size % 9 != 0){
+            throw new IllegalArgumentException("La taille de l'inventaire doit être un multiple de 9");
+        }
+        this.player = player;
+        this.invName = invName;
+        this.inv = Bukkit.createInventory(null, size, this.invName);
+        this.menuItems = new ArrayList<>();
+    }
+
+    public void openMenu(){
+        Bukkit.getServer().getPluginManager().registerEvents(this, Bukkit.getPluginManager().getPlugin("Freecube"));
+        fillInventory();
+        this.player.openInventory(this.inv);
+        //Unregister even
+    }
+    protected void fillInventory(){
+
+        ItemBuilder defaultItem = new ItemBuilder(Material.BARRIER);
+        defaultItem.setDisplayName(Component.text("Default Item").color(NamedTextColor.RED));
+
+        for(int i = 0; i < 9; i++){
+            this.addItem(defaultItem.getItem(), i);
+        }
+    }
+    protected void addItem(ItemStack item, int slot){
+        this.menuItems.add(item);
+        this.inv.setItem(slot, item);
+    }
+
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent event){
+
+        ItemStack itemDrop = event.getItemDrop().getItemStack();
+
+        for(ItemStack item : menuItems){
+            if(itemDrop.equals(item)){
+                event.setCancelled(true);
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if(event.getClickedInventory() == null) return;
+
+        final ItemStack itemClick = event.getCurrentItem();
+
+        if(itemClick == null) return;
+
+        for(ItemStack item : menuItems){
+            if(itemClick.equals(item)){
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event){
+        if(event.getInventory().equals(this.inv)){
+            HandlerList.unregisterAll(this);
+        }
+    }
+}

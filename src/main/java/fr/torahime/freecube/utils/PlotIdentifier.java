@@ -1,6 +1,7 @@
 package fr.torahime.freecube.utils;
 
 import fr.torahime.freecube.models.Plot;
+import org.bukkit.Location;
 
 import java.util.UUID;
 
@@ -13,12 +14,20 @@ public class PlotIdentifier {
         return Math.floorDiv(blockX, 16) % 8 != 0 && Math.floorDiv(blockZ, 16) % 8 != 0;
     }
 
+    public static boolean isInPlot(Location location){
+        return isInPlot(location.getBlockX(), location.getBlockZ());
+    }
+
     public static boolean isPlotClaimed(int plotId){
         return Plot.getPlot(plotId) != null;
     }
 
     public static boolean isPlotClaimed(int blockX, int blockZ){
         return isPlotClaimed(getPlotIndex(blockX, blockZ));
+    }
+
+    public static boolean isPlotClaimed(Location location){
+        return isPlotClaimed(getPlotIndex(location));
     }
 
     public static boolean isMemberOfPlot(int blockX, int blockZ, UUID player){
@@ -37,6 +46,10 @@ public class PlotIdentifier {
 
     public static int getPlotIndex(int blockX, int blockZ) {
         return getIndex(Math.floorDiv(blockX, 8 * 16), Math.floorDiv(blockZ, 8 * 16));
+    }
+
+    public static int getPlotIndex(Location location){
+        return getPlotIndex(location.getBlockX(), location.getBlockZ());
     }
 
     private static int getIndex(int chunkX, int chunkZ) {

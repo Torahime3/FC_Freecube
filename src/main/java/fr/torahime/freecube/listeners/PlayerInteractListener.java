@@ -2,22 +2,15 @@ package fr.torahime.freecube.listeners;
 
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.menus.MainMenu;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.network.protocol.game.*;
+import fr.torahime.freecube.controllers.menus.PlotMenu;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -110,7 +103,7 @@ public class PlayerInteractListener implements Listener {
         //Check if player right-clicked with the right iron axe
         if(item.getType() == Material.IRON_AXE && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)){
             if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK){
-                new MainMenu().openMenu(player);
+                new MainMenu(player).openMenu();
             }
         }
 

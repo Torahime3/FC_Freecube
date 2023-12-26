@@ -1,5 +1,7 @@
 package fr.torahime.freecube.utils;
 
+import fr.torahime.freecube.controllers.menus.Menu;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -13,6 +15,8 @@ public class ItemBuilder {
 
     private ItemStack item;
 
+    private Menu menuToOpen = null;
+
     public ItemBuilder(final ItemStack item) {
         this.item = item;
     }
@@ -21,31 +25,28 @@ public class ItemBuilder {
         this.item = new ItemStack(material);
     }
 
+    public ItemBuilder(final Material material, final Menu menu) {
+        this.item = new ItemStack(material);
+        this.menuToOpen = menu;
+    }
+
     public ItemBuilder(final Material material, final int amount) {
         this.item = new ItemStack(material, amount);
     }
 
-    public ItemBuilder(final Material material, final int amount, final short damage) {
-        this.item = new ItemStack(material, amount, damage);
-    }
-
-    public ItemBuilder(final Material material, final int amount, final short damage, final Byte data) {
-        this.item = new ItemStack(material, amount, damage, data);
-    }
-
-    public ItemBuilder setDisplayName(final String name) {
+    public ItemBuilder setDisplayName(final Component name) {
         final ItemMeta meta = this.item.getItemMeta();
-        meta.setDisplayName(name);
+        meta.displayName(name);
         return this.setMeta(meta);
     }
 
-    public ItemBuilder setLore(final List<String> lores) {
+    public ItemBuilder setLore(final List<Component> lores) {
         final ItemMeta meta = this.item.getItemMeta();
-        meta.setLore((List)lores);
+        meta.lore(lores);
         return this.setMeta(meta);
     }
 
-    public ItemBuilder setLore(final String... lores) {
+    public ItemBuilder setLore(final Component... lores) {
         return this.setLore(Arrays.asList(lores));
     }
 

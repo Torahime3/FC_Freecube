@@ -29,6 +29,7 @@ tasks {
         dependsOn(reobfJar)
     }
 
+
     runServer {
         minecraftVersion("1.20.2")
     }

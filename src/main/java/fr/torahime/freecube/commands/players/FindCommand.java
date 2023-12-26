@@ -1,5 +1,6 @@
-package fr.torahime.freecube.commands;
+package fr.torahime.freecube.commands.players;
 
+import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -16,6 +17,7 @@ public class FindCommand implements CommandExecutor {
 
         for(int i = 0; i < 1000000; i++){
             if(!PlotIdentifier.isPlotClaimed(i)){
+                GamePlayer.getPlayer(player.getUniqueId()).setCanClaimPlot(true);
                 player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(i)[0], 51, PlotIdentifier.getPlotCenterCoordinates(i)[1]));
                 break;
             }

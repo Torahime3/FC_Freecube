@@ -1,6 +1,6 @@
 package fr.torahime.freecube;
 
-import fr.torahime.freecube.commands.FindCommand;
+import fr.torahime.freecube.commands.players.FindCommand;
 import fr.torahime.freecube.commands.players.ClaimCommand;
 import fr.torahime.freecube.commands.players.MainCommand;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
@@ -10,6 +10,8 @@ import fr.torahime.freecube.listeners.PlayerJoinListener;
 import fr.torahime.freecube.listeners.PlotEnterListener;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
 
 public final class Freecube extends JavaPlugin {
 
@@ -31,7 +33,7 @@ public final class Freecube extends JavaPlugin {
     public void initCommands(){
         MainCommand mc = new MainCommand();
 
-        getCommand("fc").setExecutor(mc);
+        Objects.requireNonNull(getCommand("fc")).setExecutor(mc);
         mc.addCommandExecutor("claim",new ClaimCommand());
         mc.addCommandExecutor("find", new FindCommand());
 
@@ -57,8 +59,11 @@ public final class Freecube extends JavaPlugin {
                     .generator(new PlotChunkGenerator(this));
 
             World world = this.getServer().createWorld(wc);
-            world.setDifficulty(Difficulty.PEACEFUL);
-            world.save();
+            if(world != null){
+                world.setDifficulty(Difficulty.PEACEFUL);
+                world.save();
+
+            }
 
             this.getLogger().info("freecube world created");
 
