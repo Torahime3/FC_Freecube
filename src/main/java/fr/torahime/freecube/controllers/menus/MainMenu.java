@@ -55,8 +55,10 @@ public class MainMenu extends Menu {
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {
                 ItemBuilder membersHead = new ItemBuilder(Material.PLAYER_HEAD);
-                membersHead.setDisplayName(Component.text(Objects.requireNonNull(Bukkit.getPlayer(playerID)).getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
-                membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE).append(Component.text(plot.getMemberRole(player.getUniqueId()).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
+                String memberName = Objects.requireNonNull(Bukkit.getPlayer(playerID)).getName();
+                if(playerID == this.player.getUniqueId()) memberName = memberName + " (vous)";
+                membersHead.setDisplayName(Component.text(memberName).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
+                membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE).append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
                 this.addItem(membersHead.getItem(), headIndex);
                 headIndex++;
             }

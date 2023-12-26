@@ -22,7 +22,9 @@ import java.util.UUID;
 public class PlotMenu extends Menu {
 
     public PlotMenu(Player player) {
-        super(player, Component.text(String.format("Mes zones (Chef: ?/%d)", GamePlayer.getPlayer(player.getUniqueId()).getPlots().size())), 54);
+        super(player,
+                !GamePlayer.getPlayer(player.getUniqueId()).getPlots().isEmpty() ? Component.text(String.format("Mes zones (Chef: %d/%d)", GamePlayer.getPlayer(player.getUniqueId()).getChefPlotsCount(), GamePlayer.getPlayer(player.getUniqueId()).getPlots().size())) : Component.text("Vous n'avez aucune zone"),
+                54);
     }
 
     @Override
@@ -42,25 +44,13 @@ public class PlotMenu extends Menu {
                     Component.text(""),
                     Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour se téléporter").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
 
-            this.addItem(plotItem.getItem(), i);
+            this.addItem(plotItem.getItem(), i, () -> {
+                this.player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(plot.getId())[0], 51, PlotIdentifier.getPlotCenterCoordinates(plot.getId())[1]));
+            });
             i++;
         }
-//        this.invName = Component.text(String.format("Mes zones (Chef: %d/%d)", chiefCount, GamePlayer.getPlayer(playerID).getPlots().size()));
 
     }
 
-    @EventHandler
-    public void onItemClick(InventoryClickEvent event) {
-
-        ItemStack item = event.getCurrentItem();
-        if (item == null) return;
-
-        if (Arrays.asList(PlotRoles.getAllMaterials()).contains(item.getType())) {
-            TextComponent itemName = (TextComponent) item.getItemMeta().displayName();
-            if(itemName == null) return;
-            int plotID = Integer.parseInt(itemName.content().split(" ")[1]);
-            this.player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(plotID)[0], 51, PlotIdentifier.getPlotCenterCoordinates(plotID)[1]));
-        }
-    }
 }
 

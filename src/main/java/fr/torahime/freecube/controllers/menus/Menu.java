@@ -70,10 +70,12 @@ public class Menu implements Listener {
 
     @EventHandler
     public void onItemClick(InventoryClickEvent event){
+        if(this.player != event.getWhoClicked()) return;
 
         ItemStack item = event.getCurrentItem();
         int slot = event.getRawSlot();
         if(item == null) return;
+
 
         if(this.interactions.containsKey(slot)) this.interactions.get(slot).run();
 
@@ -81,6 +83,7 @@ public class Menu implements Listener {
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event){
+        if(this.player != event.getPlayer()) return;
 
         ItemStack itemDrop = event.getItemDrop().getItemStack();
 
@@ -94,6 +97,7 @@ public class Menu implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        if(this.player != event.getWhoClicked()) return;
         if(event.getClickedInventory() == null) return;
 
         final ItemStack itemClick = event.getCurrentItem();
@@ -109,6 +113,7 @@ public class Menu implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event){
+        if(this.player != event.getPlayer()) return;
         if(event.getInventory().equals(this.inv)){
             HandlerList.unregisterAll(this);
         }

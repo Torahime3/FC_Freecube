@@ -1,9 +1,10 @@
 package fr.torahime.freecube;
 
-import fr.torahime.freecube.commands.players.FindCommand;
-import fr.torahime.freecube.commands.players.ClaimCommand;
-import fr.torahime.freecube.commands.players.MainCommand;
-import fr.torahime.freecube.commands.players.TeleportCommand;
+import fr.torahime.freecube.commands.players.*;
+import fr.torahime.freecube.commands.players.plots.AcceptCommand;
+import fr.torahime.freecube.commands.players.plots.ClaimCommand;
+import fr.torahime.freecube.commands.players.plots.FindCommand;
+import fr.torahime.freecube.commands.players.plots.InviteCommand;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.BlockActionListener;
 import fr.torahime.freecube.listeners.PlayerInteractListener;
@@ -37,6 +38,8 @@ public final class Freecube extends JavaPlugin {
         Objects.requireNonNull(getCommand("fc")).setExecutor(mc);
         mc.addCommandExecutor("claim",new ClaimCommand());
         mc.addCommandExecutor("find", new FindCommand());
+        mc.addCommandExecutor("invite", new InviteCommand());
+        mc.addCommandExecutor("accept", new AcceptCommand());
 
         //Commande de téléportation (/tp <subcommand>)
         TeleportCommand tc = new TeleportCommand();

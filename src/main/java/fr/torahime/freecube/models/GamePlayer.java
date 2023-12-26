@@ -1,5 +1,6 @@
 package fr.torahime.freecube.models;
 
+import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.roles.PlotRoles;
 
 import java.util.ArrayList;
@@ -8,15 +9,19 @@ import java.util.UUID;
 
 public class GamePlayer {
 
+    //Attributes
     private static HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
-    private static ArrayList<Plot> plots = new ArrayList<>();
+    private ArrayList<Plot> plots = new ArrayList<>();
+    private ArrayList<Request> pendingRequests = new ArrayList<>();
     private UUID uuid;
     private boolean canClaimPlot = true;
 
+    //Constructor
     public GamePlayer(UUID uuid){
         this.uuid = uuid;
     }
 
+    //Methods
     public static void addGamePlayer(UUID uuid){
         gamePlayers.put(uuid, new GamePlayer(uuid));
     }
@@ -30,6 +35,7 @@ public class GamePlayer {
     }
 
     public int getChefPlotsCount(){
+
         int count = 0;
         for(Plot plot : plots){
             if(plot.getMemberRole(uuid).equals(PlotRoles.CHIEF)){
@@ -41,6 +47,14 @@ public class GamePlayer {
 
     public void addPlot(Plot plot){
         plots.add(plot);
+    }
+
+    public void addRequest(Request request){
+        pendingRequests.add(request);
+    }
+
+    public void removeRequest(Request request){
+        pendingRequests.remove(request);
     }
 
     public void removePlot(Plot plot){
@@ -57,6 +71,19 @@ public class GamePlayer {
 
     public void setCanClaimPlot(boolean canClaimPlot) {
         this.canClaimPlot = canClaimPlot;
+    }
+
+    public ArrayList<Request> getPendingRequests() {
+        return pendingRequests;
+    }
+
+    public Request getPendingRequest(int id) {
+        for(Request request : pendingRequests) {
+            if(request.getId() == id) {
+                return request;
+            }
+        }
+        return null;
     }
 
 

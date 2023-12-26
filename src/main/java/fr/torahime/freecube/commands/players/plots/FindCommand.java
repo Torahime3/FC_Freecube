@@ -1,4 +1,4 @@
-package fr.torahime.freecube.commands.players;
+package fr.torahime.freecube.commands.players.plots;
 
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.utils.PlotIdentifier;

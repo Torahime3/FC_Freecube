@@ -26,7 +26,7 @@ public class Plot {
     }
 
     public boolean addPlayer(UUID playerUUID, PlotRoles plotRole) {
-        if(members.size() < MAX_MEMBERS && isPlayerPresent(playerUUID)) {
+        if(members.size() >= MAX_MEMBERS || isPlayerPresent(playerUUID)) {
             return false;
         }
         members.put(playerUUID, plotRole);

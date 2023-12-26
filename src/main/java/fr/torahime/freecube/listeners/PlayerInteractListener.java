@@ -3,6 +3,9 @@ package fr.torahime.freecube.listeners;
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.menus.MainMenu;
 import fr.torahime.freecube.controllers.menus.PlotMenu;
+import fr.torahime.freecube.utils.ItemBuilder;
+import net.kyori.adventure.text.Component;
+import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -37,6 +42,25 @@ public class PlayerInteractListener implements Listener {
     }
 
     @EventHandler
+    public void onOpenInventory(InventoryOpenEvent event){
+        CraftPlayer player = (CraftPlayer) event.getPlayer();
+
+        ItemBuilder barrier = new ItemBuilder(Material.BARRIER);
+        barrier.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        barrier.setDisplayName(Component.text(""));
+        player.getInventory().setItem(8, barrier.getItem());
+
+//        ClientboundOpenScreenPacket packet = new ClientboundOpenScreenPacket(-1, player.getInventory().getType(), Component.text("Inventaire"));
+//        ((CraftPlayer) player).getHandle().connection.send(packet);
+
+    }
+
+    @EventHandler
+    public void onCloseInventory(InventoryCloseEvent event){
+        PlayerJoinListener.giveBaseItems((Player) event.getPlayer());
+    }
+
+    @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
 
         CraftPlayer player = (CraftPlayer) event.getWhoClicked();
@@ -47,7 +71,7 @@ public class PlayerInteractListener implements Listener {
 
         if(item == null) return;
 
-        if (item.getType() == Material.IRON_AXE && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)) {
+        if ((item.getType() == Material.IRON_AXE && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)) || item.getType() == Material.BARRIER && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)) {
             Bukkit.getScheduler().runTaskLater(fc, () -> {
 //
 

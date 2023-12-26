@@ -24,7 +24,18 @@ public class PlayerJoinListener implements Listener {
 
         Player player = event.getPlayer();
 
+        //Teleport player to freecube world spawn and give him the iron axe
+        player.teleport(new Location(player.getServer().getWorld("freecube"),0,51,0));
+        player.getInventory().clear();
+
         //Create the iron axe menu item
+        giveBaseItems(player);
+
+        GamePlayer.addGamePlayer(player.getUniqueId());
+
+    }
+
+    public static void giveBaseItems(Player player){
         ItemBuilder iron_axe = new ItemBuilder(Material.IRON_AXE, 1);
         iron_axe.setDisplayName(Component.text("Ouvrir le menu").decorate(TextDecoration.BOLD).color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
                 .append(Component.text(" (clic droit)").color(NamedTextColor.WHITE).decoration(TextDecoration.BOLD, false)));
@@ -33,14 +44,7 @@ public class PlayerJoinListener implements Listener {
         iron_axe.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
         iron_axe.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        //Teleport player to freecube world spawn and give him the iron axe
-        player.teleport(new Location(player.getServer().getWorld("freecube"),0,51,0));
-        player.getInventory().clear();
         player.getInventory().setItem(8, iron_axe.getItem());
-
-
-        GamePlayer.addGamePlayer(player.getUniqueId());
-
     }
 
 }

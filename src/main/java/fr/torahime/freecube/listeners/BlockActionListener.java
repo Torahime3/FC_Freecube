@@ -1,6 +1,9 @@
 package fr.torahime.freecube.listeners;
 
 import fr.torahime.freecube.utils.PlotIdentifier;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -36,17 +39,25 @@ public class BlockActionListener implements Listener {
         //Check minimun build Y
         if(blockY < 0){
             event.setCancelled(true);
-        }
-
-        //Check plot property
-        if(!PlotIdentifier.isMemberOfPlot(blockX, blockZ, player.getUniqueId())){
-            event.setCancelled(true);
+            return;
         }
 
         //Check road property
         if(!PlotIdentifier.isInPlot(blockX, blockZ)){
             event.setCancelled(true);
+            return;
         }
+
+        //Check plot property
+        if(!PlotIdentifier.isMemberOfPlot(blockX, blockZ, player.getUniqueId())){
+            player.sendMessage(Component.text("Tu ne peux pas construire ici.").color(NamedTextColor.RED)
+                    .append(Component.text("\nSi tu souhaites construire, rends-toi dans l'une de tes zones, ou trouve une nouvelle zone: ").color(NamedTextColor.WHITE))
+                    .append(Component.text("/fc claim").color(NamedTextColor.AQUA)));
+
+            event.setCancelled(true);
+            return;
+        }
+
     }
 
 }

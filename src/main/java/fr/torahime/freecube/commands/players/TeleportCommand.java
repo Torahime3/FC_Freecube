@@ -36,12 +36,15 @@ public class TeleportCommand implements CommandExecutor {
 
         if(PlotIdentifier.isInPlot(target.getLocation())){
             player.teleport(PlotIdentifier.getPlotCenterLocation(PlotIdentifier.getPlotIndex(target.getLocation())));
-            player.sendMessage(Component.text("[Freecube]").color(NamedTextColor.GOLD)
-                    .append(Component.text("Tu as été téléporté dans la même zone que")).color(NamedTextColor.WHITE)
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                    .append(Component.text("Tu as été téléporté dans la même zone que").color(NamedTextColor.WHITE))
                     .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
             return true;
         } else {
             player.teleport(target.getLocation());
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                    .append(Component.text("Tu as été téléporté sur").color(NamedTextColor.WHITE))
+                    .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
             return true;
         }
 

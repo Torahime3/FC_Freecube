@@ -4,6 +4,7 @@ import fr.torahime.freecube.models.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -81,7 +82,8 @@ public class PlotIdentifier {
 
     public static Location getPlotCenterLocation(int id) {
         int[] chunkCoordinates = getCoordinates(id);
-        return new Location(Bukkit.getWorld("freecube"), chunkCoordinates[0] * 16 * 8 + 64, 0, chunkCoordinates[1] * 16 * 8 + 64);
+         return new Location(Bukkit.getWorld("freecube"), chunkCoordinates[0] * 16 * 8 + 64, Objects.requireNonNull(Bukkit.getWorld("freecube")).getHighestBlockYAt(chunkCoordinates[0] * 16 * 8 + 64, chunkCoordinates[1] * 16 * 8 + 64) + 1, chunkCoordinates[1] * 16 * 8 + 64);
+
     }
 
     private static int[] getCoordinates(int index) {
