@@ -6,12 +6,14 @@ import java.util.*;
 
 public class Plot {
 
+    private String name;
     private int id;
     private static HashMap<Integer, Plot> plots = new HashMap<>();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
 
     public Plot(int id, UUID owner) {
+        this.name = String.format("Zone %d", id);
         this.id = id;
         this.addPlayer(owner, PlotRoles.CHIEF);
     }
@@ -62,6 +64,18 @@ public class Plot {
 
     public Set<UUID> getMembers() {
         return members.keySet();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMemberRole(UUID member, PlotRoles role) {
+        members.replace(member, role);
     }
 
 

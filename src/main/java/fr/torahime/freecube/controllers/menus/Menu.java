@@ -47,7 +47,6 @@ public class Menu implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, Bukkit.getPluginManager().getPlugin("Freecube"));
         fillInventory();
         this.player.openInventory(this.inv);
-        //Unregister even
     }
     protected void fillInventory(){
 

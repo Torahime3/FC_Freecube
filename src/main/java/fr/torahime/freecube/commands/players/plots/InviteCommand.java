@@ -21,7 +21,7 @@ public class InviteCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(args.length != 2){
+        if(args.length != 2 && !player.isOp()){
             player.sendMessage(Component.text("Usage: /fc invite <player>").color(NamedTextColor.RED));
             return false;
         }
@@ -57,8 +57,11 @@ public class InviteCommand implements CommandExecutor {
             return false;
         }
 
-        Request request = new Request(player.getUniqueId(), target.getUniqueId(), plot.getId());
+        Request request = new Request(player, target, plot.getId());
         request.sendRequest();
+        if(args[2].equalsIgnoreCase("-force")){
+            request.acceptRequest();
+        }
         return true;
     }
 }

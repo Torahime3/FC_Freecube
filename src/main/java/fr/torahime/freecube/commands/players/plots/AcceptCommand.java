@@ -24,6 +24,7 @@ public class AcceptCommand implements CommandExecutor {
             return false;
         }
 
+        //Get request by ID
         int id = Integer.parseInt(args[1]);
         Request request = GamePlayer.getPlayer(player.getUniqueId()).getPendingRequest(id);
 
@@ -32,25 +33,27 @@ public class AcceptCommand implements CommandExecutor {
             return false;
         }
 
-        Player senderPlayer = player.getServer().getPlayer(request.getSender());
-        Plot plot = Plot.getPlot(request.getPlotId());
-        plot.addPlayer(player.getUniqueId(), PlotRoles.ASSOCIATE);
-        GamePlayer.getPlayer(player.getUniqueId()).removeRequest(request);
+        request.acceptRequest();
 
-        senderPlayer.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
-                .append(Component.text("Le joueur").color(NamedTextColor.WHITE))
-                .append(Component.text(" " + player.getName() + " ").color(NamedTextColor.AQUA))
-                .append(Component.text("a rejoint la zone").color(NamedTextColor.WHITE))
-                .append(Component.text(" " + plot.getId()).color(NamedTextColor.AQUA)));
-
-        player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
-                .append(Component.text("Tu as").color(NamedTextColor.WHITE))
-                .append(Component.text(" rejoint ").color(NamedTextColor.GREEN))
-                .append(Component.text("la zone. Tu es actuellement").color(NamedTextColor.WHITE))
-                .append(Component.text(" Associé").color(NamedTextColor.AQUA))
-                .append(Component.text(", tu ne peux donc pas construire. \nLe joueur qui t'a invité doit te donner le rang de").color(NamedTextColor.WHITE))
-                .append(Component.text(" Membre ").color(NamedTextColor.AQUA))
-                .append(Component.text("pour que tu puisses construire.").color(NamedTextColor.WHITE)));
+//        Player senderPlayer = player.getServer().getPlayer(request.getSender());
+//        Plot plot = Plot.getPlot(request.getPlotId());
+//        plot.addPlayer(player.getUniqueId(), PlotRoles.ASSOCIATE);
+//        GamePlayer.getPlayer(player.getUniqueId()).removeRequest(request);
+//
+//        senderPlayer.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+//                .append(Component.text("Le joueur").color(NamedTextColor.WHITE))
+//                .append(Component.text(" " + player.getName() + " ").color(NamedTextColor.AQUA))
+//                .append(Component.text("a rejoint la zone").color(NamedTextColor.WHITE))
+//                .append(Component.text(" " + plot.getId()).color(NamedTextColor.AQUA)));
+//
+//        player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+//                .append(Component.text("Tu as").color(NamedTextColor.WHITE))
+//                .append(Component.text(" rejoint ").color(NamedTextColor.GREEN))
+//                .append(Component.text("la zone. Tu es actuellement").color(NamedTextColor.WHITE))
+//                .append(Component.text(" Associé").color(NamedTextColor.AQUA))
+//                .append(Component.text(", tu ne peux donc pas construire. \nLe joueur qui t'a invité doit te donner le rang de").color(NamedTextColor.WHITE))
+//                .append(Component.text(" Membre ").color(NamedTextColor.AQUA))
+//                .append(Component.text("pour que tu puisses construire.").color(NamedTextColor.WHITE)));
 
 
         return false;

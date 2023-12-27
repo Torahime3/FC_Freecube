@@ -2,6 +2,7 @@ package fr.torahime.freecube.controllers.menus;
 
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -48,6 +49,7 @@ public class MainMenu extends Menu {
         freeZone.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour trouver une zone libre").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
 
 
+        // Add members heads
         if(PlotIdentifier.isInPlot(this.player.getLocation()) && PlotIdentifier.isPlotClaimed(this.player.getLocation())) {
 
             Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
@@ -55,15 +57,25 @@ public class MainMenu extends Menu {
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {
                 ItemBuilder membersHead = new ItemBuilder(Material.PLAYER_HEAD);
-                String memberName = Objects.requireNonNull(Bukkit.getPlayer(playerID)).getName();
+                Player member = Bukkit.getPlayer(playerID);
+                String memberName = member.getName();
+
                 if(playerID == this.player.getUniqueId()) memberName = memberName + " (vous)";
+
                 membersHead.setDisplayName(Component.text(memberName).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
                 membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE).append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
-                this.addItem(membersHead.getItem(), headIndex);
+
+                if((plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.DEPUTY) && playerID != this.player.getUniqueId() && plot.getMemberRole(playerID) != PlotRoles.CHIEF) {
+                    this.addItem(membersHead.getItem(), headIndex, () -> new PlayerRoleMenu(this.player, member, plot).openMenu());
+                } else {
+                    this.addItem(membersHead.getItem(), headIndex);
+                }
+
                 headIndex++;
             }
 
-            if(plot.getOwner() == this.player.getUniqueId()){
+            //Add buttons to add or remove members (FOR CHIEF OR DEPUTY ONLY)
+            if(plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.DEPUTY){
 
                 ItemBuilder bannerAddMember = new ItemBuilder(Material.GREEN_BANNER);
                 bannerAddMember.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRAIGHT_CROSS),

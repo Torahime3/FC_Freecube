@@ -39,6 +39,30 @@ public enum PlotRoles {
         return material;
     }
 
+    public static PlotRoles[] getAllRoles(){
+        return new PlotRoles[]{PlotRoles.CHIEF, PlotRoles.DEPUTY, PlotRoles.MEMBER, PlotRoles.ASSOCIATE, PlotRoles.GUEST};
+    }
+
+    public static PlotRoles[] getAllRolesExclude(PlotRoles... roles){
+        PlotRoles[] allRoles = getAllRoles();
+        PlotRoles[] rolesToReturn = new PlotRoles[allRoles.length - roles.length];
+        int index = 0;
+        for(PlotRoles role : allRoles){
+            boolean isExcluded = false;
+            for(PlotRoles excludedRole : roles){
+                if(role.equals(excludedRole)){
+                    isExcluded = true;
+                    break;
+                }
+            }
+            if(!isExcluded){
+                rolesToReturn[index] = role;
+                index++;
+            }
+        }
+        return rolesToReturn;
+    }
+
     public static Material[] getAllMaterials(){
 
         return new Material[]{Material.RED_WOOL,
