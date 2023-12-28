@@ -43,7 +43,7 @@ public class PlotIdentifier {
             return false;
         }
 
-        return plot.getOwner().equals(player) || plot.getMembers().contains(player);
+        return plot.isPlayerPresent(player);
     }
 
     public static int getPlotIndex(int blockX, int blockZ) {

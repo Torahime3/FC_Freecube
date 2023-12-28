@@ -30,7 +30,7 @@ import java.util.stream.IntStream;
 public class MainMenu extends Menu {
 
     public MainMenu(Player player){
-        super(player, Component.text(player.getName() + " - Zone " + PlotIdentifier.getPlotIndex(player.getLocation())), 54);
+        super(player, Component.text(player.getName() + " - " + (PlotIdentifier.isInPlot(player.getLocation()) ? String.format("Zone %d", PlotIdentifier.getPlotIndex(player.getLocation())) : "Route")), 54);
     }
 
     @Override

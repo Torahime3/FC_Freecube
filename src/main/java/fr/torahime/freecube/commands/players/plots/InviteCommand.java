@@ -59,9 +59,11 @@ public class InviteCommand implements CommandExecutor {
 
         Request request = new Request(player, target, plot.getId());
         request.sendRequest();
-        if(args[2].equalsIgnoreCase("-force")){
-            request.acceptRequest();
-        }
+
+//        if(args.length == 3 && args[2].equalsIgnoreCase("-force")){
+//            request.acceptRequest();
+//        }
+
         return true;
     }
 }

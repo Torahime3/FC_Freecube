@@ -1,11 +1,14 @@
 package fr.torahime.freecube.listeners;
 
 import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.ItemBuilder;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,8 +17,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.*;
+
+import java.util.Objects;
 
 public class PlayerJoinListener implements Listener {
 
@@ -24,16 +28,21 @@ public class PlayerJoinListener implements Listener {
 
         Player player = event.getPlayer();
 
-        //Teleport player to freecube world spawn and give him the iron axe
+        //Teleport player to freecube world spawn and clear his inventory
         player.teleport(new Location(player.getServer().getWorld("freecube"),0,51,0));
         player.getInventory().clear();
 
         //Create the iron axe menu item
         giveBaseItems(player);
 
+        //Create gameplayer
         GamePlayer.addGamePlayer(player.getUniqueId());
 
+        //Create scoreboard
+        MainBoard.createScoreboard(player);
+
     }
+
 
     public static void giveBaseItems(Player player){
         ItemBuilder iron_axe = new ItemBuilder(Material.IRON_AXE, 1);

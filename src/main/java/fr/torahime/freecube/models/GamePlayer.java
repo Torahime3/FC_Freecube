@@ -15,6 +15,7 @@ public class GamePlayer {
     private ArrayList<Request> pendingRequests = new ArrayList<>();
     private UUID uuid;
     private boolean canClaimPlot = true;
+    private boolean generalChatActive = true;
 
     //Constructor
     public GamePlayer(UUID uuid){
@@ -86,5 +87,11 @@ public class GamePlayer {
         return null;
     }
 
+    public boolean isGeneralChatActive() {
+        return generalChatActive;
+    }
 
+    public void setGeneralChatActive(boolean generalChatActive) {
+        this.generalChatActive = generalChatActive;
+    }
 }

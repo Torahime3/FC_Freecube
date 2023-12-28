@@ -6,10 +6,7 @@ import fr.torahime.freecube.commands.players.plots.ClaimCommand;
 import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.commands.players.plots.InviteCommand;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
-import fr.torahime.freecube.listeners.BlockActionListener;
-import fr.torahime.freecube.listeners.PlayerInteractListener;
-import fr.torahime.freecube.listeners.PlayerJoinListener;
-import fr.torahime.freecube.listeners.PlotEnterListener;
+import fr.torahime.freecube.listeners.*;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -51,6 +48,7 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockActionListener(), this);
         getServer().getPluginManager().registerEvents(new PlotEnterListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
     }
 
     public void initWorld(){

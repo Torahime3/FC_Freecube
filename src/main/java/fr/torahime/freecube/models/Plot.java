@@ -50,6 +50,9 @@ public class Plot {
     }
 
     public PlotRoles getMemberRole(UUID member) {
+        if(!isPlayerPresent(member)) {
+            return PlotRoles.GUEST;
+        }
         return members.get(member);
     }
 
@@ -77,6 +80,5 @@ public class Plot {
     public void setMemberRole(UUID member, PlotRoles role) {
         members.replace(member, role);
     }
-
 
 }

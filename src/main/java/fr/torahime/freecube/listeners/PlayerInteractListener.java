@@ -65,7 +65,6 @@ public class PlayerInteractListener implements Listener {
 
         CraftPlayer player = (CraftPlayer) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
-        AbstractContainerMenu inv = player.getHandle().containerMenu;
 
         System.out.println("Print 1");
 
