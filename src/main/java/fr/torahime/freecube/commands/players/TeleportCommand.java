@@ -1,5 +1,6 @@
 package fr.torahime.freecube.commands.players;
 
+import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -36,15 +37,18 @@ public class TeleportCommand implements CommandExecutor {
 
         if(PlotIdentifier.isInPlot(target.getLocation())){
             player.teleport(PlotIdentifier.getPlotCenterLocation(PlotIdentifier.getPlotIndex(target.getLocation())));
+            player.setVelocity(player.getLocation().getDirection().multiply(0.0001));
             player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as été téléporté dans la même zone que").color(NamedTextColor.WHITE))
                     .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
+            GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(false);
             return true;
         } else {
             player.teleport(target.getLocation());
             player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as été téléporté sur").color(NamedTextColor.WHITE))
                     .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
+            GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(true);
             return true;
         }
 

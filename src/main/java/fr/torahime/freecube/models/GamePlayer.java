@@ -2,6 +2,9 @@ package fr.torahime.freecube.models;
 
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.roles.PlotRoles;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +17,11 @@ public class GamePlayer {
     private ArrayList<Plot> plots = new ArrayList<>();
     private ArrayList<Request> pendingRequests = new ArrayList<>();
     private UUID uuid;
-    private boolean canClaimPlot = true;
+    private boolean canReceivePlotInfos = true;
     private boolean generalChatActive = true;
+    private Player lastPlayerWhoMessaged = null;
+    private Inventory lastInventory = null;
+
 
     //Constructor
     public GamePlayer(UUID uuid){
@@ -66,12 +72,20 @@ public class GamePlayer {
         return uuid;
     }
 
-    public boolean canClaimPlot() {
-        return canClaimPlot;
+    public Inventory getLastInventory() {
+        return lastInventory;
     }
 
-    public void setCanClaimPlot(boolean canClaimPlot) {
-        this.canClaimPlot = canClaimPlot;
+    public void setLastInventory(Inventory lastInventory) {
+        this.lastInventory = lastInventory;
+    }
+
+    public boolean canReveicePlotInfos() {
+        return canReceivePlotInfos;
+    }
+
+    public void setCanReceivePlotInfos(boolean canReceivePlotInfos) {
+        this.canReceivePlotInfos = canReceivePlotInfos;
     }
 
     public ArrayList<Request> getPendingRequests() {
@@ -93,5 +107,16 @@ public class GamePlayer {
 
     public void setGeneralChatActive(boolean generalChatActive) {
         this.generalChatActive = generalChatActive;
+    }
+
+    public Player getLastPlayerWhoMessaged(){
+        if(this.lastPlayerWhoMessaged != null && !this.lastPlayerWhoMessaged.isOnline()){
+            this.lastPlayerWhoMessaged = null;
+        }
+        return this.lastPlayerWhoMessaged;
+    }
+
+    public void setLastPlayerWhoMessaged(Player lastPlayerWhoMessaged) {
+        this.lastPlayerWhoMessaged = lastPlayerWhoMessaged;
     }
 }

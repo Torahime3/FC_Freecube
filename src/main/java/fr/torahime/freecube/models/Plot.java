@@ -1,20 +1,27 @@
 package fr.torahime.freecube.models;
 
+import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.utils.PlotIdentifier;
+import org.bukkit.Location;
 
 import java.util.*;
 
 public class Plot {
 
+    private static HashMap<Integer, Plot> plots = new HashMap<>();
+
     private String name;
     private int id;
-    private static HashMap<Integer, Plot> plots = new HashMap<>();
+    private Location spawn;
+    private PreferencesMap preferences = new PreferencesMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
 
     public Plot(int id, UUID owner) {
-        this.name = String.format("Zone %d", id);
+        this.name = "Aucun";
         this.id = id;
+        this.spawn = PlotIdentifier.getPlotCenterLocation(id);
         this.addPlayer(owner, PlotRoles.CHIEF);
     }
 
@@ -81,4 +88,11 @@ public class Plot {
         members.replace(member, role);
     }
 
+    public Location getSpawn() {
+        return spawn;
+    }
+
+    public PreferencesMap getPreferences() {
+        return preferences;
+    }
 }

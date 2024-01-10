@@ -7,6 +7,7 @@ import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.commands.players.plots.InviteCommand;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
+import fr.torahime.freecube.models.preferences.PreferencesListener;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,7 +31,7 @@ public final class Freecube extends JavaPlugin {
     }
 
     public void initCommands(){
-        //Commande principale (/fc <subcommand>)
+        //Main command (/fc <subcommand>)
         MainCommand mc = new MainCommand();
         Objects.requireNonNull(getCommand("fc")).setExecutor(mc);
         mc.addCommandExecutor("claim",new ClaimCommand());
@@ -38,9 +39,15 @@ public final class Freecube extends JavaPlugin {
         mc.addCommandExecutor("invite", new InviteCommand());
         mc.addCommandExecutor("accept", new AcceptCommand());
 
-        //Commande de téléportation (/tp <subcommand>)
+
+        //Teleport command (/tp <subcommand>)
         TeleportCommand tc = new TeleportCommand();
         Objects.requireNonNull(getCommand("tp")).setExecutor(tc);
+
+        //Private message command
+        PrivateMessageCommand pmc = new PrivateMessageCommand();
+        Objects.requireNonNull(getCommand("msg")).setExecutor(pmc);
+        Objects.requireNonNull(getCommand("r")).setExecutor(pmc);
     }
 
     public void initListeners(){
@@ -49,6 +56,9 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlotEnterListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
+
+        //Preferences
+        getServer().getPluginManager().registerEvents(new PreferencesListener(), this);
     }
 
     public void initWorld(){

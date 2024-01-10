@@ -1,10 +1,8 @@
 package fr.torahime.freecube.utils;
 
-import fr.torahime.freecube.controllers.menus.Menu;
 import net.kyori.adventure.text.Component;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.block.Banner;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.enchantments.Enchantment;
@@ -71,6 +69,27 @@ public class ItemBuilder {
 
     public ItemBuilder setLore(final Component... lores) {
         return this.setLore(Arrays.asList(lores));
+    }
+
+    public ItemBuilder addLore(final Component lore) {
+        final ItemMeta meta = this.item.getItemMeta();
+        final List<Component> lores = meta.lore();
+        if(lores == null){
+            return setLore(lore);
+        }
+
+        lores.add(lore);
+        meta.lore(lores);
+
+        return this.setMeta(meta);
+    }
+
+    public ItemBuilder addLore(final Component... lore) {
+        final ItemMeta meta = this.item.getItemMeta();
+        final List<Component> lores = meta.lore();
+        lores.addAll(Arrays.asList(lore));
+        meta.lore(lores);
+        return this.setMeta(meta);
     }
 
     public ItemBuilder addEnchant(final Enchantment enchantment, final int level) {

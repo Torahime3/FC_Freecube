@@ -5,6 +5,7 @@ import fr.torahime.freecube.utils.PlotIdentifier;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,13 +37,8 @@ public class PlayerChatListener implements Listener {
         if(PlotIdentifier.isInPlot(player.getLocation())) {
 
             for (Player p : player.getWorld().getPlayers()) {
-                if (plotId == PlotIdentifier.getPlotIndex(p.getLocation())) {
-                    p.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
-                            .append(Component.text("Joueur " + player.getName()).color(NamedTextColor.GRAY))
-                            .append(Component.text(" -> ").color(NamedTextColor.GOLD))
-                            .append(Component.text(plotId == 0 ? "Spawn" : String.valueOf(plotId)).color(NamedTextColor.GRAY))
-                            .append(Component.text("] ").color(NamedTextColor.GOLD))
-                            .append(message.color(NamedTextColor.YELLOW)));
+                if (PlotIdentifier.isInPlot(p.getLocation()) && plotId == PlotIdentifier.getPlotIndex(p.getLocation())) {
+                    sendMessageFcFormat(player, p, plotId, message);
                 }
             }
 
@@ -50,12 +46,7 @@ public class PlayerChatListener implements Listener {
 
             for (Player p : player.getWorld().getPlayers()) {
                 if (!PlotIdentifier.isInPlot(p.getLocation())) {
-                    p.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
-                            .append(Component.text("Joueur " + player.getName()).color(NamedTextColor.GRAY))
-                            .append(Component.text(" -> ").color(NamedTextColor.GOLD))
-                            .append(Component.text("Route").color(NamedTextColor.GRAY))
-                            .append(Component.text("] ").color(NamedTextColor.GOLD))
-                            .append(message.color(NamedTextColor.YELLOW)));
+                    sendMessageFcFormat(player, p, -1, message);
                 }
             }
 
@@ -64,4 +55,30 @@ public class PlayerChatListener implements Listener {
         event.setCancelled(true);
 
     }
+
+    public static void sendMessageFcFormat(Player player, Player target, int plotId, Component message){
+        sendMessageFcFormat(player, target, plotId, message, false);
+    }
+
+    public static void sendMessageFcFormat(Player player, Player target, int plotId, Component message, boolean privateMessage){
+        target.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
+                .append(Component.text("Joueur " + player.getName()).color(NamedTextColor.GRAY))
+                .append(Component.text(" -> ").color(NamedTextColor.GOLD))
+                .append(Component.text(privateMessage ? "Moi" : plotId == -1 ? "Route" : plotId == 0 ? "Spawn" : String.valueOf(plotId)).color(plotId == 0 ? NamedTextColor.YELLOW : NamedTextColor.GRAY))
+                .append(Component.text("]").color(NamedTextColor.GOLD))
+                .append(privateMessage ? Component.text("[R]").color(NamedTextColor.YELLOW).hoverEvent(Component.text("Répondre à ").color(NamedTextColor.WHITE).append(Component.text(player.getName()).color(NamedTextColor.AQUA))).clickEvent(ClickEvent.suggestCommand("/m " + player.getName() + " ")) : Component.empty())
+                .append(Component.text(" ").append(privateMessage ? message.color(NamedTextColor.WHITE) : message.color(NamedTextColor.YELLOW))));
+
+
+        if(privateMessage) {
+            GamePlayer.getPlayer(target.getUniqueId()).setLastPlayerWhoMessaged(player);
+            player.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
+                    .append(Component.text("Moi").color(NamedTextColor.GRAY))
+                    .append(Component.text(" -> ").color(NamedTextColor.GOLD))
+                    .append(Component.text("Joueur " + target.getName()).color(NamedTextColor.GRAY))
+                    .append(Component.text("]").color(NamedTextColor.GOLD))
+                    .append(Component.text(" ").append(message.color(NamedTextColor.WHITE))));
+        }
+    }
+
 }

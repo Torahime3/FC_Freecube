@@ -61,6 +61,7 @@ public class MainBoard {
             plotIdTeam.prefix(Component.text("Zone: ").color(NamedTextColor.GRAY));
             plotIdTeam.suffix(Component.text(PlotIdentifier.getPlotIndex(player.getLocation())).color(NamedTextColor.WHITE));
             roleTeam.prefix(Component.text("Zone LIBRE").color(NamedTextColor.YELLOW));
+            roleTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
             return;
         }
 

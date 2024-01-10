@@ -17,7 +17,7 @@ public class FindCommand implements CommandExecutor {
 
         for(int i = 0; i < 1000000; i++){
             if(!PlotIdentifier.isPlotClaimed(i)){
-                GamePlayer.getPlayer(player.getUniqueId()).setCanClaimPlot(true);
+                GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(true);
                 player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(i)[0], 51, PlotIdentifier.getPlotCenterCoordinates(i)[1]));
                 break;
             }

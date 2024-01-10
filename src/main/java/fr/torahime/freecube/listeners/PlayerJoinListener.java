@@ -28,8 +28,9 @@ public class PlayerJoinListener implements Listener {
 
         Player player = event.getPlayer();
 
-        //Teleport player to freecube world spawn and clear his inventory
-        player.teleport(new Location(player.getServer().getWorld("freecube"),0,51,0));
+        //Teleport player to freecube world spawn at plot 0 and clear his inventory
+        Location spawn = PlotIdentifier.getPlotCenterLocation(0);
+        player.teleport(spawn);
         player.getInventory().clear();
 
         //Create the iron axe menu item

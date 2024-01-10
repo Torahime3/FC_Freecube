@@ -46,6 +46,10 @@ public class PlotIdentifier {
         return plot.isPlayerPresent(player);
     }
 
+    public static boolean isMemberOfPlot(Location location, UUID player){
+        return isMemberOfPlot(location.getBlockX(), location.getBlockZ(), player);
+    }
+
     public static int getPlotIndex(int blockX, int blockZ) {
         return getIndex(Math.floorDiv(blockX, 8 * 16), Math.floorDiv(blockZ, 8 * 16));
     }

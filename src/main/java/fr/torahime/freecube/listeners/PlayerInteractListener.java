@@ -2,11 +2,10 @@ package fr.torahime.freecube.listeners;
 
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.menus.MainMenu;
-import fr.torahime.freecube.controllers.menus.PlotMenu;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
@@ -47,7 +46,7 @@ public class PlayerInteractListener implements Listener {
 
         ItemBuilder barrier = new ItemBuilder(Material.BARRIER);
         barrier.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        barrier.setDisplayName(Component.text(""));
+        barrier.setDisplayName(Component.text("Slot réservé.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.DARK_RED));
         player.getInventory().setItem(8, barrier.getItem());
 
 //        ClientboundOpenScreenPacket packet = new ClientboundOpenScreenPacket(-1, player.getInventory().getType(), Component.text("Inventaire"));
