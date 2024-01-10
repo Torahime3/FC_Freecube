@@ -69,10 +69,20 @@ public final class Freecube extends JavaPlugin {
                     .environment(World.Environment.NORMAL)
                     .type(WorldType.FLAT)
                     .generateStructures(false)
-                    .generator(new PlotChunkGenerator(this));
+                    .generator(new PlotChunkGenerator());
+
+            //Change gamerule announceAdvancements to false
 
             World world = this.getServer().createWorld(wc);
+
             if(world != null){
+                world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+                world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+                world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+                world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
+                world.setGameRule(GameRule.DO_PATROL_SPAWNING, false);
+                world.setGameRule(GameRule.DO_FIRE_TICK, false);
                 world.setDifficulty(Difficulty.PEACEFUL);
                 world.save();
 

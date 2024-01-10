@@ -11,12 +11,6 @@ import java.util.Random;
 
 public class PlotChunkGenerator extends ChunkGenerator {
 
-    private Freecube fc;
-
-    public PlotChunkGenerator(Freecube fc) {
-        this.fc = fc;
-    }
-
     @Override
     public void generateSurface(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkData chunkData) {
 

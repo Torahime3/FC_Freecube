@@ -1,5 +1,6 @@
 package fr.torahime.freecube.controllers.menus;
 
+import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.PlotMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
@@ -13,6 +14,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -180,9 +182,9 @@ public class MainMenu extends Menu {
         black_delimitation.setDisplayName(Component.text(" ").decoration(TextDecoration.ITALIC, false));
 
         //Set buttons (items) in inventory
-        this.addItem(spawn.getItem(), 0);
+        this.addItem(spawn.getItem(), 0, () -> this.player.teleport(PlotIdentifier.getPlotCenterLocation(0)));
         this.addItem(myPlots.getItem(), 1, () -> new PlotMenu(player).openMenu());
-        this.addItem(freeZone.getItem(), 2);
+        this.addItem(freeZone.getItem(), 2, () -> FindCommand.findPlot(player));
 //        this.addItem(playerHead.getItem(), 4);
 //        this.addItem(options.getItem(), 6);
 //        this.addItem(particles.getItem(), 7);

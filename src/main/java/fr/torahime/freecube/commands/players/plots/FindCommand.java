@@ -14,15 +14,18 @@ public class FindCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String str, @NotNull String[] args) {
 
         Player player = (Player) sender;
+        return findPlot(player);
 
+    }
+
+    public static boolean findPlot(Player player){
         for(int i = 0; i < 1000000; i++){
             if(!PlotIdentifier.isPlotClaimed(i)){
                 GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(true);
                 player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(i)[0], 51, PlotIdentifier.getPlotCenterCoordinates(i)[1]));
-                break;
+                return true;
             }
         }
-
         return false;
     }
 }
