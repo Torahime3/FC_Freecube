@@ -84,6 +84,10 @@ public class Plot {
         this.name = name;
     }
 
+    public void setSpawn(Location spawn) {
+        this.spawn = spawn;
+    }
+
     public void setMemberRole(UUID member, PlotRoles role) {
         members.replace(member, role);
     }
