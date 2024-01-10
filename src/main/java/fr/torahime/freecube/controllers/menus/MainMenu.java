@@ -3,6 +3,7 @@ package fr.torahime.freecube.controllers.menus;
 import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.PlotMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.HoursMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
@@ -92,7 +93,7 @@ public class MainMenu extends Menu {
             this.addItem(plotPreferenceCraftTable.getItem(), 24, () -> {
                 new PreferencesMenu(this.player, plot).openMenu();
             });
-            this.addItem(plotHourClock.getItem(), 25);
+            this.addItem(plotHourClock.getItem(), 25, () -> new HoursMenu(player, plot).openMenu());
             this.addItem(plotInteractionsChest.getItem(), 26);
 
             int headIndex = (4 * 9);

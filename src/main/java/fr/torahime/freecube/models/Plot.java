@@ -1,5 +1,6 @@
 package fr.torahime.freecube.models;
 
+import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -14,6 +15,7 @@ public class Plot {
     private String name;
     private int id;
     private Location spawn;
+    private Hours hour = Hours.SEVEN;
     private PreferencesMap preferences = new PreferencesMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
@@ -41,6 +43,14 @@ public class Plot {
         members.put(playerUUID, plotRole);
         GamePlayer.getPlayer(playerUUID).addPlot(this);
         return true;
+    }
+
+    public void setHour(Hours hour) {
+        this.hour = hour;
+    }
+
+    public Hours getHour() {
+        return hour;
     }
 
     public boolean isPlayerPresent(UUID playerUUID) {
