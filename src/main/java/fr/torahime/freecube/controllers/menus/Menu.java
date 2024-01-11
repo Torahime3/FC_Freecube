@@ -59,7 +59,7 @@ public class Menu implements Listener {
         if(lastMenu != null){
             ItemBuilder lastMenuButton = new ItemBuilder(Material.SPRUCE_DOOR);
             lastMenuButton.setDisplayName(Component.text("Retour").color(NamedTextColor.RED));
-            this.addItem(lastMenuButton.getItem(), 53, () -> {
+            this.addItem(lastMenuButton.getItem(), this.inv.getSize() - 1, () -> {
                 lastMenu.openMenu();
             });
 
@@ -76,7 +76,7 @@ public class Menu implements Listener {
     protected void addItem(ItemStack item, int slot){
         this.menuItems.add(item);
         this.inv.setItem(slot, item);
-        if(lastMenu != null && item.getType() != Material.SPRUCE_DOOR && slot == 53){
+        if(lastMenu != null && item.getType() != Material.SPRUCE_DOOR && slot == this.inv.getSize() - 1){
             throw new IllegalArgumentException("Le slot 53 est réservé pour le bouton de retour");
         }
     }

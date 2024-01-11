@@ -8,16 +8,17 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import javax.naming.NamingEnumeration;
 
 public class PlayerRoleMenu extends Menu {
 
-    private final Player target;
+    private final OfflinePlayer target;
     private final Plot plot;
 
-    public PlayerRoleMenu(Player player, Player target, Plot plot, Menu lastMenu) {
+    public PlayerRoleMenu(Player player, OfflinePlayer target, Plot plot, Menu lastMenu) {
         super(player, Component.text("Rôle de " + target.getName()), 54, lastMenu);
         this.target = target;
         this.plot = plot;
