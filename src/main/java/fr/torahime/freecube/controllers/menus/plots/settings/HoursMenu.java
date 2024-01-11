@@ -22,8 +22,8 @@ import javax.swing.text.html.HTML;
 public class HoursMenu extends Menu {
 
     private final Plot plot;
-    public HoursMenu(Player player, Plot plot) {
-        super(player, Component.text("Zone " + plot.getId() + " > Heure"), 54);
+    public HoursMenu(Player player, Plot plot, Menu lastMenu) {
+        super(player, Component.text("Zone " + plot.getId() + " > Heure"), 54, lastMenu);
         this.plot = plot;
     }
 
@@ -53,9 +53,9 @@ public class HoursMenu extends Menu {
                 this.addItem(hourItem.getItem(), index);
             }
 
-
             index++;
 
+            super.fillInventory();
         }
 
     }

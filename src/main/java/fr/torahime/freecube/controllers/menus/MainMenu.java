@@ -92,10 +92,10 @@ public class MainMenu extends Menu {
                         .append(Component.text("Tu as été téléporté au spawn de la zone").color(NamedTextColor.WHITE)));
             });
             this.addItem(plotPreferenceCraftTable.getItem(), 24, () -> {
-                new PreferencesMenu(this.player, plot).openMenu();
+                new PreferencesMenu(this.player, plot, this).openMenu();
             });
-            this.addItem(plotHourClock.getItem(), 25, () -> new HoursMenu(player, plot).openMenu());
-            this.addItem(plotInteractionsChest.getItem(), 26, () -> new InteractionsMenu(player, plot).openMenu());
+            this.addItem(plotHourClock.getItem(), 25, () -> new HoursMenu(player, plot, this).openMenu());
+            this.addItem(plotInteractionsChest.getItem(), 26, () -> new InteractionsMenu(player, plot, this).openMenu());
 
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {
@@ -125,7 +125,7 @@ public class MainMenu extends Menu {
                 }
 
                 if((plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(this.player.getUniqueId()) == PlotRoles.DEPUTY) && playerID != this.player.getUniqueId() && plot.getMemberRole(playerID) != PlotRoles.CHIEF) {
-                    this.addItem(membersHead.getItem(), headIndex, () -> new PlayerRoleMenu(this.player, member, plot).openMenu());
+                    this.addItem(membersHead.getItem(), headIndex, () -> new PlayerRoleMenu(this.player, member, plot, this).openMenu());
                 } else {
                     this.addItem(membersHead.getItem(), headIndex);
                 }

@@ -18,8 +18,8 @@ public class InteractionsMenu extends Menu {
 
     private final Plot plot;
 
-    public InteractionsMenu(Player player, Plot plot) {
-        super(player, Component.text("Zone " + plot.getId() + " > Intéractions"), 54);
+    public InteractionsMenu(Player player, Plot plot, Menu lastMenu) {
+        super(player, Component.text("Zone " + plot.getId() + " > Intéractions"), 54, lastMenu);
         this.plot = plot;
     }
 
@@ -60,6 +60,8 @@ public class InteractionsMenu extends Menu {
             }
 
             index++;
+
+            super.fillInventory();
         }
 
     }

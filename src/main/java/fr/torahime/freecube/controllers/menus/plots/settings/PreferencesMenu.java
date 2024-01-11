@@ -15,8 +15,8 @@ public class PreferencesMenu extends Menu {
 
     private final Plot plot;
 
-    public PreferencesMenu(Player player, Plot plot) {
-        super(player, Component.text("Zone " + plot.getId() + " > Préférences"), 54);
+    public PreferencesMenu(Player player, Plot plot, Menu lastMenu) {
+        super(player, Component.text("Zone " + plot.getId() + " > Préférences"), 54, lastMenu);
         this.plot = plot;
     }
 
@@ -49,6 +49,8 @@ public class PreferencesMenu extends Menu {
 
             });
             index++;
+
+            super.fillInventory();
         }
 
     }

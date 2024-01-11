@@ -27,17 +27,16 @@ public class Menu implements Listener {
     protected TextComponent invName;
     protected Inventory inv;
     protected HashMap<Integer, Runnable> interactions;
-    protected Menu lastMenu;
+    protected Menu lastMenu = null;
 
 
     public Menu(){
-        this(null, Component.text("Menu"), 9);
+        this(null, Component.text("Menu"), 9, null);
     }
 
     public Menu(Player player, TextComponent invName, int size){
         this(player, invName, size, null);
     }
-
     public Menu(Player player, TextComponent invName, int size, Menu lastMenu){
         if(size % 9 != 0){
             throw new IllegalArgumentException("La taille de l'inventaire doit être un multiple de 9");
@@ -57,16 +56,29 @@ public class Menu implements Listener {
     }
     protected void fillInventory(){
 
-        ItemBuilder defaultItem = new ItemBuilder(Material.BARRIER);
-        defaultItem.setDisplayName(Component.text("Default Item").color(NamedTextColor.RED));
+        if(lastMenu != null){
+            ItemBuilder lastMenuButton = new ItemBuilder(Material.SPRUCE_DOOR);
+            lastMenuButton.setDisplayName(Component.text("Retour").color(NamedTextColor.RED));
+            this.addItem(lastMenuButton.getItem(), 53, () -> {
+                lastMenu.openMenu();
+            });
 
-        for(int i = 0; i < 9; i++){
-            this.addItem(defaultItem.getItem(), i);
+        } else {
+
+            ItemBuilder defaultItem = new ItemBuilder(Material.BARRIER);
+            defaultItem.setDisplayName(Component.text("Default Item").color(NamedTextColor.RED));
+
+            for (int i = 0; i < 9; i++) {
+                this.addItem(defaultItem.getItem(), i);
+            }
         }
     }
     protected void addItem(ItemStack item, int slot){
         this.menuItems.add(item);
         this.inv.setItem(slot, item);
+        if(lastMenu != null && item.getType() != Material.SPRUCE_DOOR && slot == 53){
+            throw new IllegalArgumentException("Le slot 53 est réservé pour le bouton de retour");
+        }
     }
 
     protected void addItem(ItemStack item, int slot, Runnable interaction){

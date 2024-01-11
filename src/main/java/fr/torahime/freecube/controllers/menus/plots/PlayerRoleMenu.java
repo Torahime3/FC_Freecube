@@ -17,8 +17,8 @@ public class PlayerRoleMenu extends Menu {
     private final Player target;
     private final Plot plot;
 
-    public PlayerRoleMenu(Player player, Player target, Plot plot) {
-        super(player, Component.text("Rôle de " + target.getName()), 54);
+    public PlayerRoleMenu(Player player, Player target, Plot plot, Menu lastMenu) {
+        super(player, Component.text("Rôle de " + target.getName()), 54, lastMenu);
         this.target = target;
         this.plot = plot;
     }
@@ -81,6 +81,8 @@ public class PlayerRoleMenu extends Menu {
                 this.player.closeInventory();
             }
         });
+
+        super.fillInventory();
 
     }
 
