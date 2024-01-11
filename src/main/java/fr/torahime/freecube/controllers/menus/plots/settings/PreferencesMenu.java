@@ -3,7 +3,7 @@ package fr.torahime.freecube.controllers.menus.plots.settings;
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.preferences.Preferences;
-import fr.torahime.freecube.models.preferences.PlotStates;
+import fr.torahime.freecube.models.PlotStates;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class PreferencesMenu extends Menu {
 
-    private Plot plot;
+    private final Plot plot;
 
     public PreferencesMenu(Player player, Plot plot) {
         super(player, Component.text("Zone " + plot.getId() + " > Préférences"), 54);

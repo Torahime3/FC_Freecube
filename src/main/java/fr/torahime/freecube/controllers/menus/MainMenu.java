@@ -4,6 +4,7 @@ import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.PlotMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.HoursMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.InteractionsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
@@ -63,15 +64,15 @@ public class MainMenu extends Menu {
 
             ItemBuilder plotPreferenceCraftTable = new ItemBuilder(Material.CRAFTING_TABLE);
             plotPreferenceCraftTable.setDisplayName(Component.text("Préférences de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            plotPreferenceCraftTable.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir") +  " les").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("préférences de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            plotPreferenceCraftTable.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les préférences de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotHourClock = new ItemBuilder(Material.CLOCK);
             plotHourClock.setDisplayName(Component.text("Heure de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            plotHourClock.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir") +  " l'heure de la zone").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
+            plotHourClock.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text(" l'heure de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotInteractionsChest = new ItemBuilder(Material.CHEST);
             plotInteractionsChest.setDisplayName(Component.text("Interactions de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            plotInteractionsChest.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir") +  " les interactions de la zone").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
+            plotInteractionsChest.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les interactions de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY) {
 
@@ -94,7 +95,7 @@ public class MainMenu extends Menu {
                 new PreferencesMenu(this.player, plot).openMenu();
             });
             this.addItem(plotHourClock.getItem(), 25, () -> new HoursMenu(player, plot).openMenu());
-            this.addItem(plotInteractionsChest.getItem(), 26);
+            this.addItem(plotInteractionsChest.getItem(), 26, () -> new InteractionsMenu(player, plot).openMenu());
 
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {

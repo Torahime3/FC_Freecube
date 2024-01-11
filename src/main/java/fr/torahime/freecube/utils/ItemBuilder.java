@@ -87,6 +87,9 @@ public class ItemBuilder {
     public ItemBuilder addLore(final Component... lore) {
         final ItemMeta meta = this.item.getItemMeta();
         final List<Component> lores = meta.lore();
+        if(lores == null){
+            return setLore(lore);
+        }
         lores.addAll(Arrays.asList(lore));
         meta.lore(lores);
         return this.setMeta(meta);

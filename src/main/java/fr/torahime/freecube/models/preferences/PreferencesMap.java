@@ -1,5 +1,7 @@
 package fr.torahime.freecube.models.preferences;
 
+import fr.torahime.freecube.models.PlotStates;
+
 import java.util.HashMap;
 
 public class PreferencesMap extends HashMap<Preferences, PlotStates> {

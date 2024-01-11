@@ -1,6 +1,7 @@
 package fr.torahime.freecube.models;
 
 import fr.torahime.freecube.models.hours.Hours;
+import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -17,6 +18,7 @@ public class Plot {
     private Location spawn;
     private Hours hour = Hours.SEVEN;
     private PreferencesMap preferences = new PreferencesMap();
+    private InteractionsMap interactions = new InteractionsMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
 
@@ -108,5 +110,9 @@ public class Plot {
 
     public PreferencesMap getPreferences() {
         return preferences;
+    }
+
+    public InteractionsMap getInteractions() {
+        return interactions;
     }
 }

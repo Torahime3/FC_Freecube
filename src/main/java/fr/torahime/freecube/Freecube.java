@@ -4,6 +4,7 @@ import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
+import fr.torahime.freecube.models.interactions.InteractionsListener;
 import fr.torahime.freecube.models.preferences.PreferencesListener;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -57,6 +58,9 @@ public final class Freecube extends JavaPlugin {
 
         //Preferences
         getServer().getPluginManager().registerEvents(new PreferencesListener(), this);
+
+        //Interactions
+        getServer().getPluginManager().registerEvents(new InteractionsListener(), this);
     }
 
     public void initWorld(){
