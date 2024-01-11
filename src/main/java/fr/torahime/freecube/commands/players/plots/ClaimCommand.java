@@ -32,7 +32,7 @@ public class ClaimCommand implements CommandExecutor {
         //Get plot index
         int plotIndex = PlotIdentifier.getPlotIndex(playerPosX, playerPosZ);
         //Claim plot
-        Plot.claimPlot(plotIndex, player.getUniqueId());
+        Plot plot = Plot.claimPlot(plotIndex, player.getUniqueId());
         player.sendMessage(String.format("§aPlot %s claimed", plotIndex));
 
         return false;

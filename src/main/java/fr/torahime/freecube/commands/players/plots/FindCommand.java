@@ -1,7 +1,9 @@
 package fr.torahime.freecube.commands.players.plots;
 
+import fr.torahime.freecube.controllers.events.PlotEnterEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.utils.PlotIdentifier;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,8 +23,8 @@ public class FindCommand implements CommandExecutor {
     public static boolean findPlot(Player player){
         for(int i = 0; i < 1000000; i++){
             if(!PlotIdentifier.isPlotClaimed(i)){
-                GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(true);
                 player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(i)[0], 51, PlotIdentifier.getPlotCenterCoordinates(i)[1]));
+                Bukkit.getPluginManager().callEvent(new PlotEnterEvent(player));
                 return true;
             }
         }

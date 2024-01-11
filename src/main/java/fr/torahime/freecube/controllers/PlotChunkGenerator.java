@@ -33,7 +33,7 @@ public class PlotChunkGenerator extends ChunkGenerator {
 
         //Create slab material
         Slab slabData = (Slab) Material.SMOOTH_STONE_SLAB.createBlockData();
-        slabData.setType(Slab.Type.DOUBLE);
+//        slabData.setType(Slab.Type.DOUBLE);
 
         //Draw roads borders
         if(isPathX && !isPathZ){
@@ -58,6 +58,5 @@ public class PlotChunkGenerator extends ChunkGenerator {
                 chunkData.setBlock(15, 50, 15, slabData);
         }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package fr.torahime.freecube.listeners;
 
+import fr.torahime.freecube.controllers.events.PlotEnterEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
@@ -41,6 +42,9 @@ public class PlayerJoinListener implements Listener {
 
         //Create scoreboard
         MainBoard.createScoreboard(player);
+
+        //Update
+        Bukkit.getPluginManager().callEvent(new PlotEnterEvent(player));
 
     }
 

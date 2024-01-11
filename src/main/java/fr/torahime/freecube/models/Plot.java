@@ -1,11 +1,14 @@
 package fr.torahime.freecube.models;
 
+import fr.torahime.freecube.controllers.events.PlotUpdateEvent;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 
@@ -33,17 +36,20 @@ public class Plot {
         return id;
     }
 
-    public static void claimPlot(int id, UUID owner) {
+    public static Plot claimPlot(int id, UUID owner) {
         Plot plot = new Plot(id, owner);
         plots.put(id, plot);
+        plot.updateAllPlayersOverPlot();
+        return plot;
     }
 
     public boolean addPlayer(UUID playerUUID, PlotRoles plotRole) {
-        if(members.size() >= MAX_MEMBERS || isPlayerPresent(playerUUID)) {
+        if (members.size() >= MAX_MEMBERS || isPlayerPresent(playerUUID)) {
             return false;
         }
         members.put(playerUUID, plotRole);
         GamePlayer.getPlayer(playerUUID).addPlot(this);
+        this.updateAllPlayersOverPlot();
         return true;
     }
 
@@ -59,9 +65,10 @@ public class Plot {
         return members.containsKey(playerUUID);
     }
 
-    public void removePlayer(UUID playerId){
+    public void removePlayer(UUID playerId) {
         members.remove(playerId);
         GamePlayer.getPlayer(playerId).removePlot(this);
+        this.updateAllPlayersOverPlot();
     }
 
     public static Plot getPlot(int id) {
@@ -69,19 +76,31 @@ public class Plot {
     }
 
     public PlotRoles getMemberRole(UUID member) {
-        if(!isPlayerPresent(member)) {
+        if (!isPlayerPresent(member)) {
             return PlotRoles.GUEST;
         }
         return members.get(member);
     }
 
     public UUID getOwner() {
-        for(UUID player : members.keySet()) {
-            if(members.get(player) == PlotRoles.CHIEF) {
+        for (UUID player : members.keySet()) {
+            if (members.get(player) == PlotRoles.CHIEF) {
                 return player;
             }
         }
         return null;
+    }
+
+    public void updateAllPlayersOverPlot(){
+
+        for(Player p : Bukkit.getOnlinePlayers()){
+
+            if(GamePlayer.getPlayer(p).getOverPlotId() == this.id){
+                System.out.println("updated " + p.getName());
+                Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(p));
+            }
+
+        }
     }
 
     public Set<UUID> getMembers() {
@@ -102,6 +121,7 @@ public class Plot {
 
     public void setMemberRole(UUID member, PlotRoles role) {
         members.replace(member, role);
+        this.updateAllPlayersOverPlot();
     }
 
     public Location getSpawn() {
@@ -116,3 +136,4 @@ public class Plot {
         return interactions;
     }
 }
+

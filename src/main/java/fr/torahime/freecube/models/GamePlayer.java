@@ -2,7 +2,6 @@ package fr.torahime.freecube.models;
 
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.roles.PlotRoles;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -17,7 +16,7 @@ public class GamePlayer {
     private ArrayList<Plot> plots = new ArrayList<>();
     private ArrayList<Request> pendingRequests = new ArrayList<>();
     private UUID uuid;
-    private boolean canReceivePlotInfos = true;
+    private int overPlotId = -1;
     private boolean generalChatActive = true;
     private Player lastPlayerWhoMessaged = null;
     private Inventory lastInventory = null;
@@ -28,6 +27,18 @@ public class GamePlayer {
         this.uuid = uuid;
     }
 
+    public void setOverPlotId(int overPlotId) {
+        this.overPlotId = overPlotId;
+    }
+
+    public int getOverPlotId() {
+        return overPlotId;
+    }
+
+    public boolean isCanReceivePlotInfos() {
+        return overPlotId == -1;
+    }
+
     //Methods
     public static void addGamePlayer(UUID uuid){
         gamePlayers.put(uuid, new GamePlayer(uuid));
@@ -35,6 +46,10 @@ public class GamePlayer {
 
     public static GamePlayer getPlayer(UUID playerUUID) {
         return gamePlayers.get(playerUUID);
+    }
+
+    public static GamePlayer getPlayer(Player player){
+        return getPlayer(player.getUniqueId());
     }
 
     public ArrayList<Plot> getPlots() {
@@ -78,14 +93,6 @@ public class GamePlayer {
 
     public void setLastInventory(Inventory lastInventory) {
         this.lastInventory = lastInventory;
-    }
-
-    public boolean canReveicePlotInfos() {
-        return canReceivePlotInfos;
-    }
-
-    public void setCanReceivePlotInfos(boolean canReceivePlotInfos) {
-        this.canReceivePlotInfos = canReceivePlotInfos;
     }
 
     public ArrayList<Request> getPendingRequests() {

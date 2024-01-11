@@ -1,5 +1,7 @@
 package fr.torahime.freecube.commands.players;
 
+import fr.torahime.freecube.controllers.events.PlotEnterEvent;
+import fr.torahime.freecube.controllers.events.PlotQuitEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -36,21 +38,29 @@ public class TeleportCommand implements CommandExecutor {
         }
 
         if(PlotIdentifier.isInPlot(target.getLocation())){
-            player.teleport(Plot.getPlot(PlotIdentifier.getPlotIndex(target.getLocation())).getSpawn());
-            player.setVelocity(player.getLocation().getDirection().multiply(0.0001));
+
+            if(PlotIdentifier.isPlotClaimed(target.getLocation())){
+                player.teleport(Plot.getPlot(PlotIdentifier.getPlotIndex(target.getLocation())).getSpawn());
+            } else {
+                player.teleport(PlotIdentifier.getPlotCenterLocation(PlotIdentifier.getPlotIndex(target.getLocation())));
+            }
+
             player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as été téléporté dans la même zone que").color(NamedTextColor.WHITE))
                     .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
-            GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(false);
-            return true;
+
+            Bukkit.getPluginManager().callEvent(new PlotEnterEvent(player));
+
         } else {
+
             player.teleport(target.getLocation());
             player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as été téléporté sur").color(NamedTextColor.WHITE))
                     .append(Component.text(" " + target.getName()).color(NamedTextColor.AQUA)));
-            GamePlayer.getPlayer(player.getUniqueId()).setCanReceivePlotInfos(true);
-            return true;
+
+            Bukkit.getPluginManager().callEvent(new PlotQuitEvent(player));
         }
 
+        return true;
     }
 }

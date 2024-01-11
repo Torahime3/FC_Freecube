@@ -43,6 +43,7 @@ public class PreferencesMenu extends Menu {
             this.addItem(preferenceItem.getItem(), index, () -> {
                 if(plot.isPlayerPresent(player.getUniqueId()) && (plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY)){
                     plot.getPreferences().replace(preference, PlotStates.getInverseState(preferenceState));
+                    plot.updateAllPlayersOverPlot();
                     this.fillInventory();
                 }
 
