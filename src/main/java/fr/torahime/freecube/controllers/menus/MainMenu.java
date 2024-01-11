@@ -194,7 +194,8 @@ public class MainMenu extends Menu {
 
         for(int i = 0; i < 9; i++){
             this.addItem(white_delimitation.getItem(), i + 9);
-            this.addItem(black_delimitation.getItem(), i + 27);
+            if(PlotIdentifier.isPlotClaimed(this.player.getLocation())) this.addItem(black_delimitation.getItem(), i + 27);
+
         }
 
     }

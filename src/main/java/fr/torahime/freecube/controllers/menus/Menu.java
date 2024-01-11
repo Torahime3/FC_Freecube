@@ -27,17 +27,24 @@ public class Menu implements Listener {
     protected TextComponent invName;
     protected Inventory inv;
     protected HashMap<Integer, Runnable> interactions;
+    protected Menu lastMenu;
+
 
     public Menu(){
         this(null, Component.text("Menu"), 9);
     }
 
     public Menu(Player player, TextComponent invName, int size){
+        this(player, invName, size, null);
+    }
+
+    public Menu(Player player, TextComponent invName, int size, Menu lastMenu){
         if(size % 9 != 0){
             throw new IllegalArgumentException("La taille de l'inventaire doit être un multiple de 9");
         }
         this.player = player;
         this.invName = invName;
+        this.lastMenu = lastMenu;
         this.inv = Bukkit.createInventory(null, size, this.invName);
         this.menuItems = new ArrayList<>();
         this.interactions = new HashMap<>();

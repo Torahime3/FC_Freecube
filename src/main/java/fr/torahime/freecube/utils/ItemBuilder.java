@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +48,21 @@ public class ItemBuilder {
 
     public ItemBuilder addPattern(Pattern pattern){
         this.patterns.add(pattern);
+        return this;
+    }
+
+    public ItemBuilder setColor(int[] rgb){
+        if(this.item.getType() != Material.LEATHER_CHESTPLATE &&
+                this.item.getType() != Material.LEATHER_HELMET &&
+                this.item.getType() != Material.LEATHER_LEGGINGS &&
+                this.item.getType() != Material.LEATHER_BOOTS){
+            return this;
+        }
+
+        LeatherArmorMeta im = (LeatherArmorMeta) this.item.getItemMeta();
+        im.setColor(org.bukkit.Color.fromRGB(rgb[0], rgb[1], rgb[2]));
+        this.item.setItemMeta(im);
+
         return this;
     }
 

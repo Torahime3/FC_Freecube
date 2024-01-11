@@ -55,7 +55,6 @@ public class BlockActionListener implements Listener {
                     .append(Component.text("/fc claim").color(NamedTextColor.AQUA)));
 
             event.setCancelled(true);
-            return;
         }
 
     }

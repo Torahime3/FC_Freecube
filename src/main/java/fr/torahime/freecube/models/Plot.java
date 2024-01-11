@@ -96,7 +96,6 @@ public class Plot {
         for(Player p : Bukkit.getOnlinePlayers()){
 
             if(GamePlayer.getPlayer(p).getOverPlotId() == this.id){
-                System.out.println("updated " + p.getName());
                 Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(p));
             }
 

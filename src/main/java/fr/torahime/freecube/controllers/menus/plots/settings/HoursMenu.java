@@ -8,10 +8,14 @@ import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import javax.swing.text.html.HTML;
 
@@ -30,16 +34,20 @@ public class HoursMenu extends Menu {
         for(Hours hour : Hours.values()){
 
             ItemBuilder hourItem = new ItemBuilder(Material.LEATHER_CHESTPLATE, index == 0 ? 1 : index);
+            hourItem.setColor(hour.getRgb());
             hourItem.setDisplayName(Component.text(hour.getHour()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
             hourItem.setLore(Component.empty(), Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Cliquez pour changer l'heure").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
 
-            ItemMeta hourmeta = hourItem.getItem().getItemMeta();
-            //put a blue color on the leathe chestplate
+            if(plot.getHour() == hour){
+                hourItem.getItem().addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+                hourItem.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
                 this.addItem(hourItem.getItem(), index, () -> {
                     plot.setHour(hour);
                     player.getWorld().setTime(plot.getHour().getTick());
+                    this.fillInventory();
                 });
             } else {
                 this.addItem(hourItem.getItem(), index);

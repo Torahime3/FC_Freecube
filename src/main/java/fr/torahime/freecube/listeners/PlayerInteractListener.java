@@ -64,9 +64,6 @@ public class PlayerInteractListener implements Listener {
 
         CraftPlayer player = (CraftPlayer) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
-
-        System.out.println("Print 1");
-
         if(item == null) return;
 
         if ((item.getType() == Material.IRON_AXE && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)) || item.getType() == Material.BARRIER && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)) {
@@ -107,7 +104,6 @@ public class PlayerInteractListener implements Listener {
                     ((CraftPlayer) event.getWhoClicked()).updateInventory();
                 }, 5);
 
-                System.out.println("Packet sent");
                 }, 1);
             event.setCancelled(true);
         }
