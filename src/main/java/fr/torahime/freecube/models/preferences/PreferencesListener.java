@@ -7,16 +7,20 @@ import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.network.protocol.game.ClientboundSetTimePacket;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-public class PreferencesListener implements Listener{
+import java.util.Objects;
 
-    //TODO: Optimise this class with a better system if I find one
+public class PreferencesListener implements Listener{
 
     public boolean canApplyPreference(Player player){
 
@@ -41,12 +45,19 @@ public class PreferencesListener implements Listener{
     }
 
     public void update(Player player) {
-        if(canApplyPreference(player)) {
 
-//            Player player = event.getPlayer();
+        if(PlotIdentifier.isInPlot(player.getLocation()) && PlotIdentifier.isPlotClaimed(player.getLocation())){
+
             Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
 
-            //APPLY PREFERENCES
+            ClientboundSetTimePacket timePacket = new ClientboundSetTimePacket(plot.getHour().getTick(), plot.getHour().getTick(), false);
+            CraftPlayer craftPlayer = (CraftPlayer) player;
+            craftPlayer.getHandle().connection.send(timePacket);
+
+        }
+
+        if(canApplyPreference(player)) {
+            Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
 
             //FLY
             player.setAllowFlight(!plot.getPreferences().get(Preferences.FLY).getCancelEvent());
@@ -59,11 +70,14 @@ public class PreferencesListener implements Listener{
             //GAMEMODE
             player.setGameMode(plot.getPreferences().get(Preferences.GAMEMODE).getGameMode());
 
+            //SPAWNTP
             if (!plot.getPreferences().get(Preferences.SPAWNTP).getCancelEvent()) {
                 player.teleport(plot.getSpawn());
                 player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez été téléporté au spawn de la zone en y entrant.").color(NamedTextColor.WHITE)));
             }
+
         }
+
     }
 
     @EventHandler
@@ -72,6 +86,10 @@ public class PreferencesListener implements Listener{
         Player player = event.getPlayer();
         player.setAllowFlight(true);
         player.setGameMode(GameMode.CREATIVE);
+
+        ClientboundSetTimePacket timePacket = new ClientboundSetTimePacket(6000, 6000, false);
+        CraftPlayer craftPlayer = (CraftPlayer) player;
+        craftPlayer.getHandle().connection.send(timePacket);
 
     }
 

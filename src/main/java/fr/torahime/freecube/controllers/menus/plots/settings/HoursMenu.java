@@ -46,7 +46,7 @@ public class HoursMenu extends Menu {
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
                 this.addItem(hourItem.getItem(), index, () -> {
                     plot.setHour(hour);
-                    player.getWorld().setTime(plot.getHour().getTick());
+                    plot.updateAllPlayersOverPlot();
                     this.fillInventory();
                 });
             } else {

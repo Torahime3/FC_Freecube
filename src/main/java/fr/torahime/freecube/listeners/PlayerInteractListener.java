@@ -56,7 +56,7 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onCloseInventory(InventoryCloseEvent event){
-        PlayerJoinListener.giveBaseItems((Player) event.getPlayer());
+        PlayerSessionListener.giveBaseItems((Player) event.getPlayer());
     }
 
     @EventHandler

@@ -57,6 +57,14 @@ public class MainBoard {
             return;
         }
 
+        if(PlotIdentifier.isInPlot(player.getLocation()) && PlotIdentifier.getPlotIndex(player.getLocation()) == 0){
+            plotIdTeam.prefix(Component.text("Spawn").color(NamedTextColor.GRAY));
+            plotIdTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
+            roleTeam.prefix(Component.text("").color(NamedTextColor.YELLOW));
+            roleTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
+            return;
+        }
+
         if (PlotIdentifier.isInPlot(player.getLocation()) && !PlotIdentifier.isPlotClaimed(player.getLocation())) {
             plotIdTeam.prefix(Component.text("Zone: ").color(NamedTextColor.GRAY));
             plotIdTeam.suffix(Component.text(PlotIdentifier.getPlotIndex(player.getLocation())).color(NamedTextColor.WHITE));

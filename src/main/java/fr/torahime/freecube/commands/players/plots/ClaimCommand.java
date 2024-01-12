@@ -31,6 +31,10 @@ public class ClaimCommand implements CommandExecutor {
 
         //Get plot index
         int plotIndex = PlotIdentifier.getPlotIndex(playerPosX, playerPosZ);
+        if(plotIndex == 0) {
+            player.sendMessage("§cTu ne peux pas claim le spawn");
+            return true;
+        }
         //Claim plot
         Plot plot = Plot.claimPlot(plotIndex, player.getUniqueId());
         player.sendMessage(String.format("§aPlot %s claimed", plotIndex));

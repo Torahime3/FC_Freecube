@@ -21,7 +21,7 @@ public class FindCommand implements CommandExecutor {
     }
 
     public static boolean findPlot(Player player){
-        for(int i = 0; i < 1000000; i++){
+        for(int i = 1; i < 1000000; i++){
             if(!PlotIdentifier.isPlotClaimed(i)){
                 player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(i)[0], 51, PlotIdentifier.getPlotCenterCoordinates(i)[1]));
                 Bukkit.getPluginManager().callEvent(new PlotEnterEvent(player));

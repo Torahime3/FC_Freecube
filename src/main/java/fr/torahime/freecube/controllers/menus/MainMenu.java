@@ -25,7 +25,7 @@ import java.util.UUID;
 public class MainMenu extends Menu {
 
     public MainMenu(Player player){
-        super(player, Component.text(player.getName() + " - " + (PlotIdentifier.isInPlot(player.getLocation()) ? String.format("Zone %d", PlotIdentifier.getPlotIndex(player.getLocation())) : "Route")), 54);
+        super(player, Component.text(player.getName() + " - " + (PlotIdentifier.isInPlot(player.getLocation()) ? PlotIdentifier.getPlotIndex(player.getLocation()) == 0 ? "Spawn" : String.format("Zone %d", PlotIdentifier.getPlotIndex(player.getLocation())) : "Route")), 54);
     }
 
     @Override
@@ -71,6 +71,14 @@ public class MainMenu extends Menu {
             plotInteractionsChest.setDisplayName(Component.text("Interactions de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
             plotInteractionsChest.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les interactions de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
+            ItemBuilder plotMoreCmdsBook = new ItemBuilder(Material.BOOK);
+            plotMoreCmdsBook.setDisplayName(Component.text("Commandes supplémentaires").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            plotMoreCmdsBook.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Éjecter un invité de la zone:").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false),
+                    Component.text("/fc kick <Pseudo>").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Bannir un vité de la zone:").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false),
+                    Component.text("/fc ban <Pseudo>").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Quitter la zone: ").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false).append(Component.text("/out").color(NamedTextColor.AQUA)).decoration(TextDecoration.ITALIC, false));
+
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY) {
 
                 plotSpawnSunflower.addLore(Component.empty(), Component.text("Commandes pour changer le spawn:").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
@@ -83,16 +91,17 @@ public class MainMenu extends Menu {
             }
 
             this.addItem(plotInfoGrassBlock.getItem(), 18);
-            this.addItem(plotSpawnSunflower.getItem(), 23, () -> {
+            this.addItem(plotSpawnSunflower.getItem(), 22, () -> {
                 this.player.teleport(plot.getSpawn());
                 this.player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                         .append(Component.text("Tu as été téléporté au spawn de la zone").color(NamedTextColor.WHITE)));
             });
-            this.addItem(plotPreferenceCraftTable.getItem(), 24, () -> {
+            this.addItem(plotPreferenceCraftTable.getItem(), 23, () -> {
                 new PreferencesMenu(this.player, plot, this).openMenu();
             });
-            this.addItem(plotHourClock.getItem(), 25, () -> new HoursMenu(player, plot, this).openMenu());
-            this.addItem(plotInteractionsChest.getItem(), 26, () -> new InteractionsMenu(player, plot, this).openMenu());
+            this.addItem(plotHourClock.getItem(), 24, () -> new HoursMenu(player, plot, this).openMenu());
+            this.addItem(plotInteractionsChest.getItem(), 25, () -> new InteractionsMenu(player, plot, this).openMenu());
+            this.addItem(plotMoreCmdsBook.getItem(), 26);
 
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {

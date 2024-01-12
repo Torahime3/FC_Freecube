@@ -4,6 +4,9 @@ import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
+import fr.torahime.freecube.listeners.worldsettings.WorldProtectionListener;
+import fr.torahime.freecube.listeners.worldsettings.PlotEnterListener;
+import fr.torahime.freecube.listeners.worldsettings.TntListener;
 import fr.torahime.freecube.models.interactions.InteractionsListener;
 import fr.torahime.freecube.models.preferences.PreferencesListener;
 import org.bukkit.*;
@@ -50,8 +53,8 @@ public final class Freecube extends JavaPlugin {
     }
 
     public void initListeners(){
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        getServer().getPluginManager().registerEvents(new BlockActionListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerSessionListener(), this);
+        getServer().getPluginManager().registerEvents(new WorldProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new PlotEnterListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
@@ -61,6 +64,9 @@ public final class Freecube extends JavaPlugin {
 
         //Interactions
         getServer().getPluginManager().registerEvents(new InteractionsListener(), this);
+
+        //Game Settings
+        getServer().getPluginManager().registerEvents(new TntListener(), this);
     }
 
     public void initWorld(){

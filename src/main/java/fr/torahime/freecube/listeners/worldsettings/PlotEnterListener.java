@@ -1,4 +1,4 @@
-package fr.torahime.freecube.listeners;
+package fr.torahime.freecube.listeners.worldsettings;
 
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.events.PlotEnterEvent;
@@ -36,7 +36,7 @@ public class PlotEnterListener implements Listener {
         GamePlayer.getPlayer(player).setOverPlotId(PlotIdentifier.getPlotIndex(player.getLocation()));
         Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(event.getPlayer()));
 
-        if (!PlotIdentifier.isPlotClaimed(playerX, playerZ)) {
+        if (!PlotIdentifier.isPlotClaimed(playerX, playerZ) && PlotIdentifier.getPlotIndex(playerX, playerZ) != 0) {
             player.showTitle(Title.title(Component.text(String.format("Zone LIBRE", PlotIdentifier.getPlotIndex(playerX, playerZ))).color(NamedTextColor.YELLOW),
                     Component.text("Pour l'obtenir fais : ").color(NamedTextColor.WHITE).append(Component.text("/fc claim").color(NamedTextColor.AQUA))));
         }

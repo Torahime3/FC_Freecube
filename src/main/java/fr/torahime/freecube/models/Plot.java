@@ -19,7 +19,7 @@ public class Plot {
     private String name;
     private int id;
     private Location spawn;
-    private Hours hour = Hours.SEVEN;
+    private Hours hour = Hours.TWELVE;
     private PreferencesMap preferences = new PreferencesMap();
     private InteractionsMap interactions = new InteractionsMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();

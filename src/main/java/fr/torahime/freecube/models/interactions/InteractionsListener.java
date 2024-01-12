@@ -39,7 +39,7 @@ public class InteractionsListener implements Listener {
             for(Interactions interaction : Interactions.values()){
                 if(interaction.getMaterial() == block.getType()){
                     if(plot.getInteractions().get(interaction) == PlotStates.DEACTIVATE){
-                        player.sendMessage(Component.text("Intéractions désactivées avec ce bloc.").color(NamedTextColor.DARK_RED));
+                        player.sendMessage(Component.text("Intéractions désactivées avec ce bloc.").color(NamedTextColor.RED));
                         event.setCancelled(plot.getInteractions().get(interaction) == PlotStates.DEACTIVATE);
                     }
                 }
