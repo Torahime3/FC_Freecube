@@ -17,6 +17,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -41,6 +42,13 @@ public class PlayerSessionListener implements Listener {
 
         Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), ()
                 -> init(player, respawn), 1);
+
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event){
+
+        event.getDrops().clear();
 
     }
 
