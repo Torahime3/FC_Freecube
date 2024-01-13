@@ -72,6 +72,10 @@ public class PreferencesListener implements Listener{
                 player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez été téléporté au spawn de la zone en y entrant.").color(NamedTextColor.WHITE)));
             }
 
+        } else {
+
+                player.setAllowFlight(true);
+                player.setGameMode(GameMode.CREATIVE);
         }
 
     }

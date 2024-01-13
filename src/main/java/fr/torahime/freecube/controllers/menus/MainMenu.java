@@ -1,8 +1,9 @@
 package fr.torahime.freecube.controllers.menus;
 
 import fr.torahime.freecube.commands.players.plots.FindCommand;
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
-import fr.torahime.freecube.controllers.menus.plots.PlotMenu;
+import fr.torahime.freecube.controllers.menus.plots.MyPlotsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.HoursMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.interactions.InteractionsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
@@ -190,8 +191,11 @@ public class MainMenu extends Menu {
         black_delimitation.setDisplayName(Component.text(" ").decoration(TextDecoration.ITALIC, false));
 
         //Set buttons (items) in inventory
-        this.addItem(spawn.getItem(), 0, () -> this.player.teleport(PlotIdentifier.getPlotCenterLocation(0)));
-        this.addItem(myPlots.getItem(), 1, () -> new PlotMenu(player).openMenu());
+        this.addItem(spawn.getItem(), 0, () -> {
+            this.player.teleport(PlotIdentifier.getPlotCenterLocation(0));
+            Bukkit.getServer().getPluginManager().callEvent(new PlotEnterEvent(this.player));
+        });
+        this.addItem(myPlots.getItem(), 1, () -> new MyPlotsMenu(player).openMenu());
         this.addItem(freeZone.getItem(), 2, () -> FindCommand.findPlot(player));
 //        this.addItem(playerHead.getItem(), 4);
 //        this.addItem(options.getItem(), 6);

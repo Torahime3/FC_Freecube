@@ -15,9 +15,9 @@ public class InteractionsListener implements Listener {
 
     public boolean canApplyInteractions(Player player){
 
-//        if(player.isOp()){
-//            return false;
-//        }
+        if(player.isOp()){
+            return false;
+        }
 
         return PlotIdentifier.isInPlot(player.getLocation())
                 && PlotIdentifier.isPlotClaimed(player.getLocation())

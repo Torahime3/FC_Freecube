@@ -18,6 +18,15 @@ public enum Interactions {
     CHEST(Material.CHEST),
     CRAFT_TABLE(Material.CRAFTING_TABLE),
     FURNACE(Material.FURNACE),
+    STONECUTTER(Material.STONECUTTER),
+    CARTOGRAPHY_TABLE(Material.CARTOGRAPHY_TABLE),
+    BARREL(Material.BARREL),
+    SMITHING_TABLE(Material.SMITHING_TABLE),
+    GRINDSTONE(Material.GRINDSTONE),
+    LOOM(Material.LOOM),
+    SMOKER(Material.SMOKER),
+    BLAST_FURNACE(Material.BLAST_FURNACE),
+    NOTE_BLOCK(Material.NOTE_BLOCK),
     TRAPDOOR(Material.OAK_TRAPDOOR),
     ENCHANTING_TABLE(Material.ENCHANTING_TABLE),
     BREWING_STAND(Material.BREWING_STAND),
@@ -29,6 +38,7 @@ public enum Interactions {
     TRAPPED_CHEST(Material.TRAPPED_CHEST),
     HOPPER(Material.HOPPER),
     BELL(Material.BELL),
+    CAKE(Material.CAKE),
     SHULKER_BOX(Material.SHULKER_BOX),
     WHITE_SHULKER_BOX(Material.WHITE_SHULKER_BOX),
     ORANGE_SHULKER_BOX(Material.ORANGE_SHULKER_BOX),
@@ -63,7 +73,6 @@ public enum Interactions {
     //REDSTONE EXCEPTED
     REDSTONE_COMPARATOR(Category.REDSTONE, Material.COMPARATOR, PlotStates.DEACTIVATE),
     REDSTONE_REPEATER(Category.REDSTONE, Material.REPEATER, PlotStates.DEACTIVATE),
-
     //BUTTONS
     BUTTON(Category.REDSTONE, Material.STONE_BUTTON),
     OAK_BUTTON(Category.REDSTONE, Material.OAK_BUTTON),

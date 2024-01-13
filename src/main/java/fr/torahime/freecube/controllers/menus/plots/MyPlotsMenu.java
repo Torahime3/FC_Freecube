@@ -1,5 +1,6 @@
 package fr.torahime.freecube.controllers.menus.plots;
 
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
@@ -7,22 +8,18 @@ import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 
-public class PlotMenu extends Menu {
+public class MyPlotsMenu extends Menu {
 
-    public PlotMenu(Player player) {
+    public MyPlotsMenu(Player player) {
         super(player,
                 !GamePlayer.getPlayer(player.getUniqueId()).getPlots().isEmpty() ? Component.text(String.format("Mes zones (Chef: %d/%d)", GamePlayer.getPlayer(player.getUniqueId()).getChefPlotsCount(), GamePlayer.getPlayer(player.getUniqueId()).getPlots().size())) : Component.text("Vous n'avez aucune zone"),
                 54);
@@ -47,6 +44,7 @@ public class PlotMenu extends Menu {
 
             this.addItem(plotItem.getItem(), i, () -> {
                 this.player.teleport(new Location(player.getWorld(), PlotIdentifier.getPlotCenterCoordinates(plot.getId())[0], 51, PlotIdentifier.getPlotCenterCoordinates(plot.getId())[1]));
+                Bukkit.getPluginManager().callEvent(new PlotEnterEvent(this.player));
             });
             i++;
         }

@@ -7,6 +7,7 @@ import fr.torahime.freecube.listeners.*;
 import fr.torahime.freecube.listeners.worldsettings.*;
 import fr.torahime.freecube.models.interactions.InteractionsListener;
 import fr.torahime.freecube.models.preferences.PreferencesListener;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -64,9 +65,7 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InteractionsListener(), this);
 
         //Game Settings
-        getServer().getPluginManager().registerEvents(new TntListener(), this);
-        getServer().getPluginManager().registerEvents(new PortalListener(), this);
-        getServer().getPluginManager().registerEvents(new WaterLavaSpreadListener(), this);
+        getServer().getPluginManager().registerEvents(new ExposionListener(), this);
     }
 
     public void initWorld(){
@@ -94,6 +93,7 @@ public final class Freecube extends JavaPlugin {
                 world.setGameRule(GameRule.DO_PATROL_SPAWNING, false);
                 world.setGameRule(GameRule.DO_FIRE_TICK, false);
                 world.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false);
+                world.setGameRule(GameRule.RANDOM_TICK_SPEED, 0);
                 world.setDifficulty(Difficulty.PEACEFUL);
                 world.save();
 

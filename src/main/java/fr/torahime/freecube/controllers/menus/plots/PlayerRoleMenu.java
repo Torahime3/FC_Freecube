@@ -65,6 +65,7 @@ public class PlayerRoleMenu extends Menu {
                         plot.setMemberRole(target.getUniqueId(), role);
                         this.player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez donné le rôle de ").color(NamedTextColor.WHITE).append(Component.text(role.getRoleName()).color(role.getColor())).append(Component.text(" à " + target.getName()).color(NamedTextColor.WHITE))));
                         this.player.closeInventory();
+                        plot.updateAllPlayersOverPlot();
                     }
                 });
             }
