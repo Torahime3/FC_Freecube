@@ -4,7 +4,7 @@ import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.PlotMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.HoursMenu;
-import fr.torahime.freecube.controllers.menus.plots.settings.InteractionsMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.interactions.InteractionsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;

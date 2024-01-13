@@ -1,4 +1,4 @@
-package fr.torahime.freecube.controllers.menus.plots.settings;
+package fr.torahime.freecube.controllers.menus.plots.settings.interactions;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.Plot;
@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -17,6 +18,8 @@ import org.bukkit.inventory.ItemFlag;
 public class InteractionsMenu extends Menu {
 
     private final Plot plot;
+
+    private Category category = Category.PRIMARY;
 
     public InteractionsMenu(Player player, Plot plot, Menu lastMenu) {
         super(player, Component.text("Zone " + plot.getId() + " > Intéractions"), 54, lastMenu);
@@ -26,8 +29,10 @@ public class InteractionsMenu extends Menu {
     @Override
     public void fillInventory() {
 
+        this.inv.clear();
+
         int index = 0;
-        for(Interactions interaction : Interactions.values()){
+        for(Interactions interaction : Interactions.getAllInteractionsInCategory(category)){
 
             ItemBuilder interactionItem = new ItemBuilder(interaction.getMaterial());
             PlotStates interactionState = plot.getInteractions().get(interaction);
@@ -58,11 +63,19 @@ public class InteractionsMenu extends Menu {
             } else {
                 this.addItem(interactionItem.getItem(), index);
             }
-
             index++;
-
-            super.fillInventory();
         }
+
+        ItemBuilder nextCategoryItem = new ItemBuilder(Material.ARROW);
+        nextCategoryItem.setDisplayName(Component.text("Catégorie suivante").color(NamedTextColor.GREEN));
+        nextCategoryItem.addLore(Component.text("Clic gauche pour afficher la catégorie suivante").color(NamedTextColor.GRAY));
+
+        this.addItem(nextCategoryItem.getItem(), this.inv.getSize() - 5, () -> {
+            this.category = Category.nextCategory(this.category);
+            this.fillInventory();
+        });
+
+        super.fillInventory();
 
     }
 }

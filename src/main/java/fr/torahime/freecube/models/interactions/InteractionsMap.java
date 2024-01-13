@@ -8,7 +8,7 @@ public class InteractionsMap extends HashMap<Interactions, PlotStates> {
 
     public InteractionsMap(){
         for(Interactions interaction : Interactions.values()){
-            this.put(interaction, PlotStates.ACTIVATE);
+                this.put(interaction, interaction.getDefaultPlotState());
         }
     }
 

@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
-import org.bukkit.inventory.EquipmentSlot;
 
 public class WorldProtectionListener implements Listener {
 
@@ -42,6 +41,7 @@ public class WorldProtectionListener implements Listener {
         }
     }
 
+
     @EventHandler
     public void onEntityEggSpawned(PlayerInteractEvent event){
         if(event.getItem() == null) return;
@@ -51,7 +51,7 @@ public class WorldProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void onSuspiciousGravelGetBrushed(PlayerInteractEvent event){
+    public void onSuspiciousGravelSandGetBrushed(PlayerInteractEvent event){
         if(event.getClickedBlock() == null) return;
 
         if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BRUSH) {
