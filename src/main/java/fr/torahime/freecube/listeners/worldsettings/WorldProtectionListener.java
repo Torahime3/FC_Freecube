@@ -20,13 +20,61 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class WorldProtectionListener implements Listener {
 
     @EventHandler
+    public void onPlayerForbiddenItemUse(PlayerInteractEvent event){
+        if(event.getPlayer().isOp()) return;
+        if(event.getItem() == null) return;
+
+        for(ForbiddenPlayerUseItem forbiddenPlayerUseItem : ForbiddenPlayerUseItem.values()){
+            if(event.getItem().getType() == forbiddenPlayerUseItem.getMaterial()){
+                if(forbiddenPlayerUseItem.canBeUsedInADispenser()){
+                    event.getPlayer().sendMessage(Component.text("Item interdit, mais tu peux l'utiliser dans un dispenser!").color(NamedTextColor.RED));
+                } else {
+                    event.getPlayer().sendMessage(Component.text("Item interdit.").color(NamedTextColor.RED));
+                }
+                event.setCancelled(true);
+                return;
+            }
+        }
+    }
+
+    @EventHandler
     public void onEntityEggSpawned(PlayerInteractEvent event){
-        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem() != null && event.getItem().getType() == Material.EGG) {
+        if(event.getItem() == null) return;
+        if((event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem().getType() == Material.EGG)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onSuspiciousGravelGetBrushed(PlayerInteractEvent event){
+        if(event.getClickedBlock() == null) return;
+
+        if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BRUSH) {
+            cancelEvent(event.getPlayer(), event.getClickedBlock(), event);
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerDestroyFarming(PlayerInteractEvent event){
+        if(event.getClickedBlock() == null) return;
+
+        if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType() == Material.FARMLAND){
+            cancelEvent(event.getPlayer(), event.getClickedBlock(), event);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDestroyTurtleEgg(PlayerInteractEvent event){
+        if(event.getClickedBlock() == null) return;
+
+        if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType() == Material.TURTLE_EGG){
+            cancelEvent(event.getPlayer(), event.getClickedBlock(), event);
         }
     }
 

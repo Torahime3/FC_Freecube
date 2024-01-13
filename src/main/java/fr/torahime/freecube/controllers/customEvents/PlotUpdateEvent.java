@@ -1,12 +1,11 @@
-package fr.torahime.freecube.controllers.events;
+package fr.torahime.freecube.controllers.customEvents;
 
-import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class PlotQuitEvent extends Event {
+public class PlotUpdateEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
@@ -16,7 +15,7 @@ public class PlotQuitEvent extends Event {
         return handlers;
     }
 
-    public PlotQuitEvent(Player player){
+    public PlotUpdateEvent(Player player){
         this.player = player;
     }
 

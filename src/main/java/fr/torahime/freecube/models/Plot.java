@@ -1,6 +1,6 @@
 package fr.torahime.freecube.models;
 
-import fr.torahime.freecube.controllers.events.PlotUpdateEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.preferences.PreferencesMap;

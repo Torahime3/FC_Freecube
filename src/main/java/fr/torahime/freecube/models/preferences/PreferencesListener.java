@@ -1,15 +1,13 @@
 package fr.torahime.freecube.models.preferences;
 
-import fr.torahime.freecube.controllers.events.PlotEnterEvent;
-import fr.torahime.freecube.controllers.events.PlotQuitEvent;
-import fr.torahime.freecube.controllers.events.PlotUpdateEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTimePacket;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -18,15 +16,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-import java.util.Objects;
-
 public class PreferencesListener implements Listener{
 
     public boolean canApplyPreference(Player player){
 
-//        if(player.isOp()){
-//            return false;
-//        }
+        if(player.isOp()){
+            return false;
+        }
 
         return PlotIdentifier.isInPlot(player.getLocation())
                 && PlotIdentifier.isPlotClaimed(player.getLocation())

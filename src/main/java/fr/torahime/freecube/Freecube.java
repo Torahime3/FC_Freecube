@@ -4,9 +4,7 @@ import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
-import fr.torahime.freecube.listeners.worldsettings.WorldProtectionListener;
-import fr.torahime.freecube.listeners.worldsettings.PlotEnterListener;
-import fr.torahime.freecube.listeners.worldsettings.TntListener;
+import fr.torahime.freecube.listeners.worldsettings.*;
 import fr.torahime.freecube.models.interactions.InteractionsListener;
 import fr.torahime.freecube.models.preferences.PreferencesListener;
 import org.bukkit.*;
@@ -67,6 +65,8 @@ public final class Freecube extends JavaPlugin {
 
         //Game Settings
         getServer().getPluginManager().registerEvents(new TntListener(), this);
+        getServer().getPluginManager().registerEvents(new PortalListener(), this);
+        getServer().getPluginManager().registerEvents(new WaterLavaSpreadListener(), this);
     }
 
     public void initWorld(){
@@ -93,6 +93,7 @@ public final class Freecube extends JavaPlugin {
                 world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
                 world.setGameRule(GameRule.DO_PATROL_SPAWNING, false);
                 world.setGameRule(GameRule.DO_FIRE_TICK, false);
+                world.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false);
                 world.setDifficulty(Difficulty.PEACEFUL);
                 world.save();
 

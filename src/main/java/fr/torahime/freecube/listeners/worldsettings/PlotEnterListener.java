@@ -1,9 +1,8 @@
 package fr.torahime.freecube.listeners.worldsettings;
 
-import fr.torahime.freecube.Freecube;
-import fr.torahime.freecube.controllers.events.PlotEnterEvent;
-import fr.torahime.freecube.controllers.events.PlotQuitEvent;
-import fr.torahime.freecube.controllers.events.PlotUpdateEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlotEnterListener implements Listener {
 

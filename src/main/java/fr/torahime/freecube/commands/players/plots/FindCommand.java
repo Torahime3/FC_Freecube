@@ -1,7 +1,6 @@
 package fr.torahime.freecube.commands.players.plots;
 
-import fr.torahime.freecube.controllers.events.PlotEnterEvent;
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

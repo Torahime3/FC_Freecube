@@ -1,7 +1,8 @@
 package fr.torahime.freecube.listeners;
 
-import fr.torahime.freecube.controllers.events.PlotEnterEvent;
+import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -17,18 +18,50 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemFlag;
 
+import java.util.Objects;
+
 public class PlayerSessionListener implements Listener {
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+
+        Player player = event.getPlayer();
+        GamePlayer gp = GamePlayer.getPlayer(player);
+        Location respawn;
+
+        if(Plot.getPlot(gp.getOverPlotId()) != null){
+            Plot plot = Plot.getPlot(gp.getOverPlotId());
+            respawn = plot.getSpawn();
+        } else {
+            respawn = PlotIdentifier.getPlotCenterLocation(0);
+        }
+
+        Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), ()
+                -> init(player, respawn), 1);
+
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
 
         Player player = event.getPlayer();
+        init(player);
+
+    }
+
+    public void init(Player player){
+        Location spawn = PlotIdentifier.getPlotCenterLocation(0);
+        init(player, spawn);
+    }
+
+    public void init(Player player, Location location){
 
         //Teleport player to freecube world spawn at plot 0 and clear his inventory
-        Location spawn = PlotIdentifier.getPlotCenterLocation(0);
-        player.teleport(spawn);
+        player.teleport(location);
+//        player.setBedSpawnLocation(location, true);
         player.getInventory().clear();
         player.setGameMode(GameMode.CREATIVE);
 
@@ -43,7 +76,6 @@ public class PlayerSessionListener implements Listener {
 
         //Update
         Bukkit.getPluginManager().callEvent(new PlotEnterEvent(player));
-
     }
 
 
