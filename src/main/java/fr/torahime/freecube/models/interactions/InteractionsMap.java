@@ -4,10 +4,10 @@ import fr.torahime.freecube.models.PlotStates;
 
 import java.util.HashMap;
 
-public class InteractionsMap extends HashMap<Interactions, PlotStates> {
+public class InteractionsMap extends HashMap<Interaction, PlotStates> {
 
     public InteractionsMap(){
-        for(Interactions interaction : Interactions.values()){
+        for(Interaction interaction : Interaction.values()){
                 this.put(interaction, interaction.getDefaultPlotState());
         }
     }

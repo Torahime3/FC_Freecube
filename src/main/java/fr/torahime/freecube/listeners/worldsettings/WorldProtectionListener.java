@@ -97,12 +97,12 @@ public class WorldProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent e)
+    public void onProjectileHit(ProjectileHitEvent event)
     {
-        Projectile p = e.getEntity();
+        Projectile p = event.getEntity();
         if(p instanceof AbstractArrow)
         {
-            Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), p::remove, 600);
+            Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), p::remove, 300);
         }
 
     }

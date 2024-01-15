@@ -4,9 +4,10 @@ import fr.torahime.freecube.commands.players.plots.FindCommand;
 import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.MyPlotsMenu;
-import fr.torahime.freecube.controllers.menus.plots.settings.HoursMenu;
-import fr.torahime.freecube.controllers.menus.plots.settings.interactions.InteractionsMenu;
-import fr.torahime.freecube.controllers.menus.plots.settings.PreferencesMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.hoursweather.HoursWeatherMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.interaction.InteractionsMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.music.MusicMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.preference.PreferencesMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
@@ -65,12 +66,16 @@ public class MainMenu extends Menu {
             plotPreferenceCraftTable.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les préférences de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotHourClock = new ItemBuilder(Material.CLOCK);
-            plotHourClock.setDisplayName(Component.text("Heure de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            plotHourClock.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text(" l'heure de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            plotHourClock.setDisplayName(Component.text("Heure/Météo de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            plotHourClock.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text(" l'heure et la météo de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotInteractionsChest = new ItemBuilder(Material.CHEST);
             plotInteractionsChest.setDisplayName(Component.text("Interactions de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
             plotInteractionsChest.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les interactions de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+
+            ItemBuilder plotMusicsDisc = new ItemBuilder(Material.MUSIC_DISC_CAT);
+            plotMusicsDisc.setDisplayName(Component.text("Musique de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            plotMusicsDisc.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("la musique de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotMoreCmdsBook = new ItemBuilder(Material.BOOK);
             plotMoreCmdsBook.setDisplayName(Component.text("Commandes supplémentaires").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
@@ -92,16 +97,17 @@ public class MainMenu extends Menu {
             }
 
             this.addItem(plotInfoGrassBlock.getItem(), 18);
-            this.addItem(plotSpawnSunflower.getItem(), 22, () -> {
+            this.addItem(plotSpawnSunflower.getItem(), 21, () -> {
                 this.player.teleport(plot.getSpawn());
                 this.player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                         .append(Component.text("Tu as été téléporté au spawn de la zone").color(NamedTextColor.WHITE)));
             });
-            this.addItem(plotPreferenceCraftTable.getItem(), 23, () -> {
+            this.addItem(plotPreferenceCraftTable.getItem(), 22, () -> {
                 new PreferencesMenu(this.player, plot, this).openMenu();
             });
-            this.addItem(plotHourClock.getItem(), 24, () -> new HoursMenu(player, plot, this).openMenu());
-            this.addItem(plotInteractionsChest.getItem(), 25, () -> new InteractionsMenu(player, plot, this).openMenu());
+            this.addItem(plotHourClock.getItem(), 23, () -> new HoursWeatherMenu(player, plot, this).openMenu());
+            this.addItem(plotInteractionsChest.getItem(), 24, () -> new InteractionsMenu(player, plot, this).openMenu());
+            this.addItem(plotMusicsDisc.getItem(), 25, () -> new MusicMenu(player, plot, this).openMenu());
             this.addItem(plotMoreCmdsBook.getItem(), 26);
 
             int headIndex = (4 * 9);

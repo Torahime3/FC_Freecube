@@ -5,9 +5,8 @@ import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
 import fr.torahime.freecube.listeners.worldsettings.*;
-import fr.torahime.freecube.models.interactions.InteractionsListener;
-import fr.torahime.freecube.models.preferences.PreferencesListener;
-import fr.torahime.freecube.utils.PlotIdentifier;
+import fr.torahime.freecube.listeners.plots.InteractionsListener;
+import fr.torahime.freecube.listeners.plots.PreferencesListener;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 

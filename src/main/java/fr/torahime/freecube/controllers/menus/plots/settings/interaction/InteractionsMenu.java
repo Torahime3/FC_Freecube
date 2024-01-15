@@ -1,9 +1,9 @@
-package fr.torahime.freecube.controllers.menus.plots.settings.interactions;
+package fr.torahime.freecube.controllers.menus.plots.settings.interaction;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.PlotStates;
-import fr.torahime.freecube.models.interactions.Interactions;
+import fr.torahime.freecube.models.interactions.Interaction;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -32,7 +32,7 @@ public class InteractionsMenu extends Menu {
         this.inv.clear();
 
         int index = 0;
-        for(Interactions interaction : Interactions.getAllInteractionsInCategory(category)){
+        for(Interaction interaction : Interaction.getAllInteractionsInCategory(category)){
 
             ItemBuilder interactionItem = new ItemBuilder(interaction.getMaterial());
             PlotStates interactionState = plot.getInteractions().get(interaction);

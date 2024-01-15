@@ -1,8 +1,8 @@
-package fr.torahime.freecube.controllers.menus.plots.settings;
+package fr.torahime.freecube.controllers.menus.plots.settings.preference;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.preferences.Preferences;
+import fr.torahime.freecube.models.preferences.Preference;
 import fr.torahime.freecube.models.PlotStates;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
@@ -24,7 +24,7 @@ public class PreferencesMenu extends Menu {
     public void fillInventory() {
 
         int index = 0;
-        for(Preferences preference : Preferences.values()){
+        for(Preference preference : Preference.values()){
 
             PlotStates preferenceState = plot.getPreferences().get(preference);
 

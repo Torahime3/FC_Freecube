@@ -2,7 +2,7 @@ package fr.torahime.freecube.models.preferences;
 
 import org.bukkit.Material;
 
-public enum Preferences {
+public enum Preference {
 
     FLY("fly", "Voler", new String[]{"Les joueurs peuvent-ils voler dans la","zone ? (Cela n'affecte pas les","associés/membres)"}, Material.FEATHER),
     GAMEMODE("gamemode", "Mode de jeu", new String[]{"Le mode de jeu des joueurs qui entrent","dans la zone ? (Cela n'affecte pas les","associés/membres)"}, Material.DIAMOND_PICKAXE),
@@ -17,7 +17,7 @@ public enum Preferences {
     private final String[] lore;
     private final Material material;
 
-    Preferences(String code, String title, String[] lore, Material material) {
+    Preference(String code, String title, String[] lore, Material material) {
         this.code = code;
         this.title = title;
         this.lore = lore;

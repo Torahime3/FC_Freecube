@@ -1,12 +1,12 @@
 package fr.torahime.freecube.models.interactions;
 
-import fr.torahime.freecube.controllers.menus.plots.settings.interactions.Category;
+import fr.torahime.freecube.controllers.menus.plots.settings.interaction.Category;
 import fr.torahime.freecube.models.PlotStates;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
 
-public enum Interactions {
+public enum Interaction {
 
     //BLOCKS INTERACTIONS
 
@@ -158,19 +158,19 @@ public enum Interactions {
     private PlotStates defaultPlotState;
     private Category category;
 
-    Interactions(Material material) {
+    Interaction(Material material) {
         this.material = material;
         this.category = Category.PRIMARY;
         this.defaultPlotState = PlotStates.ACTIVATE;
     }
 
-    Interactions(Category category, Material material) {
+    Interaction(Category category, Material material) {
         this.category = category;
         this.material = material;
         this.defaultPlotState = PlotStates.ACTIVATE;
     }
 
-    Interactions(Category category, Material material, PlotStates defaultPlotState) {
+    Interaction(Category category, Material material, PlotStates defaultPlotState) {
         this.category = category;
         this.material = material;
         this.defaultPlotState = defaultPlotState;
@@ -187,9 +187,9 @@ public enum Interactions {
         return category;
     }
 
-    public static ArrayList<Interactions> getAllInteractionsInCategory(Category category) {
-        ArrayList<Interactions> interactions = new ArrayList<Interactions>();
-        for (Interactions interaction : Interactions.values()) {
+    public static ArrayList<Interaction> getAllInteractionsInCategory(Category category) {
+        ArrayList<Interaction> interactions = new ArrayList<Interaction>();
+        for (Interaction interaction : Interaction.values()) {
             if (interaction.getCategory() == category) {
                 interactions.add(interaction);
             }

@@ -4,14 +4,14 @@ import fr.torahime.freecube.models.PlotStates;
 
 import java.util.HashMap;
 
-public class PreferencesMap extends HashMap<Preferences, PlotStates> {
+public class PreferencesMap extends HashMap<Preference, PlotStates> {
 
     public PreferencesMap(){
-        this.put(Preferences.FLY, PlotStates.ACTIVATE);
-        this.put(Preferences.GAMEMODE, PlotStates.CREATIVE);
-        this.put(Preferences.CLEARINVENTORY, PlotStates.DEACTIVATE);
-        this.put(Preferences.SPAWNTP, PlotStates.DEACTIVATE);
-        this.put(Preferences.DROPITEMS, PlotStates.ACTIVATE);
-        this.put(Preferences.LOOTITEMS, PlotStates.ACTIVATE);
+        this.put(Preference.FLY, PlotStates.ACTIVATE);
+        this.put(Preference.GAMEMODE, PlotStates.CREATIVE);
+        this.put(Preference.CLEARINVENTORY, PlotStates.DEACTIVATE);
+        this.put(Preference.SPAWNTP, PlotStates.DEACTIVATE);
+        this.put(Preference.DROPITEMS, PlotStates.ACTIVATE);
+        this.put(Preference.LOOTITEMS, PlotStates.ACTIVATE);
     }
 }

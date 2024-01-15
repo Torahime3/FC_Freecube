@@ -1,4 +1,4 @@
-package fr.torahime.freecube.controllers.menus.plots.settings.interactions;
+package fr.torahime.freecube.controllers.menus.plots.settings.interaction;
 
 public enum Category {
     REDSTONE,
