@@ -4,6 +4,7 @@ import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.musics.Music;
+import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.models.weather.Weather;
@@ -23,8 +24,7 @@ public class Plot {
     private Location spawn;
     private Hours hour = Hours.TWELVE;
     private Weather weather = Weather.CLEAR;
-    private Music music = Music.NONE;
-    private Integer musicVolume = 300;
+    private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
     private PreferencesMap preferences = new PreferencesMap();
     private InteractionsMap interactions = new InteractionsMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
@@ -58,22 +58,34 @@ public class Plot {
         return true;
     }
 
-    public Integer getMusicVolume() {
-        return musicVolume;
-    }
-
-    public void setMusicVolume(Integer musicVolume) {
-        if(musicVolume >= 0 && musicVolume <= 500){
-            this.musicVolume = musicVolume;
+    public MusicTransmitter getMusicTransmitterByLocation(Location location) {
+        for (MusicTransmitter musicTransmitter : musicTransmitters) {
+            if (musicTransmitter.getLocation().equals(location)) {
+                return musicTransmitter;
+            }
         }
+        return null;
     }
 
-    public Music getMusic() {
-        return music;
+    public MusicTransmitter getMusicTransmitter(MusicTransmitter musicTransmitter) {
+        for (MusicTransmitter mt : musicTransmitters) {
+            if (mt == musicTransmitter) {
+                return mt;
+            }
+        }
+        return null;
     }
 
-    public void setMusic(Music music) {
-        this.music = music;
+    public ArrayList<MusicTransmitter> getMusicTransmitters() {
+        return musicTransmitters;
+    }
+
+    public void addMusicTransmitter(MusicTransmitter musicTransmitter) {
+        musicTransmitters.add(musicTransmitter);
+    }
+
+    public void removeMusicTransmitter(MusicTransmitter musicTransmitter) {
+        musicTransmitters.remove(musicTransmitter);
     }
 
     public void setHour(Hours hour) {

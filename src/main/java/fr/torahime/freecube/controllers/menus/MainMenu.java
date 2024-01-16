@@ -74,8 +74,8 @@ public class MainMenu extends Menu {
             plotInteractionsChest.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les interactions de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotMusicsDisc = new ItemBuilder(Material.MUSIC_DISC_CAT);
-            plotMusicsDisc.setDisplayName(Component.text("Musique de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            plotMusicsDisc.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("la musique de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            plotMusicsDisc.setDisplayName(Component.text("Émetteurs de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            plotMusicsDisc.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les émetteurs de musique de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
             ItemBuilder plotMoreCmdsBook = new ItemBuilder(Material.BOOK);
             plotMoreCmdsBook.setDisplayName(Component.text("Commandes supplémentaires").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));

@@ -1,12 +1,16 @@
 package fr.torahime.freecube.models;
 
 import fr.torahime.freecube.controllers.transaction.Request;
+import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.utils.PlotIdentifier;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public class GamePlayer {
@@ -126,4 +130,28 @@ public class GamePlayer {
     public void setLastPlayerWhoMessaged(Player lastPlayerWhoMessaged) {
         this.lastPlayerWhoMessaged = lastPlayerWhoMessaged;
     }
+
+    public void playAllSoundsOfPlot(Plot plot){
+
+            for(MusicTransmitter mt : plot.getMusicTransmitters()) {
+
+                playOneSoundOfPlot(mt);
+
+        }
+    }
+
+    public void playOneSoundOfPlot(MusicTransmitter mt){
+
+        Player player = Bukkit.getPlayer(uuid);
+        if(player != null && PlotIdentifier.isInPlot(player.getLocation())) {
+
+            player.playSound(mt.getLocation(), mt.getMusic().getSound(), mt.getVolume(), mt.getPitch());
+            Bukkit.getLogger().info("Playing sound " + mt.getMusic().getName());
+            Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), () -> {
+                this.playOneSoundOfPlot(mt);
+            }, 20L * mt.getMusic().getDuration()); // 20 ticks = 1 second (20 * 60 = 1 minute)
+        }
+    }
+
 }
+

@@ -3,8 +3,8 @@ package fr.torahime.freecube.listeners.plots;
 import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
+import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.musics.Music;
 import fr.torahime.freecube.models.preferences.Preference;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -45,6 +45,7 @@ public class PreferencesListener implements Listener{
 
     public void update(Player player, boolean onEnter) {
 
+        //APPLY MANADATORY PREFERENCES
         if(PlotIdentifier.isInPlot(player.getLocation()) && PlotIdentifier.isPlotClaimed(player.getLocation())){
 
             Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
@@ -72,11 +73,13 @@ public class PreferencesListener implements Listener{
 //
 //            }
 
-            if(onEnter && plot.getMusic() != Music.NONE){
-                player.playSound(plot.getSpawn(), plot.getMusic().getSound(), 3, 1);
+            if(onEnter && !plot.getMusicTransmitters().isEmpty()){
+                GamePlayer gamePlayer = GamePlayer.getPlayer(player.getUniqueId());
+                gamePlayer.playAllSoundsOfPlot(plot);
             }
         }
 
+        //APPLY OPTIONNAL PREFERENCES
         if(canApplyPreference(player)) {
             Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
 
