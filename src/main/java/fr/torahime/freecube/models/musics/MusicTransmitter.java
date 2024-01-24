@@ -29,7 +29,7 @@ public class MusicTransmitter {
     }
 
     public void setVolume(float volume) {
-        if(volume < 0 || volume > 5){
+        if(volume < 1 || volume > 5){
             return;
         }
         this.volume = volume;

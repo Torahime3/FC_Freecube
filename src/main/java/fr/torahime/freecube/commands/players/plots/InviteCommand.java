@@ -1,6 +1,7 @@
 package fr.torahime.freecube.commands.players.plots;
 
 import fr.torahime.freecube.controllers.transaction.Request;
+import fr.torahime.freecube.controllers.transaction.RequestType;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -57,7 +58,7 @@ public class InviteCommand implements CommandExecutor {
             return false;
         }
 
-        Request request = new Request(player, target, plot.getId());
+        Request request = new Request(player, target, plot.getId(), RequestType.PLOT);
         request.sendRequest();
 
 //        if(args.length == 3 && args[2].equalsIgnoreCase("-force")){

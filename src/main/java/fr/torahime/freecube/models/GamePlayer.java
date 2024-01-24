@@ -134,21 +134,19 @@ public class GamePlayer {
     public void playAllSoundsOfPlot(Plot plot){
 
             for(MusicTransmitter mt : plot.getMusicTransmitters()) {
-
-                playOneSoundOfPlot(mt);
-
+                playOneSoundOfPlot(mt, plot);
         }
     }
 
-    public void playOneSoundOfPlot(MusicTransmitter mt){
+    public void playOneSoundOfPlot(MusicTransmitter mt, Plot plot){
 
         Player player = Bukkit.getPlayer(uuid);
-        if(player != null && PlotIdentifier.isInPlot(player.getLocation())) {
+        if(player != null && PlotIdentifier.isInPlot(player.getLocation()) && plot.getMusicTransmitters().contains(mt)) {
 
             player.playSound(mt.getLocation(), mt.getMusic().getSound(), mt.getVolume(), mt.getPitch());
             Bukkit.getLogger().info("Playing sound " + mt.getMusic().getName());
             Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), () -> {
-                this.playOneSoundOfPlot(mt);
+                this.playOneSoundOfPlot(mt, plot);
             }, 20L * mt.getMusic().getDuration()); // 20 ticks = 1 second (20 * 60 = 1 minute)
         }
     }

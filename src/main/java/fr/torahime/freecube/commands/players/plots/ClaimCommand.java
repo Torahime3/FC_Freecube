@@ -1,5 +1,7 @@
 package fr.torahime.freecube.commands.players.plots;
 
+import fr.torahime.freecube.controllers.transaction.Request;
+import fr.torahime.freecube.controllers.transaction.RequestType;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.command.Command;
@@ -19,13 +21,13 @@ public class ClaimCommand implements CommandExecutor {
 
         //Check if player is in a plot
         if(!PlotIdentifier.isInPlot(playerPosX, playerPosZ)) {
-            player.sendMessage("§cYou are not in a plot");
+            player.sendMessage("§cVous n'êtes pas dans un plot");
             return true;
         }
 
         //Check if plot is already claimed
         if(PlotIdentifier.isPlotClaimed(playerPosX, playerPosZ)) {
-            player.sendMessage("§cThis plot is already claimed");
+            player.sendMessage("§cCe plot est déjà claim");
             return true;
         }
 
@@ -36,8 +38,9 @@ public class ClaimCommand implements CommandExecutor {
             return true;
         }
         //Claim plot
-        Plot plot = Plot.claimPlot(plotIndex, player.getUniqueId());
-        player.sendMessage(String.format("§aPlot %s claimed", plotIndex));
+//        Plot plot = Plot.claimPlot(plotIndex, player.getUniqueId());
+        Request request = new Request(player, player, plotIndex, RequestType.CLAIM);
+        request.sendRequest();
 
         return false;
     }

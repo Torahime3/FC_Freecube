@@ -15,7 +15,8 @@ public enum ForbiddenItem {
     SALMON_BUCKET(Material.SALMON_BUCKET, false),
     COD_BUCKET(Material.COD_BUCKET, false),
     TROPICAL_FISH_BUCKET(Material.TROPICAL_FISH_BUCKET, false),
-    AXOLOTL_BUCKET(Material.AXOLOTL_BUCKET, false);
+    AXOLOTL_BUCKET(Material.AXOLOTL_BUCKET, false),
+    BARRIER(Material.BARRIER, false);
 
     private Material material;
     private boolean canBeUsedInADispenser;

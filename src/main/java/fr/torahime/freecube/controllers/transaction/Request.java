@@ -5,36 +5,66 @@ import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
 public class Request {
 
+    private static ArrayList<Integer> ids = new ArrayList<>();
     private int id;
     private Player sender;
     private Player receiver;
     private int plotId;
     private RequestType type;
+    private int creationTime;
 
-    public Request(Player sender, Player receiver, int plotId) {
-        this.id = new Random().nextInt(10000000);
+    public Request(Player sender, Player receiver, int plotId, RequestType type) {
+
+        do {
+            this.id = new Random().nextInt(10000000);
+        } while (ids.contains(this.id));
+
+        ids.add(this.id);
         this.sender = sender;
         this.receiver = receiver;
         this.plotId = plotId;
-        this.type = RequestType.PLOT;
+        this.type = type;
+        this.creationTime = (int) (System.currentTimeMillis() / 1000);
     }
 
     public void sendRequest(){
 
         GamePlayer.getPlayer(receiver.getUniqueId()).addRequest(this);
 
+        Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), () -> {
+            if(GamePlayer.getPlayer(receiver.getUniqueId()).getPendingRequests().contains(this)){
+                GamePlayer.getPlayer(receiver.getUniqueId()).removeRequest(this);
+                receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                        .append(Component.text("La demande a expiré.").color(NamedTextColor.RED)));
+            }
+        }, this.type.getLifetime() * 20L);
+
         if(sender == null || receiver == null){
             return;
         }
+
+        if(type == RequestType.CLAIM){
+
+            receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                    .append(Component.text("Veux-tu vraiment obtenir cette zone ? Tu ne pourras pas la supprimer par la suite.").color(NamedTextColor.WHITE))
+                    .append(Component.text("\n[Clique ICI pour obtenir cette zone]").color(NamedTextColor.AQUA)
+                            .hoverEvent(HoverEvent.showText(Component.text("Oui, obtenir cette zone").color(NamedTextColor.WHITE)))
+                            .clickEvent(ClickEvent.runCommand("/fc accept " + this.id))));
+
+        }
+
 
         if(type == RequestType.PLOT) {
 
@@ -57,6 +87,14 @@ public class Request {
     }
 
     public void acceptRequest(){
+
+        if(this.type == RequestType.CLAIM){
+            Plot plot = Plot.claimPlot(plotId, receiver.getUniqueId());
+            GamePlayer.getPlayer(receiver.getUniqueId()).removeRequest(this);
+            receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                    .append(Component.text("Tu as obtenu la zone. Amuses-toi bien !!").color(NamedTextColor.WHITE)));
+
+        }
 
         if(this.type == RequestType.PLOT){
 

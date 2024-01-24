@@ -1,6 +1,7 @@
 package fr.torahime.freecube.models;
 
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
+import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.musics.Music;
@@ -19,12 +20,13 @@ public class Plot {
 
     private static HashMap<Integer, Plot> plots = new HashMap<>();
 
-    private String name;
     private int id;
+    private String name;
     private Location spawn;
     private Hours hour = Hours.TWELVE;
     private Weather weather = Weather.CLEAR;
     private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
+    private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
     private PreferencesMap preferences = new PreferencesMap();
     private InteractionsMap interactions = new InteractionsMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
@@ -67,13 +69,16 @@ public class Plot {
         return null;
     }
 
-    public MusicTransmitter getMusicTransmitter(MusicTransmitter musicTransmitter) {
-        for (MusicTransmitter mt : musicTransmitters) {
-            if (mt == musicTransmitter) {
-                return mt;
-            }
-        }
-        return null;
+    public ArrayList<EntityGenerator> getEntityGenerators() {
+        return entityGenerators;
+    }
+
+    public void addEntityGenerator(EntityGenerator entityGenerator) {
+        entityGenerators.add(entityGenerator);
+    }
+
+    public void removeEntityGenerator(EntityGenerator entityGenerator) {
+        entityGenerators.remove(entityGenerator);
     }
 
     public ArrayList<MusicTransmitter> getMusicTransmitters() {
@@ -81,9 +86,11 @@ public class Plot {
     }
 
     public void addMusicTransmitter(MusicTransmitter musicTransmitter) {
-        musicTransmitters.add(musicTransmitter);
-    }
+        if(musicTransmitters.size() < 8){
+            musicTransmitters.add(musicTransmitter);
+        }
 
+    }
     public void removeMusicTransmitter(MusicTransmitter musicTransmitter) {
         musicTransmitters.remove(musicTransmitter);
     }

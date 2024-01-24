@@ -122,6 +122,11 @@ public class ItemBuilder {
         return this.setMeta(meta);
     }
 
+    public ItemBuilder addUnsafeEnchant(final Enchantment enchantment, final int level) {
+        this.item.addUnsafeEnchantment(enchantment, level);
+        return this;
+    }
+
     public ItemBuilder addItemFlags(final ItemFlag... itemFlags) {
         final ItemMeta meta = this.item.getItemMeta();
         meta.addItemFlags(itemFlags);

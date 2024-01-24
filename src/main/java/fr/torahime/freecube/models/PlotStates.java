@@ -5,6 +5,9 @@ import org.bukkit.GameMode;
 
 public enum PlotStates {
 
+    LOW("Faible", NamedTextColor.RED, null),
+    MEDIUM("Moyen", NamedTextColor.YELLOW, null),
+    HIGH("Élevée", NamedTextColor.GREEN, null),
     ACTIVATE("Activer", NamedTextColor.GREEN, false),
     DEACTIVATE("Désactiver", NamedTextColor.RED, true),
     SURVIVAL("Survie", NamedTextColor.WHITE, null, GameMode.SURVIVAL),
@@ -54,6 +57,9 @@ public enum PlotStates {
             case SURVIVAL -> CREATIVE;
             case CREATIVE -> ADVENTURE;
             case ADVENTURE -> SURVIVAL;
+            case LOW -> MEDIUM;
+            case MEDIUM -> HIGH;
+            case HIGH -> LOW;
         };
 
     }
