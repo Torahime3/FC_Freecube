@@ -21,4 +21,4 @@ Special thanks to [Alexandre](https://github.com/Alexandre-slw) for help with th
 
 ## Licence
 
-This project is under the terms of the MIT license. See the [LICENSE](LICENSE.md) file for more details.
+This project is under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
