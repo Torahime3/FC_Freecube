@@ -1,4 +1,8 @@
-# Funcraft Freecube (WIP)
+## Licence
+
+⚠️This repositoryq is temporarily public and may only be used for reference purposes. Any unauthorized use or redistribution is strictly prohibited until further notice. Please respect copyrights.⚠️
+
+## Funcraft Freecube (WIP)
 
 As an old player of the freecube of Funcraft _(largest French minecraft server since its closure in August 2023)_.<br>
 I decided to recreate it identically in Minecraft 1.20.2. <br>
@@ -18,7 +22,3 @@ I'm working on it !
 ## Contributing
 
 Special thanks to [Alexandre](https://github.com/Alexandre-slw) for help with the plot generation and recognition algorithm
-
-## Licence
-
-This project is under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
