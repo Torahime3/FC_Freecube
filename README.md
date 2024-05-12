@@ -10,6 +10,14 @@ This is an improved version of the original freecube, with more features. <br>
 The freecube itself has already been 100% recreated, but some details like ranks and the friend system are still missing.
 I'm working on it !
 
+## TODO
+
+- [ ] Fix the chat system (broadcast)
+- [ ] Add the friend system
+- [ ] Add the rank system
+- [ ] Add the report system
+- [ ] Save the data
+
 ## Original Features
 
 - [x] All the new blocks of the 1.20

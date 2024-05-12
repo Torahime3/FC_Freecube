@@ -31,17 +31,17 @@ public class PlayerSessionListener implements Listener {
 
         Player player = event.getPlayer();
         GamePlayer gp = GamePlayer.getPlayer(player);
-        Location respawn;
+        Location respawnLocation;
 
         if(Plot.getPlot(gp.getOverPlotId()) != null){
             Plot plot = Plot.getPlot(gp.getOverPlotId());
-            respawn = plot.getSpawn();
+            respawnLocation = plot.getSpawn();
         } else {
-            respawn = PlotIdentifier.getPlotCenterLocation(0);
+            respawnLocation = PlotIdentifier.getPlotCenterLocation(0);
         }
 
         Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), ()
-                -> init(player, respawn), 1);
+                -> init(player, respawnLocation), 1);
 
     }
 
