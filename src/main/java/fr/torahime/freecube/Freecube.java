@@ -59,7 +59,7 @@ public final class Freecube extends JavaPlugin {
     public void initListeners(){
         getServer().getPluginManager().registerEvents(new PlayerSessionListener(), this);
         getServer().getPluginManager().registerEvents(new WorldProtectionListener(), this);
-        getServer().getPluginManager().registerEvents(new PlotEnterListener(), this);
+        getServer().getPluginManager().registerEvents(new PlotBoundaryListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new DamageListener(), this);
@@ -71,7 +71,7 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InteractionsListener(), this);
 
         //Game Settings
-        getServer().getPluginManager().registerEvents(new ExposionListener(), this);
+        getServer().getPluginManager().registerEvents(new ExplosionListener(), this);
     }
 
     public void initWorld(){

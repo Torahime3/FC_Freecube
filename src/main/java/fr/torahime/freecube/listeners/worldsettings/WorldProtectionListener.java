@@ -1,5 +1,8 @@
 package fr.torahime.freecube.listeners.worldsettings;
 
+import fr.torahime.freecube.models.ForbiddenItem;
+import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -32,9 +35,9 @@ public class WorldProtectionListener implements Listener {
         if(event.getPlayer().isOp()) return;
         if(event.getItem() == null) return;
 
-        for(ForbiddenItem forbiddenPlayerUseItem : ForbiddenItem.values()){
-            if(event.getItem().getType() == forbiddenPlayerUseItem.getMaterial() && (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)){
-                if(forbiddenPlayerUseItem.canBeUsedInADispenser()){
+        for(ForbiddenItem forbiddenItem : ForbiddenItem.values()){
+            if(event.getItem().getType() == forbiddenItem.getMaterial() && (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)){
+                if(forbiddenItem.canBeUsedInADispenser()){
                     event.getPlayer().sendMessage(Component.text("Item interdit, mais tu peux l'utiliser dans un dispenser!").color(NamedTextColor.RED));
                 } else {
                     event.getPlayer().sendMessage(Component.text("Item interdit.").color(NamedTextColor.RED));
@@ -290,6 +293,11 @@ public class WorldProtectionListener implements Listener {
                     .append(Component.text("\nSi tu souhaites construire, rends-toi dans l'une de tes zones, ou trouve une nouvelle zone: ").color(NamedTextColor.WHITE))
                     .append(Component.text("/fc claim").color(NamedTextColor.AQUA)));
 
+            event.setCancelled(true);
+        }
+
+        //If player is an associate, he can't build
+        if(Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation())).getMemberRole(player.getUniqueId()) == PlotRoles.ASSOCIATE){
             event.setCancelled(true);
         }
 

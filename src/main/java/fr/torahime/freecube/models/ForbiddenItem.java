@@ -1,4 +1,4 @@
-package fr.torahime.freecube.listeners.worldsettings;
+package fr.torahime.freecube.models;
 
 import org.bukkit.Material;
 

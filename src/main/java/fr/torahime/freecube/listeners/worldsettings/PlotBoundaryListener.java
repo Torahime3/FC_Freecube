@@ -4,6 +4,8 @@ import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -15,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class PlotEnterListener implements Listener {
+public class PlotBoundaryListener implements Listener {
 
     @EventHandler
     public void onPlayerUpdateOnPlot(PlotUpdateEvent event){
@@ -51,12 +53,14 @@ public class PlotEnterListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if(!PlotIdentifier.isInPlot(player.getLocation()) && !GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()){
+//        Plot Quit
+        if (!PlotIdentifier.isInPlot(player.getLocation()) && !GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()) {
             Bukkit.getPluginManager().callEvent(new PlotQuitEvent(event.getPlayer()));
             GamePlayer.getPlayer(player.getUniqueId()).setOverPlotId(-1);
         }
 
-        if(PlotIdentifier.isInPlot(player.getLocation()) && GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()){
+//        Plot Enter
+        if (PlotIdentifier.isInPlot(player.getLocation()) && GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()) {
             Bukkit.getPluginManager().callEvent(new PlotEnterEvent(event.getPlayer()));
             GamePlayer.getPlayer(player.getUniqueId()).setOverPlotId(PlotIdentifier.getPlotIndex(player.getLocation()));
         }

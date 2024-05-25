@@ -16,9 +16,8 @@ public class DamageListener implements Listener {
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event){
 
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player defender)) return;
 
-        Player defender = (Player) event.getEntity();
         Entity damager = event.getDamager();
 
         if (!PlotIdentifier.isInPlot(defender.getLocation())) {
