@@ -4,15 +4,21 @@ import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.*;
+import fr.torahime.freecube.listeners.plots.DamageListener;
 import fr.torahime.freecube.listeners.worldsettings.*;
 import fr.torahime.freecube.listeners.plots.InteractionsListener;
 import fr.torahime.freecube.listeners.plots.PreferencesListener;
 import org.bukkit.*;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
 public final class Freecube extends JavaPlugin {
+
+    public static Plugin getInstance() {
+        return Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube"));
+    }
 
     @Override
     public void onEnable() {
@@ -56,6 +62,7 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlotEnterListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
+        getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
         //Preferences
         getServer().getPluginManager().registerEvents(new PreferencesListener(), this);

@@ -4,9 +4,9 @@ import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
-import fr.torahime.freecube.models.musics.Music;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
+import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.models.weather.Weather;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -27,6 +27,7 @@ public class Plot {
     private Weather weather = Weather.CLEAR;
     private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
     private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
+    private ArrayList<PvpArea> pvpAreas = new ArrayList<>();
     private PreferencesMap preferences = new PreferencesMap();
     private InteractionsMap interactions = new InteractionsMap();
     private HashMap<UUID, PlotRoles> members = new HashMap<>();
@@ -58,6 +59,18 @@ public class Plot {
         GamePlayer.getPlayer(playerUUID).addPlot(this);
         this.updateAllPlayersOverPlot();
         return true;
+    }
+
+    public void addPvpArea(PvpArea pvpArea){
+        this.pvpAreas.add(pvpArea);
+    }
+
+    public void removePvpArea(PvpArea pvpArea){
+        this.pvpAreas.remove(pvpArea);
+    }
+
+    public ArrayList<PvpArea> getPvpAreas() {
+        return pvpAreas;
     }
 
     public MusicTransmitter getMusicTransmitterByLocation(Location location) {

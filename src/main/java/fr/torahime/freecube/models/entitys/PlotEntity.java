@@ -7,8 +7,6 @@ import org.bukkit.entity.EntityType;
 
 public enum PlotEntity {
 
-    //Put all lviing entity here (except player), only peaceful entity are allowed, with their name, their corresponding spawn egg material, and their corresponding entity class
-    //Example: COW("Vache", Material.COW_SPAWN_EGG, EntityType.COW)
 
     AXOLOTL("Axolotl", Material.AXOLOTL_SPAWN_EGG, EntityType.AXOLOTL),
     BAT("Chauve-souris", Material.BAT_SPAWN_EGG, EntityType.BAT),

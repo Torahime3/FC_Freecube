@@ -13,10 +13,13 @@ I'm working on it !
 ## TODO
 
 - [ ] Fix the chat system (broadcast)
-- [ ] Add the friend system
-- [ ] Add the rank system
-- [ ] Add the report system
-- [ ] Save the data
+- [ ] Friend system
+- [ ] Rank system
+- [ ] Report system
+- [ ] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
+- [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
+- [ ] Data storage system
+- [ ] Request lifecycle management
 
 ## Original Features
 
@@ -24,8 +27,6 @@ I'm working on it !
 - [x] Ability to add music transmitters to the plot
 - [x] Ability to add zones generating passive mobs
 - [x] Custom weathers (rain, snow, thunder)
-- [ ] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
-- [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
 
 ## Contributing
 

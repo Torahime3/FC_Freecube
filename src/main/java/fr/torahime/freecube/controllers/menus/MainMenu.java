@@ -9,6 +9,7 @@ import fr.torahime.freecube.controllers.menus.plots.settings.hoursweather.HoursW
 import fr.torahime.freecube.controllers.menus.plots.settings.interaction.InteractionsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.music.MusicMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.preference.PreferencesMenu;
+import fr.torahime.freecube.controllers.menus.plots.settings.pvp.PvpMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
@@ -82,6 +83,10 @@ public class MainMenu extends Menu {
             plotEntityEgg.setDisplayName(Component.text("Entitées de la zone").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
             plotEntityEgg.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les générateurs à entitées de la zone").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
 
+            ItemBuilder plotPvpSword = new ItemBuilder(Material.DIAMOND_SWORD);
+            plotPvpSword.setDisplayName(Component.text("Zone pvp").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            plotPvpSword.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour " + (plot.isPlayerPresent(this.player.getUniqueId()) ? "modifier" : "voir")).color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false), Component.text("les zones pvp actives").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+
             ItemBuilder plotMoreCmdsBook = new ItemBuilder(Material.BOOK);
             plotMoreCmdsBook.setDisplayName(Component.text("Commandes supplémentaires").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
             plotMoreCmdsBook.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Éjecter un invité de la zone:").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false),
@@ -99,21 +104,25 @@ public class MainMenu extends Menu {
                 plotPreferenceCraftTable.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
                 plotHourClock.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
                 plotInteractionsChest.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
+                plotMusicsJukeBox.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
+                plotEntityEgg.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
+                plotPvpSword.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
             }
 
             this.addItem(plotInfoGrassBlock.getItem(), 18);
-            this.addItem(plotSpawnSunflower.getItem(), 20, () -> {
+            this.addItem(plotSpawnSunflower.getItem(), 19, () -> {
                 this.player.teleport(plot.getSpawn());
                 this.player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                         .append(Component.text("Tu as été téléporté au spawn de la zone").color(NamedTextColor.WHITE)));
             });
-            this.addItem(plotPreferenceCraftTable.getItem(), 21, () -> {
+            this.addItem(plotPreferenceCraftTable.getItem(), 20, () -> {
                 new PreferencesMenu(this.player, plot, this).openMenu();
             });
-            this.addItem(plotHourClock.getItem(), 22, () -> new HoursWeatherMenu(player, plot, this).openMenu());
-            this.addItem(plotInteractionsChest.getItem(), 23, () -> new InteractionsMenu(player, plot, this).openMenu());
-            this.addItem(plotMusicsJukeBox.getItem(), 24, () -> new MusicMenu(player, plot, this).openMenu());
-            this.addItem(plotEntityEgg.getItem(), 25, () -> new EntityMenu(player, plot, this).openMenu());
+            this.addItem(plotHourClock.getItem(), 21, () -> new HoursWeatherMenu(player, plot, this).openMenu());
+            this.addItem(plotInteractionsChest.getItem(), 22, () -> new InteractionsMenu(player, plot, this).openMenu());
+            this.addItem(plotMusicsJukeBox.getItem(), 23, () -> new MusicMenu(player, plot, this).openMenu());
+            this.addItem(plotEntityEgg.getItem(), 24, () -> new EntityMenu(player, plot, this).openMenu());
+            this.addItem(plotPvpSword.getItem(), 25, () -> new PvpMenu(player, plot, this).openMenu());
             this.addItem(plotMoreCmdsBook.getItem(), 26);
 
             int headIndex = (4 * 9);

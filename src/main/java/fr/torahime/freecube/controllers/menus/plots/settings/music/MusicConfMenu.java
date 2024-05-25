@@ -32,7 +32,7 @@ public class MusicConfMenu extends Menu {
         ItemBuilder deleteMusicTransmitter = new ItemBuilder(Material.BARRIER);
         deleteMusicTransmitter.setDisplayName(Component.text("Supprimer l'émetteur").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.RED));
         deleteMusicTransmitter.setLore(Component.empty(),
-                Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour supprimer l'émetteur de musique.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));;
+                Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour supprimer l'émetteur de musique.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
 
         ItemBuilder musicTeleporter = new ItemBuilder(Material.COMPASS);
         musicTeleporter.setDisplayName(Component.text("Se téléporter à l'émetteur").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));

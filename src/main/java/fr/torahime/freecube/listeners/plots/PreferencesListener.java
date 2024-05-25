@@ -5,7 +5,9 @@ import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.preferences.Preference;
+import fr.torahime.freecube.models.weather.Weather;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -52,27 +54,28 @@ public class PreferencesListener implements Listener{
             Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
             CraftPlayer craftPlayer = (CraftPlayer) player;
 
-//            if(plot.getHour() != Hours.TWELVE) {
-//
-//                ClientboundSetTimePacket timePacket = new ClientboundSetTimePacket(plot.getHour().getTick(), plot.getHour().getTick(), false);
-//                craftPlayer.getHandle().connection.send(timePacket);
-//            }
-//
-//            if(plot.getWeather() == Weather.DOWNFALL ) {
-//
-//                ClientboundGameEventPacket weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.START_RAINING, 1);
-//                craftPlayer.getHandle().connection.send(weatherPacket);
-//                weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, 1);
-//                craftPlayer.getHandle().connection.send(weatherPacket);
-//
-//            } else if(plot.getWeather() == Weather.CLEAR){
-//
-//                ClientboundGameEventPacket weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.STOP_RAINING, 1);
-//                craftPlayer.getHandle().connection.send(weatherPacket);
-//                weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, 0);
-//                craftPlayer.getHandle().connection.send(weatherPacket);
-//
-//            }
+//            TODO: FIX THIS, WHEN PLAYER WANT TO SET THE HOURS TO TWELVE IS DOES NOT WORK
+            if(plot.getHour() != Hours.TWELVE) {
+
+                ClientboundSetTimePacket timePacket = new ClientboundSetTimePacket(plot.getHour().getTick(), plot.getHour().getTick(), false);
+                craftPlayer.getHandle().connection.send(timePacket);
+            }
+
+            if(plot.getWeather() == Weather.DOWNFALL ) {
+
+                ClientboundGameEventPacket weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.START_RAINING, 1);
+                craftPlayer.getHandle().connection.send(weatherPacket);
+                weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, 1);
+                craftPlayer.getHandle().connection.send(weatherPacket);
+
+            } else if(plot.getWeather() == Weather.CLEAR){
+
+                ClientboundGameEventPacket weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.STOP_RAINING, 1);
+                craftPlayer.getHandle().connection.send(weatherPacket);
+                weatherPacket = new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, 0);
+                craftPlayer.getHandle().connection.send(weatherPacket);
+
+            }
 
             if(onEnter && !plot.getMusicTransmitters().isEmpty()){
                 GamePlayer gamePlayer = GamePlayer.getPlayer(player.getUniqueId());
