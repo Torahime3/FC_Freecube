@@ -12,11 +12,13 @@ I'm working on it !
 
 ## TODO
 
+- [ ] Fix the permissions on the entity generator and the pvp areas
+- [ ] Fix the double message when player get teleported to the spawn of plot
 - [ ] Fix the chat system (broadcast)
 - [ ] Friend system
 - [ ] Rank system
 - [ ] Report system
-- [ ] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
+- [x] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
 - [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
 - [ ] Data storage system
 - [ ] Request lifecycle management

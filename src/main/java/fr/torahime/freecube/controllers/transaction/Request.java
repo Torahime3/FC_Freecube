@@ -41,6 +41,10 @@ public class Request {
 
     public void sendRequest(){
 
+        if(sender == null || receiver == null){
+            return;
+        }
+
         GamePlayer.getPlayer(receiver.getUniqueId()).addRequest(this);
 
         Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), () -> {
@@ -50,10 +54,6 @@ public class Request {
                         .append(Component.text("La demande a expiré.").color(NamedTextColor.RED)));
             }
         }, this.type.getLifetime() * 20L);
-
-        if(sender == null || receiver == null){
-            return;
-        }
 
         if(type == RequestType.CLAIM){
 
@@ -89,7 +89,7 @@ public class Request {
     public void acceptRequest(){
 
         if(this.type == RequestType.CLAIM){
-            Plot plot = Plot.claimPlot(plotId, receiver.getUniqueId());
+            Plot.claimPlot(plotId, receiver.getUniqueId());
             GamePlayer.getPlayer(receiver.getUniqueId()).removeRequest(this);
             receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as obtenu la zone. Amuses-toi bien !!").color(NamedTextColor.WHITE)));

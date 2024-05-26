@@ -1,6 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.pvp;
 
 import fr.torahime.freecube.controllers.menus.Menu;
+import fr.torahime.freecube.controllers.menus.plots.settings.entity.EntityConfMenu;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.models.roles.PlotRoles;
@@ -49,7 +50,7 @@ public class PvpMenu extends Menu {
             });
         }
 
-        int index = 1;
+        int index = plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY ? 1 : 0;
         for(PvpArea pa : plot.getPvpAreas()){
 
             ItemBuilder diamondSword = new ItemBuilder(Material.DIAMOND_SWORD);
@@ -68,12 +69,16 @@ public class PvpMenu extends Menu {
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY || plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF){
                 diamondSword.addLore(Component.empty(),
-                        Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer le générateur d'entités.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+                        Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer la zone pvp.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
             }
 
-            this.addItem(diamondSword.getItem(), index, () -> {
-                new PvpConfMenu(player, plot, pa, this).openMenu();
-            });
+            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+                this.addItem(diamondSword.getItem(), index, () -> {
+                    new PvpConfMenu(player, plot, pa, this).openMenu();
+                });
+            } else {
+                this.addItem(diamondSword.getItem(), index);
+            }
 
             index++;
         }

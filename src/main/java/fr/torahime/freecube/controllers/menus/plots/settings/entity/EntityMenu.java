@@ -54,17 +54,19 @@ public class EntityMenu extends Menu {
 
         }
 
-        int index = 1;
+        int index = plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY ? 1 : 0;
         for(EntityGenerator eg : plot.getEntityGenerators()){
             ItemBuilder entityItem = new ItemBuilder(eg.getEntity().getSpawnEggMaterial());
             entityItem.setDisplayName(Component.text("Générateur de " + eg.getEntity().getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
             entityItem.setLore(
                     Component.text("Position A:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.isValidA() ? " X:" + eg.getA_X() + " Y:" + eg.getA_Y() + " Z:" + eg.getA_Z() : " Position A non définie.").color(NamedTextColor.WHITE)),
                     Component.text("Position B:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.isValidB() ? " X:" + eg.getB_X() + " Y:" + eg.getB_Y() + " Z:" + eg.getB_Z() : " Position B non définie.").color(NamedTextColor.WHITE)),
-                    Component.text("Taille de la zone: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.getTotalBlocks() + " blocs.").color(NamedTextColor.WHITE)),
-                    Component.empty(),
-                    Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer le générateur d'entités.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+                    Component.text("Taille de la zone: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.getTotalBlocks() + " blocs.").color(NamedTextColor.WHITE)));
 
+            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY || plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF){
+                entityItem.addLore(Component.empty(),
+                        Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer le générateur d'entités.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+            }
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
                 this.addItem(entityItem.getItem(), index, () -> {
