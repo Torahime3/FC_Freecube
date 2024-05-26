@@ -1,5 +1,7 @@
 package fr.torahime.freecube.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
@@ -9,6 +11,7 @@ import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.models.weather.Weather;
+import fr.torahime.freecube.services.plots.PlotService;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,21 +23,21 @@ public class Plot {
 
     private static HashMap<Integer, Plot> plots = new HashMap<>();
 
-    private int id;
-    private String name;
-    private Location spawn;
-    private Hours hour = Hours.TWELVE;
-    private Weather weather = Weather.CLEAR;
-    private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
-    private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
-    private ArrayList<PvpArea> pvpAreas = new ArrayList<>();
-    private PreferencesMap preferences = new PreferencesMap();
-    private InteractionsMap interactions = new InteractionsMap();
-    private HashMap<UUID, PlotRoles> members = new HashMap<>();
+    @Expose @SerializedName("plotId") private int id;
+    @Expose @SerializedName("plotName") private String name;
+    @Expose private Location spawn;
+    @Expose private Hours hour = Hours.TWELVE;
+    @Expose private Weather weather = Weather.CLEAR;
+    @Expose private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
+    @Expose private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
+    @Expose private ArrayList<PvpArea> pvpAreas = new ArrayList<>();
+    @Expose private PreferencesMap preferences = new PreferencesMap();
+    @Expose private InteractionsMap interactions = new InteractionsMap();
+    @Expose private final HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
 
     public Plot(int id, UUID owner) {
-        this.name = "Aucun";
+        this.name = "";
         this.id = id;
         this.spawn = PlotIdentifier.getPlotCenterLocation(id);
         this.addPlayer(owner, PlotRoles.CHIEF);
@@ -45,10 +48,24 @@ public class Plot {
     }
 
     public static Plot claimPlot(int id, UUID owner) {
+
+        //Create the plot
         Plot plot = new Plot(id, owner);
-        plots.put(id, plot);
-        plot.updateAllPlayersOverPlot();
-        return plot;
+
+        PlotService plotService = new PlotService();
+        try {
+            if(plotService.createPlot(plot)){
+                plots.put(id, plot);
+                plot.updateAllPlayersOverPlot();
+                return plot;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public boolean addPlayer(UUID playerUUID, PlotRoles plotRole) {
@@ -196,6 +213,13 @@ public class Plot {
 
     public InteractionsMap getInteractions() {
         return interactions;
+    }
+
+    public boolean save(){
+        System.out.println("Sauvegarde en cours");
+        PlotService plotService = new PlotService();
+        plotService.savePlot(this);
+        return true;
     }
 }
 

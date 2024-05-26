@@ -4,6 +4,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.2.2" // Adds runServer and runMojangMappedServer tasks for testing
 }
 
+
 group = 'fr.torahime'
 version = '1.0.0'
 compileJava.options.encoding = "UTF-8"
@@ -23,6 +24,7 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+    implementation 'com.google.code.gson:gson:2.11.0'
 }
 
 tasks {
@@ -38,8 +40,6 @@ tasks {
     }
 
 }
-
-
 
 def targetJavaVersion = 17
 java {

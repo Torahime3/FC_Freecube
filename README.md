@@ -12,7 +12,8 @@ I'm working on it !
 
 ## TODO
 
-- [ ] Fix the permissions on the entity generator and the pvp areas
+- [ ] Fix the music transmitter (and maybe the entity generator and pvp areas, could not create more than one line in inventory)
+- [x] Fix the permissions on the entity generator and the pvp areas
 - [ ] Fix the double message when player get teleported to the spawn of plot
 - [ ] Fix the chat system (broadcast)
 - [ ] Friend system

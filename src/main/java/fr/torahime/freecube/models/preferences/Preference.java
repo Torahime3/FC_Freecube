@@ -6,10 +6,10 @@ public enum Preference {
 
     FLY("fly", "Voler", new String[]{"Les joueurs peuvent-ils voler dans la","zone ? (Cela n'affecte pas les","associés/membres)"}, Material.FEATHER),
     GAMEMODE("gamemode", "Mode de jeu", new String[]{"Le mode de jeu des joueurs qui entrent","dans la zone ? (Cela n'affecte pas les","associés/membres)"}, Material.DIAMOND_PICKAXE),
-    CLEARINVENTORY("clearinventory","Vider l'inventaire", new String[]{"Vider l'inventaire des joueurs qui","entrent dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.LAVA_BUCKET),
-    SPAWNTP("spawntp","Rejoindre au spawn", new String[]{"Les joueurs qui entrent dans la zone","sont forcément téléportés au spawn de","la zone ? (Cela n'affecte pas les","associés/membres)"}, Material.SUNFLOWER),
-    DROPITEMS("dropitems","Jeter des objets", new String[]{"Les joueurs peuvent-ils jeter des","objets dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.CRAFTING_TABLE),
-    LOOTITEMS("lootitems","Ramasser des objets",new String[]{"Les joueurs peuvent-ils ramasser des","objets dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.FISHING_ROD);
+    CLEARINVENTORY("clearInventory","Vider l'inventaire", new String[]{"Vider l'inventaire des joueurs qui","entrent dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.LAVA_BUCKET),
+    SPAWNTP("spawnTp","Rejoindre au spawn", new String[]{"Les joueurs qui entrent dans la zone","sont forcément téléportés au spawn de","la zone ? (Cela n'affecte pas les","associés/membres)"}, Material.SUNFLOWER),
+    DROPITEMS("dropItems","Jeter des objets", new String[]{"Les joueurs peuvent-ils jeter des","objets dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.CRAFTING_TABLE),
+    LOOTITEMS("lootItems","Ramasser des objets",new String[]{"Les joueurs peuvent-ils ramasser des","objets dans la zone ? (Cela n'affecte","pas les associés/membres)"}, Material.FISHING_ROD);
 
 
     private final String code;

@@ -8,11 +8,17 @@ import fr.torahime.freecube.listeners.plots.DamageListener;
 import fr.torahime.freecube.listeners.worldsettings.*;
 import fr.torahime.freecube.listeners.plots.InteractionsListener;
 import fr.torahime.freecube.listeners.plots.PreferencesListener;
+import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.*;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public final class Freecube extends JavaPlugin {
 
@@ -44,6 +50,7 @@ public final class Freecube extends JavaPlugin {
         mc.addCommandExecutor("invite", new InviteCommand());
         mc.addCommandExecutor("accept", new AcceptCommand());
         mc.addCommandExecutor("setspawn", new SetSpawnCommand());
+        mc.addCommandExecutor("save", new SaveCommand());
 
 
         //Teleport command (/tp <subcommand>)
