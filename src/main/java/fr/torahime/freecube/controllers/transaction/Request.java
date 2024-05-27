@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
 public class Request {
 
@@ -84,6 +85,10 @@ public class Request {
                             .clickEvent(ClickEvent.runCommand("/fc accept " + this.id))));
 
         }
+    }
+
+    public void acceptRequestAsync() {
+        new Thread(this::acceptRequest).start();
     }
 
     public void acceptRequest(){

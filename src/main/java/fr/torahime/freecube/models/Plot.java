@@ -2,6 +2,7 @@ package fr.torahime.freecube.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
@@ -172,14 +173,16 @@ public class Plot {
     }
 
     public void updateAllPlayersOverPlot(){
+        Bukkit.getScheduler().runTask(Freecube.getInstance(), () -> {
+            for(Player p : Bukkit.getOnlinePlayers()){
 
-        for(Player p : Bukkit.getOnlinePlayers()){
+                if(GamePlayer.getPlayer(p).getOverPlotId() == this.id){
+                    Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(p));
 
-            if(GamePlayer.getPlayer(p).getOverPlotId() == this.id){
-                Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(p));
+                }
+
             }
-
-        }
+        });
     }
 
     public Set<UUID> getMembers() {
