@@ -33,7 +33,7 @@ public class AcceptCommand implements CommandExecutor {
             return false;
         }
 
-        request.acceptRequest();
+        request.acceptRequestAsync();
 
 
         return false;

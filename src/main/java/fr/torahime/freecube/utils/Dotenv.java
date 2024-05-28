@@ -1,7 +1,6 @@
 package fr.torahime.freecube.utils;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -12,7 +11,7 @@ public class Dotenv {
 
     public static void load(Logger logger){
         try{
-            InputStream file = Dotenv.class.getResourceAsStream("/.env");
+            File file = new File(".env");
             Scanner sc = new Scanner(file);
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
