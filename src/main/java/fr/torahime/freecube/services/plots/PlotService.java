@@ -16,9 +16,7 @@ import fr.torahime.freecube.services.plots.adapters.*;
 import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.Location;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -28,12 +26,9 @@ import java.util.UUID;
 public class PlotService {
 
     HttpClient client;
-    Dotenv dotenv;
 
     public PlotService() {
         this.client = HttpClient.newHttpClient();
-        this.dotenv = new Dotenv();
-        dotenv.load();
     }
 
     public String convertPlotToJson(Plot plot){
@@ -56,7 +51,7 @@ public class PlotService {
         String json = convertPlotToJson(plot);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format("%sapi/v1/plots", dotenv.get("BASE_API_URL"))))
+                .uri(URI.create(String.format("%sapi/v1/plots", Dotenv.get("BASE_API_URL"))))
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .header("Content-Type", "application/json")
                 .build();
@@ -72,8 +67,9 @@ public class PlotService {
         return false;
     }
 
-    public void savePlot(Plot plot){
+    public void updatePlot(Plot plot){
 
         String json = convertPlotToJson(plot);
+        System.out.println("Plot sauvegardé");
     }
 }

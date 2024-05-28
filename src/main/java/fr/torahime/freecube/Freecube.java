@@ -33,6 +33,8 @@ public final class Freecube extends JavaPlugin {
         initWorld();
         initListeners();
         initCommands();
+
+        Dotenv.load(this.getLogger());
     }
 
     @Override

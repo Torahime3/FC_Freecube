@@ -89,7 +89,12 @@ public class Request {
     public void acceptRequest(){
 
         if(this.type == RequestType.CLAIM){
-            Plot.claimPlot(plotId, receiver.getUniqueId());
+            if(Plot.claimPlot(plotId, receiver.getUniqueId()) == null){
+                receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                        .append(Component.text("Une erreur s'est produite.").color(NamedTextColor.RED)));
+                return;
+            }
+
             GamePlayer.getPlayer(receiver.getUniqueId()).removeRequest(this);
             receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                     .append(Component.text("Tu as obtenu la zone. Amuses-toi bien !!").color(NamedTextColor.WHITE)));

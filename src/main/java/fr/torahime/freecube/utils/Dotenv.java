@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Dotenv {
 
-    private HashMap<String, String> envEntries = new HashMap<>();
+    private static HashMap<String, String> envEntries = new HashMap<>();
 
-    public void load(){
+    public static void load(Logger logger){
         try{
             InputStream file = Dotenv.class.getResourceAsStream("/.env");
             Scanner sc = new Scanner(file);
@@ -17,13 +18,13 @@ public class Dotenv {
                 String line = sc.nextLine();
                 envEntries.put(line.split("=")[0], line.split("=")[1]);
             }
-
+            logger.info("Dotenv loaded successfully");
         } catch (Exception e){
-            e.printStackTrace();
+            logger.warning("Error while loading dotenv file : " + e.getMessage());
         }
     }
 
-    public String get(String key){
+    public static String get(String key){
 
         if(System.getenv(key) == null){
             return envEntries.get(key).replace("\"", "");

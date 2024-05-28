@@ -218,7 +218,7 @@ public class Plot {
     public boolean save(){
         System.out.println("Sauvegarde en cours");
         PlotService plotService = new PlotService();
-        plotService.savePlot(this);
+        plotService.updatePlot(this);
         return true;
     }
 }

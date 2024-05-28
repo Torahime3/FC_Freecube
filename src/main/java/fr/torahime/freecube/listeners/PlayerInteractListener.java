@@ -2,7 +2,11 @@ package fr.torahime.freecube.listeners;
 
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.menus.MainMenu;
+import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.services.plots.PlotService;
 import fr.torahime.freecube.utils.ItemBuilder;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -125,5 +129,21 @@ public class PlayerInteractListener implements Listener {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onPlayerCloseInventory(InventoryCloseEvent event){
+        Player player = (Player) event.getPlayer();
+
+        if(!PlotIdentifier.isInPlot(player.getLocation())) return;
+
+        if(!PlotIdentifier.isMemberOfPlot(player.getLocation(), player.getUniqueId())) return;
+
+        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
+
+        if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+            PlotService plotservice = new PlotService();
+            plotservice.updatePlot(plot);
+        }
     }
 }
