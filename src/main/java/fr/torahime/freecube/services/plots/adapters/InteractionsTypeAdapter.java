@@ -27,7 +27,21 @@ public class InteractionsTypeAdapter extends TypeAdapter<InteractionsMap> {
 
     @Override
     public InteractionsMap read(JsonReader in) throws IOException {
-        return null;
+        InteractionsMap interactionsMap = new InteractionsMap();
+        in.beginObject();
+        while (in.hasNext()) {
+            String name = in.nextName();
+            if (name.equals("disabledInteractions")) {
+                in.beginArray();
+                while (in.hasNext()) {
+                    Interaction interaction = Interaction.valueOf(in.nextString());
+                    interactionsMap.put(interaction, PlotStates.DEACTIVATE);
+                }
+                in.endArray();
+            }
+        }
+        in.endObject();
+        return interactionsMap;
     }
 
 }

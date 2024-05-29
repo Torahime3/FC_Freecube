@@ -30,6 +30,10 @@ public class EntityGenerator extends AreaMaker {
         this(null, null, 300, PlotEntity.COW, PlotStates.LOW);
     }
 
+    public EntityGenerator(Location locationA, Location locationB, PlotEntity entity) {
+        this(locationA, locationB, 300, entity, PlotStates.LOW);
+    }
+
     public EntityGenerator(Location locationA, Location locationB, int MAX_VOLUME, PlotEntity entity, PlotStates frequency) {
         super(locationA, locationB, MAX_VOLUME, Color.AQUA);
         this.entity = entity;

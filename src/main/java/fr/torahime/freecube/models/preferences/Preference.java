@@ -40,5 +40,13 @@ public enum Preference {
         return material;
     }
 
+    public static Preference fromCode(String code){
+        for(Preference preference : values()){
+            if(preference.getCode().equals(code)){
+                return preference;
+            }
+        }
+        return null;
+    }
 
 }

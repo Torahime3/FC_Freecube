@@ -1,5 +1,7 @@
 package fr.torahime.freecube;
 
+import fr.torahime.freecube.commands.admins.plots.ReadCommand;
+import fr.torahime.freecube.commands.admins.plots.SaveCommand;
 import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.PlotChunkGenerator;
@@ -13,12 +15,7 @@ import org.bukkit.*;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 public final class Freecube extends JavaPlugin {
 
@@ -34,7 +31,10 @@ public final class Freecube extends JavaPlugin {
         initListeners();
         initCommands();
 
-        Dotenv.load(this.getLogger());
+        if(Dotenv.get("PRODUCTION") == null){
+            this.getLogger().info("DEVELOPMENT ENVIRONMENT, LOADING .ENV FILE");
+            Dotenv.load();
+        }
     }
 
     @Override
@@ -52,7 +52,10 @@ public final class Freecube extends JavaPlugin {
         mc.addCommandExecutor("invite", new InviteCommand());
         mc.addCommandExecutor("accept", new AcceptCommand());
         mc.addCommandExecutor("setspawn", new SetSpawnCommand());
+
+        //Admin command
         mc.addCommandExecutor("save", new SaveCommand());
+        mc.addCommandExecutor("read", new ReadCommand());
 
 
         //Teleport command (/tp <subcommand>)

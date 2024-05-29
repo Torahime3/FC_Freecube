@@ -18,7 +18,18 @@ public class HoursTypeAdapter extends TypeAdapter<Hours> {
 
     @Override
     public Hours read(JsonReader in) throws IOException {
-        return null;
+        in.beginObject();
+        int ticks = 0;
+        while (in.hasNext()) {
+            String name = in.nextName();
+            switch (name) {
+                case "ticks":
+                    ticks = in.nextInt();
+                    break;
+            }
+        }
+        in.endObject();
+        return Hours.getHourFromTick(ticks);
     }
 
 }

@@ -56,18 +56,22 @@ public class MusicMenu extends Menu {
         }
 
 
-        int index = 1;
+        int index = plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY ? 1 : 0;
         for(MusicTransmitter mt : plot.getMusicTransmitters()){
 
             ItemBuilder musicItem = new ItemBuilder(mt.getMusic().getMaterial());
             musicItem.setDisplayName(Component.text(String.format("X:%s Y:%s Z:%s",Math.round(mt.getLocation().getX()), Math.round(mt.getLocation().getY()), Math.round(mt.getLocation().getZ()))).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
             musicItem.setLore(
                     Component.text("Son:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(" " + mt.getMusic().getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)),
-                    Component.text("Volume:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(" " + mt.getVolume() * 20 + "%").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)),
-                    Component.empty(),
-                    Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer l'émetteur").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+                    Component.text("Volume:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(" " + mt.getVolume() * 20 + "%").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+
+                musicItem.addLore(Component.empty(),
+                        Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer l'émetteur de musique.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+
+
                 this.addItem(musicItem.getItem(), index, () -> {
                     new MusicConfMenu(player, plot, mt, this).openMenu();
                 });

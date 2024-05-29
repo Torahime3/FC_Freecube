@@ -19,7 +19,6 @@ public class PvpArea extends AreaMaker {
         this.rangeWeapon = false;
     }
 
-
     public boolean isPvpEnabled() {
         return isMeleeWeapon() || isRangeWeapon();
     }
