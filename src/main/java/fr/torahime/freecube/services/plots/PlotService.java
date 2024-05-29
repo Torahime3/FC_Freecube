@@ -18,7 +18,6 @@ import fr.torahime.freecube.services.plots.adapters.*;
 import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.Location;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -48,17 +47,33 @@ public class PlotService extends Service implements IService<Plot>{
                 .create();
     }
 
-    public String convertPlotToJson(Plot plot){
-        return gson.toJson(plot);
+    @Override
+    public String convertToJson(Plot object) {
+        return gson.toJson(object);
     }
 
-    public boolean createPlot(Plot plot) {
-        String json = convertPlotToJson(plot);
+    @Override
+    public boolean create(Plot object) {
+        String json = convertToJson(object);
         String url = String.format("%s/api/v1/plots", Dotenv.get("BASE_API_URL"));
         return sendRequest(url, HttpRequest.BodyPublishers.ofString(json), "POST", 201);
     }
 
-    public Plot readPlot(int id) throws IOException, InterruptedException {
+    @Override
+    public boolean update(Plot object) {
+        String json = convertToJson(object);
+        String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), object.getId());
+        return sendRequest(url, HttpRequest.BodyPublishers.ofString(json), "PUT", 201);
+    }
+
+    @Override
+    public boolean delete(Plot object) {
+        String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), object.getId());
+        return sendRequest(url, HttpRequest.BodyPublishers.ofString(""), "DELETE", 200);
+    }
+
+    @Override
+    public Plot get(int id) {
         String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), id);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -70,26 +85,11 @@ public class PlotService extends Service implements IService<Plot>{
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if(response.statusCode() == 200){
                 JsonElement jsonElement = JsonParser.parseString(response.body());
-                System.out.println(jsonElement);
                 return gson.fromJson(jsonElement, Plot.class);
             }
         } catch (Exception e) {
-            logger.severe("HTTP request failed");
-            e.printStackTrace();
+            logger.severe("HTTP request failed -> " + e.getMessage());
         }
         return null;
     }
-
-    public boolean updatePlot(Plot plot) {
-        String json = convertPlotToJson(plot);
-        String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), plot.getId());
-        return sendRequest(url, HttpRequest.BodyPublishers.ofString(json), "PUT", 201);
-    }
-
-    public boolean deletePlot(Plot plot) {
-        String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), plot.getId());
-        return sendRequest(url, HttpRequest.BodyPublishers.ofString(""), "DELETE", 200);
-    }
-
-
 }

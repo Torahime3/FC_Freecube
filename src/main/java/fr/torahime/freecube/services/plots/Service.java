@@ -16,7 +16,7 @@ public class Service {
     }
 
     protected boolean sendRequest(String url, HttpRequest.BodyPublisher bodyPublisher, String method, int expectedStatusCode) {
-        System.out.println(method + " - " + url);
+        logger.info(method + " - " + url + " - (expected ->" + expectedStatusCode + ")");
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest.Builder builder = HttpRequest.newBuilder()
