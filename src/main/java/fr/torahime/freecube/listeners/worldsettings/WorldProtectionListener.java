@@ -48,7 +48,6 @@ public class WorldProtectionListener implements Listener {
         }
     }
 
-
     @EventHandler
     public void onMonsterEggPlaced(PlayerInteractEvent event){
         if(event.getPlayer().isOp()) return;

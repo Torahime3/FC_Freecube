@@ -26,6 +26,27 @@ public class MembersTypeAdapter extends TypeAdapter<HashMap<UUID, PlotRoles>> {
 
     @Override
     public HashMap<UUID, PlotRoles> read(JsonReader in) throws IOException {
-        return null;
+        HashMap<UUID, PlotRoles> members = new HashMap<>();
+        in.beginArray();
+        while (in.hasNext()) {
+            in.beginObject();
+            UUID uuid = null;
+            PlotRoles role = null;
+            while (in.hasNext()) {
+                String name = in.nextName();
+                switch (name) {
+                    case "uuid":
+                        uuid = UUID.fromString(in.nextString());
+                        break;
+                    case "role":
+                        role = PlotRoles.valueOf(in.nextString());
+                        break;
+                }
+            }
+            in.endObject();
+            members.put(uuid, role);
+        }
+        in.endArray();
+        return members;
     }
 }

@@ -24,17 +24,30 @@ public class Plot {
 
     private static HashMap<Integer, Plot> plots = new HashMap<>();
 
-    @Expose @SerializedName("plotId") private int id;
-    @Expose @SerializedName("plotName") private String name;
-    @Expose private Location spawn;
-    @Expose private Hours hour = Hours.TWELVE;
-    @Expose private Weather weather = Weather.CLEAR;
-    @Expose private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
-    @Expose private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
-    @Expose private ArrayList<PvpArea> pvpAreas = new ArrayList<>();
-    @Expose private PreferencesMap preferences = new PreferencesMap();
-    @Expose private InteractionsMap interactions = new InteractionsMap();
-    @Expose private final HashMap<UUID, PlotRoles> members = new HashMap<>();
+    @Expose
+    @SerializedName("plotId")
+    private int id;
+    @Expose
+    @SerializedName("plotName")
+    private String name;
+    @Expose
+    private Location spawn;
+    @Expose
+    private Hours hour = Hours.TWELVE;
+    @Expose
+    private Weather weather = Weather.CLEAR;
+    @Expose
+    private ArrayList<MusicTransmitter> musicTransmitters = new ArrayList<>();
+    @Expose
+    private ArrayList<EntityGenerator> entityGenerators = new ArrayList<>();
+    @Expose
+    private ArrayList<PvpArea> pvpAreas = new ArrayList<>();
+    @Expose
+    private PreferencesMap preferences = new PreferencesMap();
+    @Expose
+    private InteractionsMap interactions = new InteractionsMap();
+    @Expose
+    private final HashMap<UUID, PlotRoles> members = new HashMap<>();
     private final int MAX_MEMBERS = 16;
 
     public Plot(int id, UUID owner) {
@@ -48,22 +61,30 @@ public class Plot {
         return id;
     }
 
-    public static Plot claimPlot(int id, UUID owner) {
+    public static Plot claimPlot(int id, UUID owner){
+        return claimPlot(id, owner, null);
+    }
 
-        //Create the plot
-        Plot plot = new Plot(id, owner);
+    public static Plot claimPlot(int id, UUID owner, Plot plot) {
 
         PlotService plotService = new PlotService();
-        try {
-            if(plotService.createPlot(plot)){
-                plots.put(id, plot);
-                plot.updateAllPlayersOverPlot();
-                return plot;
-            } else {
-                return null;
+        if(plot == null){
+            try {
+                plot = new Plot(id, owner);
+                if (plotService.createPlot(plot)) {
+                    plots.put(id, plot);
+                    plot.updateAllPlayersOverPlot();
+                    return plot;
+                } else {
+                    return null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            plots.put(id, plot);
+            plot.updateAllPlayersOverPlot();
+            return plot;
         }
 
         return null;
@@ -79,11 +100,11 @@ public class Plot {
         return true;
     }
 
-    public void addPvpArea(PvpArea pvpArea){
+    public void addPvpArea(PvpArea pvpArea) {
         this.pvpAreas.add(pvpArea);
     }
 
-    public void removePvpArea(PvpArea pvpArea){
+    public void removePvpArea(PvpArea pvpArea) {
         this.pvpAreas.remove(pvpArea);
     }
 
@@ -117,11 +138,12 @@ public class Plot {
     }
 
     public void addMusicTransmitter(MusicTransmitter musicTransmitter) {
-        if(musicTransmitters.size() < 8){
+        if (musicTransmitters.size() < 8) {
             musicTransmitters.add(musicTransmitter);
         }
 
     }
+
     public void removeMusicTransmitter(MusicTransmitter musicTransmitter) {
         musicTransmitters.remove(musicTransmitter);
     }
@@ -172,11 +194,11 @@ public class Plot {
         return null;
     }
 
-    public void updateAllPlayersOverPlot(){
+    public void updateAllPlayersOverPlot() {
         Bukkit.getScheduler().runTask(Freecube.getInstance(), () -> {
-            for(Player p : Bukkit.getOnlinePlayers()){
+            for (Player p : Bukkit.getOnlinePlayers()) {
 
-                if(GamePlayer.getPlayer(p).getOverPlotId() == this.id){
+                if (GamePlayer.getPlayer(p).getOverPlotId() == this.id) {
                     Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(p));
 
                 }
@@ -219,7 +241,6 @@ public class Plot {
     }
 
     public boolean save(){
-        System.out.println("Sauvegarde en cours");
         PlotService plotService = new PlotService();
         plotService.updatePlot(this);
         return true;

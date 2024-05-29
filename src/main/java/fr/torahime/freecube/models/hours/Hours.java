@@ -43,6 +43,15 @@ public enum Hours {
         this.rgb = new int[]{0,0,0};
     }
 
+    public static Hours getHourFromTick(int tick) {
+        for (Hours hour : Hours.values()) {
+            if (hour.getTick() == tick) {
+                return hour;
+            }
+        }
+        return null;
+    }
+
     public int getTick() {
         return tick;
     }

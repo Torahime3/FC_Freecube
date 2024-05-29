@@ -63,12 +63,11 @@ public class EntityMenu extends Menu {
                     Component.text("Position B:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.isValidB() ? " X:" + eg.getB_X() + " Y:" + eg.getB_Y() + " Z:" + eg.getB_Z() : " Position B non définie.").color(NamedTextColor.WHITE)),
                     Component.text("Taille de la zone: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(eg.getTotalBlocks() + " blocs.").color(NamedTextColor.WHITE)));
 
-            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY || plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF){
+            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+
                 entityItem.addLore(Component.empty(),
                         Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer le générateur d'entités.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
-            }
 
-            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
                 this.addItem(entityItem.getItem(), index, () -> {
                     new EntityConfMenu(player, plot, eg, this).openMenu();
                 });

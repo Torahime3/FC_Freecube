@@ -1,4 +1,4 @@
-package fr.torahime.freecube.commands.players.plots;
+package fr.torahime.freecube.commands.admins.plots;
 
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -29,6 +29,7 @@ public class SaveCommand implements CommandExecutor {
         Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
 
         plot.save();
+        player.sendMessage(Component.text("Plot saved successfully").color(NamedTextColor.GREEN));
 
         return true;
     }

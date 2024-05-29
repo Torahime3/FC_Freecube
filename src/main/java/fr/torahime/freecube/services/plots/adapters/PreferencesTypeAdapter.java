@@ -12,22 +12,11 @@ import java.util.Map;
 
 public class PreferencesTypeAdapter extends TypeAdapter<PreferencesMap> {
 
-    public String mapStateToLiteralString(PlotStates states){
-        return switch (states) {
-            case ACTIVATE -> "true";
-            case CREATIVE -> "creative";
-            case ADVENTURE -> "adventure";
-            case SURVIVAL -> "survival";
-            default -> "false";
-        };
-    }
-
     @Override
     public void write(JsonWriter out, PreferencesMap value) throws IOException {
         out.beginObject();
         for (Map.Entry<Preference, PlotStates> entry : value.entrySet()) {
-            String key = entry.getKey().toString().toLowerCase();
-            String literalValue = mapStateToLiteralString(entry.getValue());
+            String literalValue = PlotStates.mapStateToLiteralString(entry.getValue());
             out.name(entry.getKey().getCode()).value(literalValue);
         }
         out.endObject();
@@ -35,7 +24,16 @@ public class PreferencesTypeAdapter extends TypeAdapter<PreferencesMap> {
 
     @Override
     public PreferencesMap read(JsonReader in) throws IOException {
-        return null;
+        PreferencesMap preferences = new PreferencesMap();
+        in.beginObject();
+        while (in.hasNext()) {
+            String key = in.nextName();
+            Preference preference = Preference.fromCode(key);
+            PlotStates state = PlotStates.fromLiteralString(in.nextString());
+            preferences.put(preference, state);
+        }
+        in.endObject();
+        return preferences;
     }
 
 }

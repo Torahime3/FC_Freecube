@@ -67,12 +67,11 @@ public class PvpMenu extends Menu {
                 diamondSword.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             }
 
-            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY || plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF){
+            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
                 diamondSword.addLore(Component.empty(),
                         Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour configurer la zone pvp.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
-            }
 
-            if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+
                 this.addItem(diamondSword.getItem(), index, () -> {
                     new PvpConfMenu(player, plot, pa, this).openMenu();
                 });

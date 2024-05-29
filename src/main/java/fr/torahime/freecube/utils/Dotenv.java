@@ -9,9 +9,10 @@ public class Dotenv {
 
     private static HashMap<String, String> envEntries = new HashMap<>();
 
-    public static void load(Logger logger){
+    public static void load(){
+        Logger logger = Logger.getLogger("Freecube | Dotenv");
         try{
-            File file = new File(".env");
+            File file = new File("../.env");
             Scanner sc = new Scanner(file);
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
@@ -26,7 +27,11 @@ public class Dotenv {
     public static String get(String key){
 
         if(System.getenv(key) == null){
-            return envEntries.get(key).replace("\"", "");
+            String value = envEntries.getOrDefault(key, null);
+            if (value != null){
+                return value.replace("\"", "");
+            }
+            return null;
         } else {
             return System.getenv(key);
         }

@@ -49,7 +49,29 @@ public enum PlotStates {
         return color;
     }
 
+    public static PlotStates fromLiteralString(String literal){
+        return switch (literal) {
+            case "true" -> ACTIVATE;
+            case "false" -> DEACTIVATE;
+            case "creative" -> CREATIVE;
+            case "adventure" -> ADVENTURE;
+            case "survival" -> SURVIVAL;
+            default -> LOW;
+        };
+    }
+
+    public static String mapStateToLiteralString(PlotStates states){
+        return switch (states) {
+            case ACTIVATE -> "true";
+            case CREATIVE -> "creative";
+            case ADVENTURE -> "adventure";
+            case SURVIVAL -> "survival";
+            default -> "false";
+        };
+    }
+
     public static PlotStates getInverseState(PlotStates state){
+
 
         return switch(state){
             case ACTIVATE -> DEACTIVATE;

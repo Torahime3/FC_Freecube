@@ -131,19 +131,19 @@ public class PlayerInteractListener implements Listener {
 
     }
 
-    @EventHandler
-    public void onPlayerCloseInventory(InventoryCloseEvent event){
-        Player player = (Player) event.getPlayer();
-
-        if(!PlotIdentifier.isInPlot(player.getLocation())) return;
-
-        if(!PlotIdentifier.isMemberOfPlot(player.getLocation(), player.getUniqueId())) return;
-
-        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
-
-        if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
-            PlotService plotservice = new PlotService();
-            plotservice.updatePlot(plot);
-        }
-    }
+//    SAVE PLOT
+//    @EventHandler
+//    public void onPlayerCloseInventory(InventoryCloseEvent event){
+//        Player player = (Player) event.getPlayer();
+//
+//        if(!PlotIdentifier.isInPlot(player.getLocation())) return;
+//
+//        if(!PlotIdentifier.isMemberOfPlot(player.getLocation(), player.getUniqueId())) return;
+//
+//        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
+//
+//        if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
+//            plot.save();
+//        }
+//    }
 }

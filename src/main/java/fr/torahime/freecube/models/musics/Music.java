@@ -33,6 +33,15 @@ public enum Music {
         this.duration = duration;
     }
 
+    public static Music getMusicFromName(String name) {
+        for (Music music : Music.values()) {
+            if (music.getName().equalsIgnoreCase(name)) {
+                return music;
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return name;
     }

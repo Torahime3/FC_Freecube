@@ -14,4 +14,5 @@ public class PreferencesMap extends HashMap<Preference, PlotStates> {
         this.put(Preference.DROPITEMS, PlotStates.ACTIVATE);
         this.put(Preference.LOOTITEMS, PlotStates.ACTIVATE);
     }
+
 }
