@@ -71,7 +71,7 @@ public class Plot {
         if(plot == null){
             try {
                 plot = new Plot(id, owner);
-                if (plotService.createPlot(plot)) {
+                if (plotService.create(plot)) {
                     plots.put(id, plot);
                     plot.updateAllPlayersOverPlot();
                     return plot;
@@ -242,7 +242,7 @@ public class Plot {
 
     public boolean save(){
         PlotService plotService = new PlotService();
-        plotService.updatePlot(this);
+        plotService.update(this);
         return true;
     }
 }
