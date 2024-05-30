@@ -1,21 +1,16 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.entity;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.LocationType;
-import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.PlotStates;
+import fr.torahime.freecube.models.areamaker.LocationType;
+import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.game.PlotStates;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.entitys.PlotEntity;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Color;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.block.banner.Pattern;
-import org.bukkit.block.banner.PatternType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;

@@ -1,10 +1,10 @@
 package fr.torahime.freecube.listeners.plots;
 
-import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
-import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
-import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
-import fr.torahime.freecube.models.GamePlayer;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotQuitEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotUpdateEvent;
+import fr.torahime.freecube.models.game.GamePlayer;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.preferences.Preference;
 import fr.torahime.freecube.models.weather.Weather;
@@ -13,7 +13,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTimePacket;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-public class PreferencesListener implements Listener{
+public class PlotPreferencesListener implements Listener{
 
     public boolean canApplyPreference(Player player){
 

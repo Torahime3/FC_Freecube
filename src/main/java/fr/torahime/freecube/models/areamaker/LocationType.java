@@ -1,4 +1,4 @@
-package fr.torahime.freecube.models;
+package fr.torahime.freecube.models.areamaker;
 
 public enum LocationType {
     A("A"),

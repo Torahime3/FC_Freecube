@@ -1,7 +1,7 @@
 package fr.torahime.freecube.listeners.worldsettings;
 
-import fr.torahime.freecube.models.ForbiddenItem;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.ForbiddenItem;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;

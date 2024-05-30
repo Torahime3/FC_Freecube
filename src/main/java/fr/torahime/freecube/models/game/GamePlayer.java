@@ -1,7 +1,6 @@
-package fr.torahime.freecube.models;
+package fr.torahime.freecube.models.game;
 
 import com.google.gson.annotations.Expose;
-import fr.torahime.freecube.controllers.GamePlayerLoader;
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.roles.PlotRoles;

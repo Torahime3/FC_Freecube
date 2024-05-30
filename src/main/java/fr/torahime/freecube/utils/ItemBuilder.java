@@ -16,6 +16,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * ItemBuilder class
+ * <p>
+ * This class is used to create ItemStacks with a fluent API.
+ * It allows you to create ItemStacks with a custom name, lore, enchantments, etc.
+ * It also allows you to create colored leather armor and banners.
+ * You can also add patterns to banners.
+ *  </p>
+ * @author Torahime
+ */
 public class ItemBuilder {
 
     private ItemStack item;

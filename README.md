@@ -12,17 +12,18 @@ I'm working on it !
 
 ## TODO
 
-- [ ] Fix the music transmitter (and maybe the entity generator and pvp areas, could not create more than one line in inventory)
+- [x] Data storage system
+- [x] Request lifecycle management
 - [x] Fix the permissions on the entity generator and the pvp areas
-- [ ] Fix the double message when player get teleported to the spawn of plot
-- [ ] Fix the chat system (broadcast)
+- [x] Fix the chat system (broadcast)
+- [x] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
+- [ ] Fix the music transmitter (and maybe the entity generator and pvp areas, could not create more than one line in inventory)
+- [ ] Fix the double message when player get teleported to the spawn of plot (preference called twice or more)
 - [ ] Friend system
 - [ ] Rank system
 - [ ] Report system
-- [x] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
 - [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
-- [ ] Data storage system
-- [ ] Request lifecycle management
+- [ ] Setname on the plot
 
 ## Original Features
 

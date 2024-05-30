@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.services.IService;
 import fr.torahime.freecube.services.Service;
 import fr.torahime.freecube.services.gameplayers.adapters.PlotIDTypeAdapter;

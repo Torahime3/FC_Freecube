@@ -1,4 +1,4 @@
-package fr.torahime.freecube.listeners;
+package fr.torahime.freecube.listeners.players;
 
 import fr.torahime.freecube.controllers.menus.MainMenu;
 import org.bukkit.Material;

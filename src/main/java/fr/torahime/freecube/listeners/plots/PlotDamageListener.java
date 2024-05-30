@@ -1,6 +1,6 @@
 package fr.torahime.freecube.listeners.plots;
 
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.entity.Arrow;
@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class DamageListener implements Listener {
+public class PlotDamageListener implements Listener {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event){

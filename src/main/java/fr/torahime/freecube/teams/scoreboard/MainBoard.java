@@ -1,17 +1,14 @@
 package fr.torahime.freecube.teams.scoreboard;
 
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
-
-import javax.inject.Named;
 
 public class MainBoard {
 

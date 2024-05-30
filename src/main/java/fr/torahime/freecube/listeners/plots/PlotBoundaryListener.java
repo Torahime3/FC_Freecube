@@ -1,12 +1,9 @@
-package fr.torahime.freecube.listeners.worldsettings;
+package fr.torahime.freecube.listeners.plots;
 
-import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
-import fr.torahime.freecube.controllers.customEvents.PlotQuitEvent;
-import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
-import fr.torahime.freecube.models.GamePlayer;
-import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.pvp.PvpArea;
-import fr.torahime.freecube.services.plots.PlotService;
+import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotQuitEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotUpdateEvent;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;

@@ -1,14 +1,13 @@
 package fr.torahime.freecube.controllers.menus;
 
 import fr.torahime.freecube.Freecube;
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;

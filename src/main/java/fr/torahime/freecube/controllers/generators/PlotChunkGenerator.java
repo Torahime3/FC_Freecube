@@ -1,6 +1,5 @@
-package fr.torahime.freecube.controllers;
+package fr.torahime.freecube.controllers.generators;
 
-import fr.torahime.freecube.Freecube;
 import org.bukkit.Material;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.generator.ChunkGenerator;

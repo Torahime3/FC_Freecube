@@ -1,6 +1,6 @@
-package fr.torahime.freecube.listeners;
+package fr.torahime.freecube.listeners.players;
 
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;

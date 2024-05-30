@@ -1,6 +1,6 @@
 package fr.torahime.freecube.commands.players.plots;
 
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;

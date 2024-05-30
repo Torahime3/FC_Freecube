@@ -5,6 +5,17 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/**
+ * Dotenv class
+ * <p>
+ * Load .env file and store it in a hashmap
+ * <b>The system environment variables have priority over the hashmap</b>
+ * If the key is not found in the system environment variables, it will look in the hashmap
+ * If the key is found in the hashmap, it will return the value
+ * If the key is not found in the hashmap, it will return null
+ * </p>
+ * @author Torahime
+ */
 public class Dotenv {
 
     private static HashMap<String, String> envEntries = new HashMap<>();

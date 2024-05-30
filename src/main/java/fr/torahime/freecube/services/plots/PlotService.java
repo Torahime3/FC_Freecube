@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;

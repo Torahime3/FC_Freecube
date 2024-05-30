@@ -1,8 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.pvp;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.controllers.menus.plots.settings.entity.EntityConfMenu;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;

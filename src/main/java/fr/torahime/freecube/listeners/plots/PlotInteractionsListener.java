@@ -1,7 +1,7 @@
 package fr.torahime.freecube.listeners.plots;
 
-import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.PlotStates;
+import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.game.PlotStates;
 import fr.torahime.freecube.models.interactions.Interaction;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -12,7 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class InteractionsListener implements Listener {
+public class PlotInteractionsListener implements Listener {
 
     public boolean canApplyInteractions(Player player, PlayerInteractEvent event){
 

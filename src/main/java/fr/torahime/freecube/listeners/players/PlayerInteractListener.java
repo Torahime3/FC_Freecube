@@ -1,12 +1,7 @@
-package fr.torahime.freecube.listeners;
+package fr.torahime.freecube.listeners.players;
 
 import fr.torahime.freecube.Freecube;
-import fr.torahime.freecube.controllers.menus.MainMenu;
-import fr.torahime.freecube.models.Plot;
-import fr.torahime.freecube.models.roles.PlotRoles;
-import fr.torahime.freecube.services.plots.PlotService;
 import fr.torahime.freecube.utils.ItemBuilder;
-import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -16,12 +11,10 @@ import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 

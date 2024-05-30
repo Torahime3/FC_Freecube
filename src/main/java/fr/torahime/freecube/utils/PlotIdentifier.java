@@ -1,6 +1,6 @@
 package fr.torahime.freecube.utils;
 
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -8,6 +8,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
+ * PlotIdentifier class
+ * <p>
+ * This class is used to identify plots and their properties
+ * It allows you to check if a location is in a plot, if a plot is claimed, if a player is a member of a plot, etc.
+ * It also allows you to get the center location of a plot, the chunk coordinates of a plot, etc.
+ * </p>
  * @author Alexandre
  */
 public class PlotIdentifier {

@@ -1,9 +1,8 @@
 package fr.torahime.freecube.controllers.transaction;
 
-import fr.torahime.freecube.models.GamePlayer;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.GamePlayer;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
-import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -14,8 +13,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.Callable;
 
 public class Request {
 

@@ -4,12 +4,13 @@ import fr.torahime.freecube.commands.admins.plots.ReadCommand;
 import fr.torahime.freecube.commands.admins.plots.SaveCommand;
 import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
-import fr.torahime.freecube.controllers.PlotChunkGenerator;
-import fr.torahime.freecube.listeners.*;
-import fr.torahime.freecube.listeners.plots.DamageListener;
+import fr.torahime.freecube.controllers.generators.PlotChunkGenerator;
+import fr.torahime.freecube.listeners.players.*;
+import fr.torahime.freecube.listeners.plots.PlotDamageListener;
+import fr.torahime.freecube.listeners.plots.PlotBoundaryListener;
 import fr.torahime.freecube.listeners.worldsettings.*;
-import fr.torahime.freecube.listeners.plots.InteractionsListener;
-import fr.torahime.freecube.listeners.plots.PreferencesListener;
+import fr.torahime.freecube.listeners.plots.PlotInteractionsListener;
+import fr.torahime.freecube.listeners.plots.PlotPreferencesListener;
 import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.*;
 import org.bukkit.plugin.Plugin;
@@ -76,16 +77,16 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerPlotSaverListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerOpenFCMainMenuListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
-        getServer().getPluginManager().registerEvents(new DamageListener(), this);
+        getServer().getPluginManager().registerEvents(new PlotDamageListener(), this);
 
         //Preferences
-        getServer().getPluginManager().registerEvents(new PreferencesListener(), this);
+        getServer().getPluginManager().registerEvents(new PlotPreferencesListener(), this);
 
         //Interactions
-        getServer().getPluginManager().registerEvents(new InteractionsListener(), this);
+        getServer().getPluginManager().registerEvents(new PlotInteractionsListener(), this);
 
         //Game Settings
-        getServer().getPluginManager().registerEvents(new ExplosionListener(), this);
+        getServer().getPluginManager().registerEvents(new WorldExplosionListener(), this);
     }
 
     public void initWorld(){

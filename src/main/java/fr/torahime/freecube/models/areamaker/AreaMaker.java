@@ -1,4 +1,4 @@
-package fr.torahime.freecube.models;
+package fr.torahime.freecube.models.areamaker;
 
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.utils.ItemBuilder;

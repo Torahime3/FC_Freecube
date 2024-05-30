@@ -1,4 +1,4 @@
-package fr.torahime.freecube.models;
+package fr.torahime.freecube.models.game;
 
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
@@ -71,7 +71,6 @@ public enum PlotStates {
     }
 
     public static PlotStates getInverseState(PlotStates state){
-
 
         return switch(state){
             case ACTIVATE -> DEACTIVATE;

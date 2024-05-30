@@ -1,7 +1,7 @@
 package fr.torahime.freecube.models.interactions;
 
 import fr.torahime.freecube.controllers.menus.plots.settings.interaction.Category;
-import fr.torahime.freecube.models.PlotStates;
+import fr.torahime.freecube.models.game.PlotStates;
 import org.bukkit.Material;
 
 import java.util.ArrayList;

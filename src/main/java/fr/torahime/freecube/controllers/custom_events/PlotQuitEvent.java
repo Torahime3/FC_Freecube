@@ -1,4 +1,4 @@
-package fr.torahime.freecube.controllers.customEvents;
+package fr.torahime.freecube.controllers.custom_events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
