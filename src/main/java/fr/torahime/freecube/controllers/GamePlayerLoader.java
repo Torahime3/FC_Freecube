@@ -37,7 +37,6 @@ public class GamePlayerLoader {
     public static void savePlayerData(Player player){
         GamePlayerService gamePlayerService = new GamePlayerService();
         GamePlayer gp = GamePlayer.getPlayer(player.getUniqueId());
-        System.out.println("quitSavePlayerData - " + gp.getPlots().size());
         gamePlayerService.update(gp);
     }
 

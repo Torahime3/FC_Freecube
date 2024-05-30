@@ -26,6 +26,8 @@ public class GamePlayer {
     private boolean generalChatActive;
     private Player lastPlayerWhoMessaged;
     private ArrayList<Request> pendingRequests;
+    private boolean isOpeningFreecubeMenu;
+    private boolean isCurrentMenuFreecube;
 
 //    Method for when the gameplayer is loaded from the database
     public void initializeGamePlayer(){
@@ -38,6 +40,8 @@ public class GamePlayer {
         this.overPlotId = -1;
         this.generalChatActive = true;
         this.lastPlayerWhoMessaged = null;
+        this.isOpeningFreecubeMenu = false;
+        this.isCurrentMenuFreecube = false;
     }
     //Constructor
     public GamePlayer(UUID uuid){
@@ -45,10 +49,11 @@ public class GamePlayer {
         this.overPlotId = -1;
         this.generalChatActive = true;
         this.lastPlayerWhoMessaged = null;
+        this.isOpeningFreecubeMenu = false;
+        this.isCurrentMenuFreecube = false;
         this.plots = new ArrayList<>();
         this.pendingRequests = new ArrayList<>();
         this.plotsIds = new ArrayList<>();
-
     }
 
     public Player getPlayer(){
@@ -74,6 +79,22 @@ public class GamePlayer {
 
     public static void addGamePlayer(UUID uuid, GamePlayer gamePlayer){
         gamePlayers.put(uuid, gamePlayer);
+    }
+
+    public boolean isOpeningFreecubeMenu() {
+        return isOpeningFreecubeMenu;
+    }
+
+    public void setOpeningFreecubeMenu(boolean openingFreecubeMenu) {
+        isOpeningFreecubeMenu = openingFreecubeMenu;
+    }
+
+    public boolean isCurrentMenuFreecube() {
+        return isCurrentMenuFreecube;
+    }
+
+    public void setCurrentMenuFreecube(boolean currentMenuFreecube) {
+        isCurrentMenuFreecube = currentMenuFreecube;
     }
 
     public static GamePlayer getPlayer(UUID playerUUID) {
@@ -107,7 +128,6 @@ public class GamePlayer {
     public void addPlot(Plot plot){
         plots.add(plot);
         if(!plotsIds.contains(plot.getId())){
-            System.out.println("Ajout d'un nouvel id de plot - " + plot.getId());
             plotsIds.add(plot.getId());
             this.save();
         }

@@ -1,6 +1,7 @@
 package fr.torahime.freecube.controllers.menus;
 
 import fr.torahime.freecube.Freecube;
+import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -52,6 +53,7 @@ public class Menu implements Listener {
 
     public void openMenu(){
         Bukkit.getServer().getPluginManager().registerEvents(this, Freecube.getInstance());
+        GamePlayer.getPlayer(player).setOpeningFreecubeMenu(true);
         fillInventory();
         this.player.openInventory(this.inv);
     }

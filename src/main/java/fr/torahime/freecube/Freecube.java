@@ -73,6 +73,8 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new WorldProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new PlotBoundaryListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerPlotSaverListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerOpenFCMainMenuListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
