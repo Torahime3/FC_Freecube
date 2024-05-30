@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.menus;
 
 import fr.torahime.freecube.commands.players.plots.FindCommand;
-import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
 import fr.torahime.freecube.controllers.menus.plots.PlayerRoleMenu;
 import fr.torahime.freecube.controllers.menus.plots.MyPlotsMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.entity.EntityMenu;
@@ -10,7 +10,7 @@ import fr.torahime.freecube.controllers.menus.plots.settings.interaction.Interac
 import fr.torahime.freecube.controllers.menus.plots.settings.music.MusicMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.preference.PreferencesMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.pvp.PvpMenu;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;

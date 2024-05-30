@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.hoursweather;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.models.weather.Weather;

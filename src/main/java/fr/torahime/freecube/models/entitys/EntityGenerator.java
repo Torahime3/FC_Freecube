@@ -1,23 +1,12 @@
 package fr.torahime.freecube.models.entitys;
 
-import fr.torahime.freecube.Freecube;
-import fr.torahime.freecube.models.AreaMaker;
-import fr.torahime.freecube.models.PlotStates;
-import org.bukkit.Bukkit;
+import fr.torahime.freecube.models.areamaker.AreaMaker;
+import fr.torahime.freecube.models.game.PlotStates;
 import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EntityGenerator extends AreaMaker {
 

@@ -1,9 +1,9 @@
-package fr.torahime.freecube.models;
+package fr.torahime.freecube.models.game;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import fr.torahime.freecube.Freecube;
-import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotUpdateEvent;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;

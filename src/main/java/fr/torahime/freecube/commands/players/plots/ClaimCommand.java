@@ -2,7 +2,6 @@ package fr.torahime.freecube.commands.players.plots;
 
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.controllers.transaction.RequestType;
-import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

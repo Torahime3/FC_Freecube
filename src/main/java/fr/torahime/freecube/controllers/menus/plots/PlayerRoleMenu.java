@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -10,8 +10,6 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-
-import javax.naming.NamingEnumeration;
 
 public class PlayerRoleMenu extends Menu {
 

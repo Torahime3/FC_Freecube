@@ -1,7 +1,7 @@
 package fr.torahime.freecube.commands.players;
 
-import fr.torahime.freecube.listeners.PlayerChatListener;
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.listeners.players.PlayerChatListener;
+import fr.torahime.freecube.models.game.GamePlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

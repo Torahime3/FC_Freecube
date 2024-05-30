@@ -1,9 +1,9 @@
 package fr.torahime.freecube.controllers.menus.plots;
 
-import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
+import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.GamePlayer;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.GamePlayer;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;

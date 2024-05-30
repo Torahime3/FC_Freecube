@@ -1,6 +1,6 @@
 package fr.torahime.freecube.models.pvp;
 
-import fr.torahime.freecube.models.AreaMaker;
+import fr.torahime.freecube.models.areamaker.AreaMaker;
 import org.bukkit.Color;
 import org.bukkit.Location;
 

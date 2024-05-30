@@ -1,6 +1,6 @@
-package fr.torahime.freecube.controllers;
+package fr.torahime.freecube.controllers.loaders;
 
-import fr.torahime.freecube.models.GamePlayer;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -21,6 +21,7 @@ public class GamePlayerLoader {
                 GamePlayer.addGamePlayer(player.getUniqueId());
                 gamePlayerService.create(GamePlayer.getPlayer(player.getUniqueId()));
             } else {
+                //Load gameplayer
                 GamePlayer.addGamePlayer(player.getUniqueId(), gp);
                 gp.initializeGamePlayer();
                 player.sendMessage(Component.text("Récupération de votre gameplayer").color(NamedTextColor.GREEN));
@@ -32,12 +33,6 @@ public class GamePlayerLoader {
             e.printStackTrace();
         }
 
-    }
-
-    public static void savePlayerData(Player player){
-        GamePlayerService gamePlayerService = new GamePlayerService();
-        GamePlayer gp = GamePlayer.getPlayer(player.getUniqueId());
-        gamePlayerService.update(gp);
     }
 
 }

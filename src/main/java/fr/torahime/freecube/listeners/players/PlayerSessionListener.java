@@ -1,9 +1,10 @@
-package fr.torahime.freecube.listeners;
+package fr.torahime.freecube.listeners.players;
 
-import fr.torahime.freecube.controllers.GamePlayerLoader;
-import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
-import fr.torahime.freecube.models.GamePlayer;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.Freecube;
+import fr.torahime.freecube.controllers.loaders.GamePlayerLoader;
+import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
+import fr.torahime.freecube.models.game.GamePlayer;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -24,8 +25,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemFlag;
 
-import java.util.Objects;
-
 public class PlayerSessionListener implements Listener {
 
     @EventHandler
@@ -35,23 +34,23 @@ public class PlayerSessionListener implements Listener {
         GamePlayer gp = GamePlayer.getPlayer(player);
         Location respawnLocation;
 
+        //If the player is in a plot, respawn him in the plot spawn
         if(Plot.getPlot(gp.getOverPlotId()) != null){
             Plot plot = Plot.getPlot(gp.getOverPlotId());
             respawnLocation = plot.getSpawn();
-        } else {
+        } else { //Else respawn him at the freecube spawn
             respawnLocation = PlotIdentifier.getPlotCenterLocation(0);
         }
 
-        Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), ()
-                -> init(player, respawnLocation), 1);
+        // Delay the teleportation to avoid the player to be teleported but
+        Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), ()
+                -> init(player, respawnLocation, true), 1);
 
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
-
         event.getDrops().clear();
-
     }
 
 
@@ -66,15 +65,15 @@ public class PlayerSessionListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        GamePlayerLoader.savePlayerData(player);
+        GamePlayer.getPlayer(player).save();
     }
 
     public void init(Player player){
         Location spawn = PlotIdentifier.getPlotCenterLocation(0);
-        init(player, spawn);
+        init(player, spawn, false);
     }
 
-    public void init(Player player, Location location){
+    public void init(Player player, Location location, boolean isRespawning){
 
         //Teleport player to freecube world spawn at plot 0 and clear his inventory
         player.teleport(location);
@@ -86,7 +85,9 @@ public class PlayerSessionListener implements Listener {
         giveBaseItems(player);
 
         //Load player data
-        GamePlayerLoader.loadPlayerData(player);
+        if(!isRespawning){
+            GamePlayerLoader.loadPlayerData(player);
+        }
 
         //Create scoreboard
         MainBoard.createScoreboard(player);

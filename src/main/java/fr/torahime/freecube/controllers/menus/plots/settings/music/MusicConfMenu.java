@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.music;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.Plot;
+import fr.torahime.freecube.models.game.Plot;
 import fr.torahime.freecube.models.musics.Music;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.utils.ItemBuilder;
@@ -12,8 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
-
-import java.awt.*;
 
 public class MusicConfMenu extends Menu {
 
