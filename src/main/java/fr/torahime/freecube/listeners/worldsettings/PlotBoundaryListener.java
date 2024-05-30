@@ -6,6 +6,7 @@ import fr.torahime.freecube.controllers.customEvents.PlotUpdateEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.pvp.PvpArea;
+import fr.torahime.freecube.services.plots.PlotService;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -36,6 +37,19 @@ public class PlotBoundaryListener implements Listener {
         GamePlayer.getPlayer(player).setOverPlotId(PlotIdentifier.getPlotIndex(player.getLocation()));
         Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(event.getPlayer()));
 
+//        Plot plot = Plot.getPlot(GamePlayer.getPlayer(player).getOverPlotId());
+//        if(plot != null) {
+//            plot.save();
+//        }
+//        if(plot == null){
+//            PlotService plotService = new PlotService();
+//            plot = plotService.get(String.valueOf(GamePlayer.getPlayer(player).getOverPlotId()));
+//            if(plot != null){
+//                Plot.claimPlot(plot.getId(), plot.getOwner(), plot);
+//                return;
+//            }
+//        }
+
         if (!PlotIdentifier.isPlotClaimed(playerX, playerZ) && PlotIdentifier.getPlotIndex(playerX, playerZ) != 0) {
             player.showTitle(Title.title(Component.text(String.format("Zone LIBRE", PlotIdentifier.getPlotIndex(playerX, playerZ))).color(NamedTextColor.YELLOW),
                     Component.text("Pour l'obtenir fais : ").color(NamedTextColor.WHITE).append(Component.text("/fc claim").color(NamedTextColor.AQUA))));
@@ -44,8 +58,15 @@ public class PlotBoundaryListener implements Listener {
 
     @EventHandler
     public void onPlayerQuitPlot(PlotQuitEvent event){
+//        Plot plot = Plot.getPlot(GamePlayer.getPlayer(event.getPlayer()).getOverPlotId());
+//        if(plot != null){
+//            plot.save();
+//        }
+
         GamePlayer.getPlayer(event.getPlayer()).setOverPlotId(-1);
         Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(event.getPlayer()));
+
+
     }
 
     @EventHandler

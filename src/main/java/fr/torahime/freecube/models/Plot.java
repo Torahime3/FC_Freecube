@@ -68,6 +68,8 @@ public class Plot {
     public static Plot claimPlot(int id, UUID owner, Plot plot) {
 
         PlotService plotService = new PlotService();
+
+        // Create a new plot if it doesn't exist in the database
         if(plot == null){
             try {
                 plot = new Plot(id, owner);
@@ -81,8 +83,14 @@ public class Plot {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+        // Update the plot if it already exists in the database
         } else {
             plots.put(id, plot);
+            if(GamePlayer.getPlayer(owner) == null ) {
+                GamePlayer.addGamePlayer(owner);
+            }
+            GamePlayer.getPlayer(owner).addPlot(plot);
             plot.updateAllPlayersOverPlot();
             return plot;
         }
@@ -90,14 +98,13 @@ public class Plot {
         return null;
     }
 
-    public boolean addPlayer(UUID playerUUID, PlotRoles plotRole) {
+    public void addPlayer(UUID playerUUID, PlotRoles plotRole) {
         if (members.size() >= MAX_MEMBERS || isPlayerPresent(playerUUID)) {
-            return false;
+            return;
         }
         members.put(playerUUID, plotRole);
         GamePlayer.getPlayer(playerUUID).addPlot(this);
         this.updateAllPlayersOverPlot();
-        return true;
     }
 
     public void addPvpArea(PvpArea pvpArea) {
@@ -127,10 +134,12 @@ public class Plot {
 
     public void addEntityGenerator(EntityGenerator entityGenerator) {
         entityGenerators.add(entityGenerator);
+
     }
 
     public void removeEntityGenerator(EntityGenerator entityGenerator) {
         entityGenerators.remove(entityGenerator);
+
     }
 
     public ArrayList<MusicTransmitter> getMusicTransmitters() {
@@ -140,12 +149,14 @@ public class Plot {
     public void addMusicTransmitter(MusicTransmitter musicTransmitter) {
         if (musicTransmitters.size() < 8) {
             musicTransmitters.add(musicTransmitter);
+
         }
 
     }
 
     public void removeMusicTransmitter(MusicTransmitter musicTransmitter) {
         musicTransmitters.remove(musicTransmitter);
+
     }
 
     public void setHour(Hours hour) {
@@ -217,6 +228,7 @@ public class Plot {
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public void setSpawn(Location spawn) {
@@ -242,8 +254,7 @@ public class Plot {
 
     public boolean save(){
         PlotService plotService = new PlotService();
-        plotService.update(this);
-        return true;
+        return plotService.update(this);
     }
 }
 

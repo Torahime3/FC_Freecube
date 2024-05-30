@@ -30,7 +30,7 @@ public class ReadCommand implements CommandExecutor {
         if(PlotIdentifier.isPlotClaimed(player.getLocation())) return false;
 
         PlotService plotService = new PlotService();
-        Plot plot = plotService.get(PlotIdentifier.getPlotIndex(player.getLocation()));
+        Plot plot = plotService.get(String.valueOf(PlotIdentifier.getPlotIndex(player.getLocation())));
 
         if (plot == null) {
             player.sendMessage(Component.text("Failed to read plot").color(NamedTextColor.RED));

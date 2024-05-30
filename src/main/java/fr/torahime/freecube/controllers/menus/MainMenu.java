@@ -125,6 +125,7 @@ public class MainMenu extends Menu {
             this.addItem(plotPvpSword.getItem(), 25, () -> new PvpMenu(player, plot, this).openMenu());
             this.addItem(plotMoreCmdsBook.getItem(), 26);
 
+//            PLAYER HEAD
             int headIndex = (4 * 9);
             for(UUID playerID : plot.getMembers()) {
                 ItemBuilder membersHead = new ItemBuilder(Material.PLAYER_HEAD);
@@ -137,7 +138,10 @@ public class MainMenu extends Menu {
                                 .append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
 
                 if(plot.isPlayerPresent(this.player.getUniqueId())) {
+//                    System.out.println("Le joueur est présent dans le plot -> " + this.player.getUniqueId());
+//                    System.out.println("Le joueur de la boucle est -> " + playerID);
                     if (playerID == this.player.getUniqueId()) {
+                        System.out.println("Et le joueur de la boucle est le joueur actuel");
                         membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)
                                         .append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA))
                                 , Component.text("")

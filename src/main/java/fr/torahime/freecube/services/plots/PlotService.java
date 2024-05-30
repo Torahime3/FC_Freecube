@@ -14,6 +14,8 @@ import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.pvp.PvpArea;
 import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.services.IService;
+import fr.torahime.freecube.services.Service;
 import fr.torahime.freecube.services.plots.adapters.*;
 import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.Location;
@@ -25,7 +27,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PlotService extends Service implements IService<Plot>{
+public class PlotService extends Service implements IService<Plot> {
 
     HttpClient client;
     Gson gson;
@@ -34,7 +36,6 @@ public class PlotService extends Service implements IService<Plot>{
         super("Freecube | PlotService");
         this.client = HttpClient.newHttpClient();
         this.gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(Hours.class, new HoursTypeAdapter())
                 .registerTypeAdapter(Location.class, new SpawnTypeAdapter())
                 .registerTypeAdapter(MusicTransmitter.class, new MusicTransmittersTypeAdapter())
@@ -43,6 +44,7 @@ public class PlotService extends Service implements IService<Plot>{
                 .registerTypeAdapter(PreferencesMap.class, new PreferencesTypeAdapter())
                 .registerTypeAdapter(InteractionsMap.class, new InteractionsTypeAdapter())
                 .registerTypeAdapter(new TypeToken<HashMap<UUID, PlotRoles>>(){}.getType(), new MembersTypeAdapter())
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .create();
     }
@@ -73,7 +75,7 @@ public class PlotService extends Service implements IService<Plot>{
     }
 
     @Override
-    public Plot get(int id) {
+    public Plot get(String id) {
         String url = String.format("%s/api/v1/plots/%s", Dotenv.get("BASE_API_URL"), id);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))

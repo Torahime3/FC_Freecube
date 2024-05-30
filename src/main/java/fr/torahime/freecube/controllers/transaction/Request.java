@@ -3,6 +3,7 @@ package fr.torahime.freecube.controllers.transaction;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
 import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
