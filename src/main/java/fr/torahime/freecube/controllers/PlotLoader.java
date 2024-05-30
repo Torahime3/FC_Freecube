@@ -13,7 +13,6 @@ public class PlotLoader {
 
         PlotService plotService = new PlotService();
 
-        System.out.println("loadPlotFromGamePlayer - " + gp.getPlotsIds().size());
 
         for (Integer plotId : gp.getPlotsIds()) {
 

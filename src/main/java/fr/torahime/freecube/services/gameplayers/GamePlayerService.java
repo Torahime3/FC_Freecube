@@ -50,7 +50,6 @@ public class GamePlayerService extends Service implements IService<GamePlayer> {
     @Override
     public boolean update(GamePlayer object) {
         String json = convertToJson(object);
-        System.out.println(json);
         String url = String.format("%s/api/v1/gameplayers/%s", Dotenv.get("BASE_API_URL"), object.getUuid());
         return sendRequest(url, HttpRequest.BodyPublishers.ofString(json), "PUT", 200);
     }

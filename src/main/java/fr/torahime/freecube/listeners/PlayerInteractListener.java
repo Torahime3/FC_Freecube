@@ -113,24 +113,6 @@ public class PlayerInteractListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-
-        Player player = event.getPlayer();
-        Action action = event.getAction();
-        ItemStack item = event.getItem();
-
-        if(item == null) return;
-
-        //Check if player right-clicked with the right iron axe
-        if(item.getType() == Material.IRON_AXE && item.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)){
-            if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK){
-                new MainMenu(player).openMenu();
-            }
-        }
-
-    }
-
 //    SAVE PLOT
 //    @EventHandler
 //    public void onPlayerCloseInventory(InventoryCloseEvent event){

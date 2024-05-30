@@ -105,6 +105,7 @@ public class Plot {
         members.put(playerUUID, plotRole);
         GamePlayer.getPlayer(playerUUID).addPlot(this);
         this.updateAllPlayersOverPlot();
+        this.save();
     }
 
     public void addPvpArea(PvpArea pvpArea) {
