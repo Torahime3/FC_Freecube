@@ -1,4 +1,4 @@
-package fr.torahime.freecube.services.plots;
+package fr.torahime.freecube.services;
 
 public interface IService<T> {
 
@@ -6,5 +6,5 @@ public interface IService<T> {
     public boolean create(T object);
     public boolean update(T object);
     public boolean delete(T object);
-    public T get(int id);
+    public T get(String id);
 }

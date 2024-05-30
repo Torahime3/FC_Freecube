@@ -1,5 +1,6 @@
 package fr.torahime.freecube.listeners;
 
+import fr.torahime.freecube.controllers.GamePlayerLoader;
 import fr.torahime.freecube.controllers.customEvents.PlotEnterEvent;
 import fr.torahime.freecube.models.GamePlayer;
 import fr.torahime.freecube.models.Plot;
@@ -19,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemFlag;
 
@@ -52,12 +54,19 @@ public class PlayerSessionListener implements Listener {
 
     }
 
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
 
         Player player = event.getPlayer();
         init(player);
 
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        GamePlayerLoader.savePlayerData(player);
     }
 
     public void init(Player player){
@@ -76,8 +85,8 @@ public class PlayerSessionListener implements Listener {
         //Create the iron axe menu item
         giveBaseItems(player);
 
-        //Create gameplayer
-        GamePlayer.addGamePlayer(player.getUniqueId());
+        //Load player data
+        GamePlayerLoader.loadPlayerData(player);
 
         //Create scoreboard
         MainBoard.createScoreboard(player);

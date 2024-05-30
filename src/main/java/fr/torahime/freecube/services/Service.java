@@ -1,4 +1,4 @@
-package fr.torahime.freecube.services.plots;
+package fr.torahime.freecube.services;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Service {
 
-    Logger logger;
+    protected Logger logger;
 
     public Service(String loggerName) {
         this.logger = Logger.getLogger(loggerName);
@@ -41,6 +41,7 @@ public class Service {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            logger.info(method + " - " + url + " - (actual ->" + response.statusCode() + ")");
             return response.statusCode() == expectedStatusCode;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "HTTP request failed", e);

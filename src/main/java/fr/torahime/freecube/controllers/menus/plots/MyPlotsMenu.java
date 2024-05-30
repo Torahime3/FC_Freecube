@@ -23,6 +23,7 @@ public class MyPlotsMenu extends Menu {
         super(player,
                 !GamePlayer.getPlayer(player.getUniqueId()).getPlots().isEmpty() ? Component.text(String.format("Mes zones (Chef: %d/%d)", GamePlayer.getPlayer(player.getUniqueId()).getChefPlotsCount(), GamePlayer.getPlayer(player.getUniqueId()).getPlots().size())) : Component.text("Vous n'avez aucune zone"),
                 54);
+        System.out.println("MyPlotsMenu - " + GamePlayer.getPlayer(player.getUniqueId()).getPlots().size());
     }
 
     @Override
