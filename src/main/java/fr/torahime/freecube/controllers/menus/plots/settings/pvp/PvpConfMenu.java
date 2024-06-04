@@ -2,8 +2,10 @@ package fr.torahime.freecube.controllers.menus.plots.settings.pvp;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.areamaker.LocationType;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.models.pvp.PvpArea;
+import fr.torahime.freecube.models.pvp.PvpWeapons;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -36,7 +38,7 @@ public class PvpConfMenu extends Menu {
         ItemBuilder locationB = pa.getLocationItemBuilder(LocationType.B);
 
         this.addItem(locationA.getItem(), 38, () -> {
-            int result = pa.setLocationA(player.getLocation());
+            int result = pa.setLocation(player.getLocation(), LocationType.A, plot);
             switch (result) {
                 case 1:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position A a été définie.").color(NamedTextColor.WHITE)));
@@ -52,11 +54,14 @@ public class PvpConfMenu extends Menu {
                 case -3:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location A is null, not set.").color(NamedTextColor.RED)));
                     break;
+                case -4:
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
+                    break;
             }
         });
 
         this.addItem(locationB.getItem(), 42, () -> {
-            int result = pa.setLocationB(player.getLocation());
+            int result = pa.setLocation(player.getLocation(), LocationType.B, plot);
             switch (result) {
                 case 1:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position B a été définie.").color(NamedTextColor.WHITE)));
@@ -72,6 +77,9 @@ public class PvpConfMenu extends Menu {
                 case -3:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location B is null, not set.").color(NamedTextColor.RED)));
                     break;
+                case -4:
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
+                    break;
             }
         });
 
@@ -83,39 +91,41 @@ public class PvpConfMenu extends Menu {
 
         if(pa.isValid()){
 
-            ItemBuilder meleeWeapon = new ItemBuilder(Material.IRON_SWORD);
-            meleeWeapon.setDisplayName(Component.text("Pvp en mêlée").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD).append(Component.text(pa.isMeleeWeapon() ? " (Activé)" : "").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)));
-            meleeWeapon.setLore(Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour activer/désactiver le pvp en mêlée").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+            int index = 11;
+            for(PvpWeapons pvpWeapon : PvpWeapons.values()){
+                ItemBuilder weapon = new ItemBuilder(pvpWeapon.getMaterial());
+                PlotStates weaponState = pa.getPvpWeaponsMap().get(pvpWeapon);
 
-            if(pa.isMeleeWeapon()){
-                meleeWeapon.addUnsafeEnchant(Enchantment.DURABILITY, 1);
-                meleeWeapon.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            }
+                if(weaponState == PlotStates.ACTIVATE){
+                    weapon.getItem().addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                    weapon.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                }
 
-            ItemBuilder rangeWeapon = new ItemBuilder(Material.BOW);
-            rangeWeapon.setDisplayName(Component.text("Pvp à distance").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD).append(Component.text(pa.isRangeWeapon() ? " (Activé)" : "").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)));
-            rangeWeapon.setLore(Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour activer/désactiver le pvp à distance").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)));
+                weapon.setDisplayName(Component.text(pvpWeapon.getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
+                weapon.setLore(Component.text("Actuellement: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW)
+                        .append(Component.text(weaponState.getState().substring(0, weaponState.getState().length() - 2).concat("és").toLowerCase()).decoration(TextDecoration.ITALIC, false).color(weaponState.getColor())),
+                        Component.empty(),
+                        Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE))
+                                .append(Component.text(PlotStates.getInverseStateLiteral(weaponState).toLowerCase()).decoration(TextDecoration.ITALIC, false).color(PlotStates.getInverseState(weaponState).getColor())));
 
-            if(pa.isRangeWeapon()){
-                rangeWeapon.addUnsafeEnchant(Enchantment.DURABILITY, 1);
-                rangeWeapon.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                this.addItem(weapon.getItem(), index, () -> {
+                    pa.getPvpWeaponsMap().put(pvpWeapon, PlotStates.getInverseState(weaponState));
+                    this.fillInventory();
+
+                });
+
+                if(index == 15) {
+                    index = 20;
+                }
+
+                index++;
             }
 
             ItemBuilder glowArea = new ItemBuilder(Material.GLOWSTONE_DUST);
             glowArea.setDisplayName(Component.text("Surbrillance de la zone").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
             glowArea.setLore(Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour faire apparaître en surbrillance la zone").color(NamedTextColor.WHITE)));
 
-            this.addItem(meleeWeapon.getItem(), 12, () -> {
-                pa.setMeleeWeapon(!pa.isMeleeWeapon());
-                fillInventory();
-            });
-
-            this.addItem(rangeWeapon.getItem(), 14, () -> {
-                pa.setRangeWeapon(!pa.isRangeWeapon());
-                fillInventory();
-            });
-
-            this.addItem(glowArea.getItem(), 40, () -> {
+            this.addItem(glowArea.getItem(), 49, () -> {
                 pa.startParticleDisplay(player);
                 player.closeInventory();
             });

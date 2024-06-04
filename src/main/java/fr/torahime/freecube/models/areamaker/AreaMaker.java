@@ -1,7 +1,9 @@
 package fr.torahime.freecube.models.areamaker;
 
 import fr.torahime.freecube.Freecube;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.utils.ItemBuilder;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -99,38 +101,41 @@ public abstract class AreaMaker {
                 && player.getLocation().getBlock().getLocation().getBlockZ() <= Math.max(getA_Z(), getB_Z());
     }
 
-    public int setLocationA(Location locationA) {
-        if(locationA == null) return -3; // Nouveau code d'erreur pour null input
-
-        if(locationA.equals(this.locationB)){
-            return -1; // Emplacements identiques
-        }
-
-        Location oldLocationA = this.locationA;
+    public void setLocationA(Location locationA) {
         this.locationA = locationA;
-        if (getTotalBlocks() > MAX_VOLUME) {
-            this.locationA = oldLocationA; // Restore old location
-            return -2;
-        }
-
-        return 1; // Successful update
     }
 
-    public int setLocationB(Location locationB) {
-        if(locationB == null) return -3; // Nouveau code d'erreur pour null input
+    public void setLocationB(Location locationB) {
+        this.locationB = locationB;
+    }
 
-        if(locationB.equals(this.locationA)){
+    public int setLocation(Location location, LocationType locationType, Plot plot) {
+
+        if(location == null || plot == null) return -3; // Nouveau code d'erreur pour null input
+
+        if(PlotIdentifier.getPlotIndex(location) != plot.getId()) return -4; // La location ne peut pas être en dehors de la zone concernée
+
+        if(location.equals(locationType == LocationType.A ? this.locationB : this.locationA)){
             return -1; // Emplacements identiques
         }
 
-        Location oldLocationB = this.locationB;
-        this.locationB = locationB;
+        Location oldLocation = locationType == LocationType.A ? this.locationA : this.locationB;
+        if (locationType == LocationType.A) {
+            this.locationA = location;
+        } else {
+            this.locationB = location;
+        }
         if (getTotalBlocks() > MAX_VOLUME) {
-            this.locationB = oldLocationB; // Restore old location
+            if (locationType == LocationType.A) {
+                this.locationA = oldLocation; // Restore old location
+            } else {
+                this.locationB = oldLocation; // Restore old location
+            }
             return -2;
         }
 
         return 1; // Successful update
+
     }
 
     public int getTotalBlocks(){

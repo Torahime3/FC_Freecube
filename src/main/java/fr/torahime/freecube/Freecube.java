@@ -6,11 +6,12 @@ import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.generators.PlotChunkGenerator;
 import fr.torahime.freecube.listeners.players.*;
-import fr.torahime.freecube.listeners.plots.PlotDamageListener;
+import fr.torahime.freecube.listeners.plots.PlotPvpListener;
 import fr.torahime.freecube.listeners.plots.PlotBoundaryListener;
 import fr.torahime.freecube.listeners.worldsettings.*;
 import fr.torahime.freecube.listeners.plots.PlotInteractionsListener;
 import fr.torahime.freecube.listeners.plots.PlotPreferencesListener;
+import fr.torahime.freecube.utils.ANSIColors;
 import fr.torahime.freecube.utils.Dotenv;
 import org.bukkit.*;
 import org.bukkit.plugin.Plugin;
@@ -20,22 +21,24 @@ import java.util.Objects;
 
 public final class Freecube extends JavaPlugin {
 
+    public static final String PLUGIN_NAME = "Freecube";
+
     public static Plugin getInstance() {
-        return Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube"));
+        return Objects.requireNonNull(Bukkit.getPluginManager().getPlugin(PLUGIN_NAME));
     }
 
     @Override
     public void onEnable() {
-        this.getLogger().info("Freecube plugin enabled");
 
         initWorld();
         initListeners();
         initCommands();
 
         if(Dotenv.get("PRODUCTION") == null){
-            this.getLogger().info("DEVELOPMENT ENVIRONMENT, LOADING .ENV FILE");
+            this.getLogger().info(ANSIColors.YELLOW + "DEVELOPMENT ENVIRONMENT, LOADING .ENV FILE" + ANSIColors.RESET);
             Dotenv.load();
         }
+
     }
 
     @Override
@@ -77,7 +80,7 @@ public final class Freecube extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerPlotSaverListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerOpenFCMainMenuListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
-        getServer().getPluginManager().registerEvents(new PlotDamageListener(), this);
+        getServer().getPluginManager().registerEvents(new PlotPvpListener(), this);
 
         //Preferences
         getServer().getPluginManager().registerEvents(new PlotPreferencesListener(), this);

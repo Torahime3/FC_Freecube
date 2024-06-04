@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.loaders;
 
 import fr.torahime.freecube.models.game.GamePlayer;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.services.plots.PlotService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

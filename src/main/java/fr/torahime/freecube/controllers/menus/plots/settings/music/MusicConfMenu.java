@@ -1,7 +1,7 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.music;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.musics.Music;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.utils.ItemBuilder;

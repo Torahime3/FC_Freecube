@@ -1,16 +1,16 @@
-package fr.torahime.freecube.models.game;
+package fr.torahime.freecube.models.plots;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.custom_events.PlotUpdateEvent;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.interactions.InteractionsMap;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 import fr.torahime.freecube.models.pvp.PvpArea;
-import fr.torahime.freecube.models.roles.PlotRoles;
 import fr.torahime.freecube.models.weather.Weather;
 import fr.torahime.freecube.services.plots.PlotService;
 import fr.torahime.freecube.utils.PlotIdentifier;
@@ -188,6 +188,10 @@ public class Plot {
 
     public static Plot getPlot(int id) {
         return plots.get(id);
+    }
+
+    public PlotRoles getMemberRole(Player player){
+        return getMemberRole(player.getUniqueId());
     }
 
     public PlotRoles getMemberRole(UUID member) {

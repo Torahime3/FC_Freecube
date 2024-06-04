@@ -1,9 +1,11 @@
 package fr.torahime.freecube.models.game;
 
 import com.google.gson.annotations.Expose;
+import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Bukkit;
@@ -197,7 +199,7 @@ public class GamePlayer {
 
             player.playSound(mt.getLocation(), mt.getMusic().getSound(), mt.getVolume(), mt.getPitch());
             Bukkit.getLogger().info("Playing sound " + mt.getMusic().getName());
-            Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), () -> {
+            Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), () -> {
                 this.playOneSoundOfPlot(mt, plot);
             }, 20L * mt.getMusic().getDuration()); // 20 ticks = 1 second (20 * 60 = 1 minute)
         }

@@ -1,7 +1,7 @@
 package fr.torahime.freecube.models.entitys;
 
 import fr.torahime.freecube.models.areamaker.AreaMaker;
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.plots.PlotStates;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;

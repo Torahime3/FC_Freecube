@@ -1,5 +1,7 @@
 package fr.torahime.freecube.utils;
 
+import org.fusesource.jansi.Ansi;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -29,9 +31,9 @@ public class Dotenv {
                 String line = sc.nextLine();
                 envEntries.put(line.split("=")[0], line.split("=")[1]);
             }
-            logger.info("Dotenv loaded successfully");
+            logger.info(ANSIColors.GREEN + "Dotenv loaded successfully" + ANSIColors.RESET);
         } catch (Exception e){
-            logger.warning("Error while loading dotenv file : " + e.getMessage());
+            logger.warning(ANSIColors.RED + "Error while loading dotenv file : " + ANSIColors.RESET + e.getMessage());
         }
     }
 

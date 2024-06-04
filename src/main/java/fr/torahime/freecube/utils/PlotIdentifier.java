@@ -1,6 +1,6 @@
 package fr.torahime.freecube.utils;
 
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 

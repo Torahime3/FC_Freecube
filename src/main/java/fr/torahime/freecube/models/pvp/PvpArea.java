@@ -1,13 +1,13 @@
 package fr.torahime.freecube.models.pvp;
 
 import fr.torahime.freecube.models.areamaker.AreaMaker;
+import fr.torahime.freecube.models.plots.PlotStates;
 import org.bukkit.Color;
 import org.bukkit.Location;
 
 public class PvpArea extends AreaMaker {
 
-    private boolean meleeWeapon;
-    private boolean rangeWeapon;
+    private PvpWeaponsMap pvpWeaponsMap = new PvpWeaponsMap();
 
     public PvpArea(){
         this(null, null);
@@ -15,27 +15,13 @@ public class PvpArea extends AreaMaker {
 
     public PvpArea(Location locationA, Location locationB){
         super(locationA, locationB, 600, Color.RED);
-        this.meleeWeapon = false;
-        this.rangeWeapon = false;
+    }
+
+    public PvpWeaponsMap getPvpWeaponsMap() {
+        return pvpWeaponsMap;
     }
 
     public boolean isPvpEnabled() {
-        return isMeleeWeapon() || isRangeWeapon();
-    }
-
-    public boolean isMeleeWeapon() {
-        return this.meleeWeapon;
-    }
-
-    public void setMeleeWeapon(Boolean meleeWeapon) {
-        this.meleeWeapon = meleeWeapon;
-    }
-
-    public boolean isRangeWeapon() {
-        return this.rangeWeapon;
-    }
-
-    public void setRangeWeapon(Boolean rangeWeapon) {
-        this.rangeWeapon = rangeWeapon;
+        return pvpWeaponsMap.values().stream().anyMatch(plotState -> plotState == PlotStates.ACTIVATE);
     }
 }

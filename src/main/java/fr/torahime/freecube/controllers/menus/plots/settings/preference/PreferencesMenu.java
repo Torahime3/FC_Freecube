@@ -1,10 +1,10 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.preference;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.preferences.Preference;
-import fr.torahime.freecube.models.game.PlotStates;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotStates;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

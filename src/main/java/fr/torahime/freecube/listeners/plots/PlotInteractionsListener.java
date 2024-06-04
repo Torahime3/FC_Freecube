@@ -1,7 +1,7 @@
 package fr.torahime.freecube.listeners.plots;
 
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.models.interactions.Interaction;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;

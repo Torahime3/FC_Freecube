@@ -1,10 +1,11 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.interaction;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.interactions.InteractionCategory;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.models.interactions.Interaction;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
@@ -19,7 +20,7 @@ public class InteractionsMenu extends Menu {
 
     private final Plot plot;
 
-    private Category category = Category.PRIMARY;
+    private InteractionCategory category = InteractionCategory.PRIMARY;
 
     public InteractionsMenu(Player player, Plot plot, Menu lastMenu) {
         super(player, Component.text("Zone " + plot.getId() + " > Intéractions"), 54, lastMenu);
@@ -71,7 +72,7 @@ public class InteractionsMenu extends Menu {
         nextCategoryItem.addLore(Component.text("Clic gauche pour afficher la catégorie suivante").color(NamedTextColor.GRAY));
 
         this.addItem(nextCategoryItem.getItem(), this.inv.getSize() - 5, () -> {
-            this.category = Category.nextCategory(this.category);
+            this.category = InteractionCategory.nextCategory(this.category);
             this.fillInventory();
         });
 

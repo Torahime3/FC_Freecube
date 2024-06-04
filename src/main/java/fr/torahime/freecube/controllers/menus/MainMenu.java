@@ -10,8 +10,8 @@ import fr.torahime.freecube.controllers.menus.plots.settings.interaction.Interac
 import fr.torahime.freecube.controllers.menus.plots.settings.music.MusicMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.preference.PreferencesMenu;
 import fr.torahime.freecube.controllers.menus.plots.settings.pvp.PvpMenu;
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;

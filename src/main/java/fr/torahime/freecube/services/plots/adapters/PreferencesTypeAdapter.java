@@ -3,7 +3,7 @@ package fr.torahime.freecube.services.plots.adapters;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.models.preferences.Preference;
 import fr.torahime.freecube.models.preferences.PreferencesMap;
 

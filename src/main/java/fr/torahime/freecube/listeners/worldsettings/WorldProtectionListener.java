@@ -1,8 +1,9 @@
 package fr.torahime.freecube.listeners.worldsettings;
 
+import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.models.game.ForbiddenItem;
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -99,12 +100,12 @@ public class WorldProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event)
+    public void projectileRemoveAfterTime(ProjectileHitEvent event)
     {
         Projectile p = event.getEntity();
         if(p instanceof AbstractArrow)
         {
-            Bukkit.getScheduler().runTaskLater(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Freecube")), p::remove, 300);
+            Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), p::remove, 300);
         }
 
     }
@@ -295,8 +296,9 @@ public class WorldProtectionListener implements Listener {
             event.setCancelled(true);
         }
 
-        //If player is an associate, he can't build
-        if(Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation())).getMemberRole(player.getUniqueId()) == PlotRoles.ASSOCIATE){
+        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
+        if(plot == null) return;
+        if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.ASSOCIATE){
             event.setCancelled(true);
         }
 

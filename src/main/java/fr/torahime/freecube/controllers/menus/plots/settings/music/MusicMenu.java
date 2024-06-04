@@ -1,11 +1,12 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.music;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.musics.Music;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -29,21 +30,26 @@ public class MusicMenu extends Menu {
     public void fillInventory() {
 
         if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
-            ItemBuilder bannerAddMember = new ItemBuilder(Material.GREEN_BANNER);
-            bannerAddMember.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRAIGHT_CROSS),
+            ItemBuilder bannerAddMusic = new ItemBuilder(Material.GREEN_BANNER);
+            bannerAddMusic.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRAIGHT_CROSS),
                     new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM),
                     new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP),
                     new Pattern(DyeColor.GREEN, PatternType.BORDER)).applyPatterns();
-            bannerAddMember.setDisplayName(Component.text("[+] ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)
+            bannerAddMusic.setDisplayName(Component.text("[+] ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)
                     .append(Component.text("Créer un nouvel émetteur de musique").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD)));
-            bannerAddMember.setLore(Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)
+            bannerAddMusic.setLore(Component.text("> ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GREEN)
                             .append(Component.text("Clic gauche pour créer un émetteur").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)),Component.text("à la position où vous êtes.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE),
                     Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
-            bannerAddMember.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+            bannerAddMusic.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
 
-            this.addItem(bannerAddMember.getItem(), 0, () -> {
+            this.addItem(bannerAddMusic.getItem(), 0, () -> {
                 if(plot.getMusicTransmitterByLocation(player.getLocation()) != null){
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Un émetteur de musique existe déjà à cet endroit.").color(NamedTextColor.RED)));
+                    return;
+                }
+
+                if(PlotIdentifier.getPlotIndex(player.getLocation()) != plot.getId()){
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous devez être dans la zone pour créer un émetteur de musique.").color(NamedTextColor.RED)));
                     return;
                 }
                 MusicTransmitter mt = new MusicTransmitter(Music.CAT, player.getLocation(), 1, 1);

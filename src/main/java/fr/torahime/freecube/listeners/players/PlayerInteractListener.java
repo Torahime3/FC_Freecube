@@ -39,12 +39,15 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onOpenInventory(InventoryOpenEvent event){
+
         CraftPlayer player = (CraftPlayer) event.getPlayer();
 
         ItemBuilder barrier = new ItemBuilder(Material.BARRIER);
         barrier.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         barrier.setDisplayName(Component.text("Slot réservé.").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.DARK_RED));
-        player.getInventory().setItem(8, barrier.getItem());
+        Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), () -> {
+            player.getInventory().setItem(8, barrier.getItem());
+        }, 1);
 
 //        ClientboundOpenScreenPacket packet = new ClientboundOpenScreenPacket(-1, player.getInventory().getType(), Component.text("Inventaire"));
 //        ((CraftPlayer) player).getHandle().connection.send(packet);
@@ -106,19 +109,4 @@ public class PlayerInteractListener implements Listener {
         }
     }
 
-//    SAVE PLOT
-//    @EventHandler
-//    public void onPlayerCloseInventory(InventoryCloseEvent event){
-//        Player player = (Player) event.getPlayer();
-//
-//        if(!PlotIdentifier.isInPlot(player.getLocation())) return;
-//
-//        if(!PlotIdentifier.isMemberOfPlot(player.getLocation(), player.getUniqueId())) return;
-//
-//        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
-//
-//        if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY){
-//            plot.save();
-//        }
-//    }
 }
