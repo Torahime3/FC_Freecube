@@ -2,8 +2,8 @@ package fr.torahime.freecube.controllers.menus.plots.settings.entity;
 
 import fr.torahime.freecube.controllers.menus.Menu;
 import fr.torahime.freecube.models.areamaker.LocationType;
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.models.entitys.EntityGenerator;
 import fr.torahime.freecube.models.entitys.PlotEntity;
 import fr.torahime.freecube.utils.ItemBuilder;
@@ -38,7 +38,7 @@ public class EntityConfMenu extends Menu {
         ItemBuilder locationB = eg.getLocationItemBuilder(LocationType.B);
 
         this.addItem(locationA.getItem(), 38, () -> {
-            int result = eg.setLocationA(player.getLocation());
+            int result = eg.setLocation(player.getLocation(), LocationType.A, plot);
             switch (result) {
                 case 1:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position A a été définie.").color(NamedTextColor.WHITE)));
@@ -54,11 +54,14 @@ public class EntityConfMenu extends Menu {
                 case -3:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location A is null, not set.").color(NamedTextColor.RED)));
                     break;
+                case -4:
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
+                    break;
             }
         });
 
         this.addItem(locationB.getItem(), 42, () -> {
-            int result = eg.setLocationB(player.getLocation());
+            int result = eg.setLocation(player.getLocation(), LocationType.B, plot);
             switch (result) {
                 case 1:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position B a été définie.").color(NamedTextColor.WHITE)));
@@ -73,6 +76,9 @@ public class EntityConfMenu extends Menu {
                     break;
                 case -3:
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location B is null, not set.").color(NamedTextColor.RED)));
+                    break;
+                case -4:
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
                     break;
             }
         });

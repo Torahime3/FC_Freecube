@@ -1,6 +1,6 @@
 package fr.torahime.freecube.models.preferences;
 
-import fr.torahime.freecube.models.game.PlotStates;
+import fr.torahime.freecube.models.plots.PlotStates;
 
 import java.util.HashMap;
 

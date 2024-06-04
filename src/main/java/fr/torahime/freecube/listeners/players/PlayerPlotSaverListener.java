@@ -1,7 +1,8 @@
 package fr.torahime.freecube.listeners.players;
 
 import fr.torahime.freecube.models.game.GamePlayer;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,7 +31,9 @@ public class PlayerPlotSaverListener implements Listener {
         if(plot == null) return;
 
         if(GamePlayer.getPlayer(player).isCurrentMenuFreecube() && !GamePlayer.getPlayer(player).isOpeningFreecubeMenu()){
-            plot.save();
+            if(plot.getMemberRole(player) == PlotRoles.CHIEF || plot.getMemberRole(player) == PlotRoles.DEPUTY){
+                plot.save();
+            }
         }
 
         GamePlayer.getPlayer(player).setCurrentMenuFreecube(false);

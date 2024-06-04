@@ -2,7 +2,7 @@ package fr.torahime.freecube.commands.players;
 
 import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
 import fr.torahime.freecube.controllers.custom_events.PlotQuitEvent;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

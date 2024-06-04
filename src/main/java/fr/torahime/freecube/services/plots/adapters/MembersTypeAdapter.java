@@ -3,7 +3,7 @@ package fr.torahime.freecube.services.plots.adapters;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotRoles;
 
 import java.io.IOException;
 import java.util.HashMap;

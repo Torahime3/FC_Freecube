@@ -4,7 +4,7 @@ import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
 import fr.torahime.freecube.controllers.custom_events.PlotQuitEvent;
 import fr.torahime.freecube.controllers.custom_events.PlotUpdateEvent;
 import fr.torahime.freecube.models.game.GamePlayer;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.hours.Hours;
 import fr.torahime.freecube.models.preferences.Preference;
 import fr.torahime.freecube.models.weather.Weather;

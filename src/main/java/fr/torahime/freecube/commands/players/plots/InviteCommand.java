@@ -2,8 +2,8 @@ package fr.torahime.freecube.commands.players.plots;
 
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.controllers.transaction.RequestType;
-import fr.torahime.freecube.models.game.Plot;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.Plot;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

@@ -4,7 +4,7 @@ import fr.torahime.freecube.Freecube;
 import fr.torahime.freecube.controllers.loaders.GamePlayerLoader;
 import fr.torahime.freecube.controllers.custom_events.PlotEnterEvent;
 import fr.torahime.freecube.models.game.GamePlayer;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.teams.scoreboard.MainBoard;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;

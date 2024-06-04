@@ -1,4 +1,4 @@
-package fr.torahime.freecube.models.game;
+package fr.torahime.freecube.models.plots;
 
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;

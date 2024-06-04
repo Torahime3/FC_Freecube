@@ -12,6 +12,9 @@ I'm working on it !
 
 ## TODO
 
+- [ ] Fix music transmitter not cancelling when quit plot
+- [ ] Player can ignite tnt in other plot with flame bow
+- [ ] Ignore case sensitivity in the command system
 - [x] Data storage system
 - [x] Request lifecycle management
 - [x] Fix the permissions on the entity generator and the pvp areas
@@ -24,6 +27,8 @@ I'm working on it !
 - [ ] Report system
 - [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
 - [ ] Setname on the plot
+- [ ] Fix when player put the hours to 12 it doesn't change
+- [ ] Avec l'élan du fly, on peut poser des zones en dehors de son plot
 
 ## Original Features
 

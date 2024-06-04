@@ -55,15 +55,8 @@ public class PlotBoundaryListener implements Listener {
 
     @EventHandler
     public void onPlayerQuitPlot(PlotQuitEvent event){
-//        Plot plot = Plot.getPlot(GamePlayer.getPlayer(event.getPlayer()).getOverPlotId());
-//        if(plot != null){
-//            plot.save();
-//        }
-
         GamePlayer.getPlayer(event.getPlayer()).setOverPlotId(-1);
         Bukkit.getPluginManager().callEvent(new PlotUpdateEvent(event.getPlayer()));
-
-
     }
 
     @EventHandler

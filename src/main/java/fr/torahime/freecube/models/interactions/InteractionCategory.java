@@ -1,11 +1,11 @@
-package fr.torahime.freecube.controllers.menus.plots.settings.interaction;
+package fr.torahime.freecube.models.interactions;
 
-public enum Category {
+public enum InteractionCategory {
     REDSTONE,
     PRIMARY,
     DECORATION;
 
-    public static Category nextCategory(Category category){
+    public static InteractionCategory nextCategory(InteractionCategory category){
         return switch (category) {
             case REDSTONE -> DECORATION;
             case PRIMARY -> REDSTONE;

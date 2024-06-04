@@ -1,9 +1,9 @@
 package fr.torahime.freecube.controllers.menus.plots.settings.pvp;
 
 import fr.torahime.freecube.controllers.menus.Menu;
-import fr.torahime.freecube.models.game.Plot;
+import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.pvp.PvpArea;
-import fr.torahime.freecube.models.roles.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotRoles;
 import fr.torahime.freecube.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -57,10 +57,8 @@ public class PvpMenu extends Menu {
             diamondSword.setLore(
                     Component.text("Position A:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isValidA() ? " X:" + pa.getA_X() + " Y:" + pa.getA_Y() + " Z:" + pa.getA_Z() : " Position A non définie.").color(NamedTextColor.WHITE)),
                     Component.text("Position B:").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isValidB() ? " X:" + pa.getB_X() + " Y:" + pa.getB_Y() + " Z:" + pa.getB_Z() : " Position B non définie.").color(NamedTextColor.WHITE)),
-                    Component.text("Pvp Actif : ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isPvpEnabled() ? "Actif" : "Inactif").color(pa.isPvpEnabled() ? NamedTextColor.GREEN : NamedTextColor.RED)),
-                    Component.text("Arme de mêlée : ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isMeleeWeapon() ? "Activée" : "Désactivée").color(pa.isMeleeWeapon() ? NamedTextColor.GREEN : NamedTextColor.RED)),
-                    Component.text("Arme à distance : ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isRangeWeapon() ? "Activée" : "Désactivée").color(pa.isRangeWeapon() ? NamedTextColor.GREEN : NamedTextColor.RED)));
-
+                    Component.text("Pvp: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.YELLOW).append(Component.text(pa.isPvpEnabled() ? "Actif" : "Inactif").color(pa.isPvpEnabled() ? NamedTextColor.GREEN : NamedTextColor.RED)));
+//
             if(pa.isPvpEnabled()){
                 diamondSword.addUnsafeEnchant(Enchantment.DURABILITY, 1);
                 diamondSword.addItemFlags(ItemFlag.HIDE_ENCHANTS);
