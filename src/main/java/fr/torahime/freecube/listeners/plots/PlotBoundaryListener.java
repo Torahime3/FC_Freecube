@@ -66,12 +66,16 @@ public class PlotBoundaryListener implements Listener {
 
 //        Plot Quit
         if (!PlotIdentifier.isInPlot(player.getLocation()) && !GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()) {
+
+            // Call Event PlotQuitEvent
             Bukkit.getPluginManager().callEvent(new PlotQuitEvent(event.getPlayer()));
             GamePlayer.getPlayer(player.getUniqueId()).setOverPlotId(-1);
         }
 
 //        Plot Enter
         if (PlotIdentifier.isInPlot(player.getLocation()) && GamePlayer.getPlayer(player.getUniqueId()).isCanReceivePlotInfos()) {
+
+            // Call Event PlotEnterEvent
             Bukkit.getPluginManager().callEvent(new PlotEnterEvent(event.getPlayer()));
             GamePlayer.getPlayer(player.getUniqueId()).setOverPlotId(PlotIdentifier.getPlotIndex(player.getLocation()));
         }

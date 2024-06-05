@@ -1,7 +1,7 @@
 package fr.torahime.freecube.commands.players.plots;
 
+import fr.torahime.freecube.controllers.transaction.ClaimPlotRequest;
 import fr.torahime.freecube.controllers.transaction.Request;
-import fr.torahime.freecube.controllers.transaction.RequestType;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,9 +36,9 @@ public class ClaimCommand implements CommandExecutor {
             player.sendMessage("§cTu ne peux pas claim le spawn");
             return true;
         }
+
         //Claim plot
-//        Plot plot = Plot.claimPlot(plotIndex, player.getUniqueId());
-        Request request = new Request(player, player, plotIndex, RequestType.CLAIM);
+        ClaimPlotRequest request = new ClaimPlotRequest(player, plotIndex);
         request.sendRequest();
 
         return false;
