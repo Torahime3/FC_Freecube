@@ -1,5 +1,6 @@
 package fr.torahime.freecube;
 
+import fr.torahime.freecube.commands.MainCommand;
 import fr.torahime.freecube.commands.admins.plots.ReadCommand;
 import fr.torahime.freecube.commands.admins.plots.SaveCommand;
 import fr.torahime.freecube.commands.players.*;

@@ -73,7 +73,6 @@ public class GamePlayerService extends Service implements IService<GamePlayer> {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if(response.statusCode() == 200){
                 JsonElement jsonElement = JsonParser.parseString(response.body());
-                System.out.println(jsonElement);
                 return gson.fromJson(jsonElement, GamePlayer.class);
             }
         } catch (Exception e) {

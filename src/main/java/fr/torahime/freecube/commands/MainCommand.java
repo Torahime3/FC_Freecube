@@ -1,5 +1,6 @@
-package fr.torahime.freecube.commands.players;
+package fr.torahime.freecube.commands;
 
+import fr.torahime.freecube.commands.players.HelpCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,7 @@ public class MainCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         if(args.length == 0) return helpExecutor.onCommand(sender, cmd, str, args);
 
-        return commandExecutors.getOrDefault(args[0], helpExecutor).onCommand(sender, cmd, str, args);
+        return commandExecutors.getOrDefault(args[0].toLowerCase(), helpExecutor).onCommand(sender, cmd, str, args);
 
     }
     public void addCommandExecutor(String commandName, CommandExecutor ce){

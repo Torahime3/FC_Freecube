@@ -15,7 +15,6 @@ public class ClaimPlotRequest extends Request{
     public ClaimPlotRequest(Player sender, int plotIndex){
         super(sender, sender, 60);
         this.plotIndex = plotIndex;
-        System.out.println("ClaimPlotRequest created, ID : " + this.id);
     }
 
     @Override
