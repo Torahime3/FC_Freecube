@@ -14,7 +14,7 @@ I'm working on it !
 
 - [ ] Fix music transmitter not cancelling when quit plot
 - [ ] Player can ignite tnt in other plot with flame bow
-- [ ] Ignore case sensitivity in the command system
+- [x] Ignore case sensitivity in the command system
 - [x] Data storage system
 - [x] Request lifecycle management
 - [x] Fix the permissions on the entity generator and the pvp areas

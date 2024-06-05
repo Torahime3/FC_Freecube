@@ -29,8 +29,10 @@ public class GamePlayer {
     private ArrayList<Request> pendingRequests;
     private boolean isOpeningFreecubeMenu;
     private boolean isCurrentMenuFreecube;
+    private List<Integer> musicTaskIds;
 
-//    Method for when the gameplayer is loaded from the database
+
+    //    Method for when the gameplayer is loaded from the database
     public void initializeGamePlayer(){
         if(plots == null ){
             plots = new ArrayList<>();
@@ -43,18 +45,29 @@ public class GamePlayer {
         this.lastPlayerWhoMessaged = null;
         this.isOpeningFreecubeMenu = false;
         this.isCurrentMenuFreecube = false;
+        this.musicTaskIds = new ArrayList<>();
     }
     //Constructor
     public GamePlayer(UUID uuid){
         this.uuid = uuid;
+        this.plotsIds = new ArrayList<>();
+        this.plots = new ArrayList<>();
+        this.pendingRequests = new ArrayList<>();
         this.overPlotId = -1;
         this.generalChatActive = true;
         this.lastPlayerWhoMessaged = null;
         this.isOpeningFreecubeMenu = false;
         this.isCurrentMenuFreecube = false;
-        this.plots = new ArrayList<>();
-        this.pendingRequests = new ArrayList<>();
-        this.plotsIds = new ArrayList<>();
+        this.musicTaskIds = new ArrayList<>();
+    }
+
+    //Methods
+    public static void addGamePlayer(UUID uuid){
+        addGamePlayer(uuid, new GamePlayer(uuid));
+    }
+
+    public static void addGamePlayer(UUID uuid, GamePlayer gamePlayer){
+        gamePlayers.put(uuid, gamePlayer);
     }
 
     public Player getPlayer(){
@@ -71,15 +84,6 @@ public class GamePlayer {
 
     public boolean isCanReceivePlotInfos() {
         return overPlotId == -1;
-    }
-
-    //Methods
-    public static void addGamePlayer(UUID uuid){
-        addGamePlayer(uuid, new GamePlayer(uuid));
-    }
-
-    public static void addGamePlayer(UUID uuid, GamePlayer gamePlayer){
-        gamePlayers.put(uuid, gamePlayer);
     }
 
     public boolean isOpeningFreecubeMenu() {
@@ -195,14 +199,21 @@ public class GamePlayer {
     public void playOneSoundOfPlot(MusicTransmitter mt, Plot plot){
 
         Player player = Bukkit.getPlayer(uuid);
-        if(player != null && PlotIdentifier.isInPlot(player.getLocation()) && plot.getMusicTransmitters().contains(mt)) {
-
+        if (player != null && PlotIdentifier.isInPlot(player.getLocation()) && plot.getMusicTransmitters().contains(mt)) {
             player.playSound(mt.getLocation(), mt.getMusic().getSound(), mt.getVolume(), mt.getPitch());
-            Bukkit.getLogger().info("Playing sound " + mt.getMusic().getName());
-            Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), () -> {
+            int taskId = Bukkit.getScheduler().runTaskLater(Freecube.getInstance(), () -> {
                 this.playOneSoundOfPlot(mt, plot);
-            }, 20L * mt.getMusic().getDuration()); // 20 ticks = 1 second (20 * 60 = 1 minute)
+            }, 20L * mt.getMusic().getDuration()).getTaskId();
+
+            musicTaskIds.add(taskId);
         }
+    }
+
+    public void stopAllSounds() {
+        for (Integer taskId : musicTaskIds) {
+            Bukkit.getScheduler().cancelTask(taskId);
+        }
+        musicTaskIds.clear();
     }
 
     public boolean save(){

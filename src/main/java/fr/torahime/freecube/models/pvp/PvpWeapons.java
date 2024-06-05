@@ -38,7 +38,6 @@ public enum PvpWeapons {
     public static PvpWeapons getByName(String name) {
         for (PvpWeapons pvpWeapons : values()) {
             if (name.toLowerCase().toLowerCase().contains(pvpWeapons.getCode().toLowerCase())) {
-                System.out.println("Found weapon: " + pvpWeapons.getName() + " with code: " + pvpWeapons.getCode() + " and name: " + name);
                 return pvpWeapons;
             }
         }

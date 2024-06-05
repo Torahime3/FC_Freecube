@@ -115,9 +115,11 @@ public class PlotPreferencesListener implements Listener{
     public void onPlayerQuitPlotResetPreference(PlotQuitEvent event){
 
         Player player = event.getPlayer();
+        GamePlayer gamePlayer = GamePlayer.getPlayer(player.getUniqueId());
         player.setAllowFlight(true);
         player.setGameMode(GameMode.CREATIVE);
         player.stopAllSounds();
+        gamePlayer.stopAllSounds();
 
         CraftPlayer craftPlayer = (CraftPlayer) player;
 
