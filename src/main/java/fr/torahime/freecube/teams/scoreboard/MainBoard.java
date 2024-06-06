@@ -21,7 +21,7 @@ public class MainBoard {
         Objective objective = scoreboard.registerNewObjective("plotboard", Criteria.DUMMY, scoreboardName);
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        objective.getScore("§l").setScore(3);
+        objective.getScore("§l").setScore(4);
         objective.getScore("§a").setScore(0);
 
 
@@ -29,13 +29,19 @@ public class MainBoard {
         Team roleTeam = scoreboard.registerNewTeam("role");
         String roleTeamKey = "§r";
         roleTeam.addEntry(roleTeamKey);
-        objective.getScore(roleTeamKey).setScore(1);
+        objective.getScore(roleTeamKey).setScore(2);
 
         //Create plot team
         Team plotIdTeam = scoreboard.registerNewTeam("plotid");
         String plotTeamKey = "§k";
         plotIdTeam.addEntry(plotTeamKey);
-        objective.getScore(plotTeamKey).setScore(2);
+        objective.getScore(plotTeamKey).setScore(3);
+
+        //Create name team
+        Team plotNameTeam = scoreboard.registerNewTeam("name");
+        String plotNameTeamKey = "§n";
+        plotNameTeam.addEntry(plotNameTeamKey);
+        objective.getScore(plotNameTeamKey).setScore(1);
 
         player.setScoreboard(scoreboard);
     }
@@ -45,12 +51,15 @@ public class MainBoard {
 
         Team plotIdTeam = scoreboard.getTeam("plotid");
         Team roleTeam = scoreboard.getTeam("role");
+        Team plotNameTeam = scoreboard.getTeam("name");
 
         if(!PlotIdentifier.isInPlot(player.getLocation())){
             plotIdTeam.prefix(Component.text("").color(NamedTextColor.GRAY));
             plotIdTeam.suffix(Component.text("Route").color(NamedTextColor.GRAY));
             roleTeam.prefix(Component.text("").color(NamedTextColor.GRAY));
             roleTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
+            plotNameTeam.prefix(Component.text("").color(NamedTextColor.GRAY));
+            plotNameTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
             return;
         }
 
@@ -59,6 +68,8 @@ public class MainBoard {
             plotIdTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
             roleTeam.prefix(Component.text("").color(NamedTextColor.YELLOW));
             roleTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
+            plotNameTeam.prefix(Component.text("").color(NamedTextColor.GRAY));
+            plotNameTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
             return;
         }
 
@@ -67,6 +78,8 @@ public class MainBoard {
             plotIdTeam.suffix(Component.text(PlotIdentifier.getPlotIndex(player.getLocation())).color(NamedTextColor.WHITE));
             roleTeam.prefix(Component.text("Zone LIBRE").color(NamedTextColor.YELLOW));
             roleTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
+            plotNameTeam.prefix(Component.text("").color(NamedTextColor.GRAY));
+            plotNameTeam.suffix(Component.text("").color(NamedTextColor.WHITE));
             return;
         }
 
@@ -76,6 +89,7 @@ public class MainBoard {
             plotIdTeam.suffix(Component.text(PlotIdentifier.getPlotIndex(player.getLocation())).color(NamedTextColor.WHITE));
             roleTeam.prefix(Component.text("Rang: ").color(NamedTextColor.GRAY));
             roleTeam.suffix(Component.text(role.getRoleName()).color(role.getColor()));
+            plotNameTeam.prefix(Component.text(Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation())).getName()).color(NamedTextColor.YELLOW));
             return;
         }
 
@@ -85,6 +99,7 @@ public class MainBoard {
             plotIdTeam.suffix(Component.text(PlotIdentifier.getPlotIndex(player.getLocation())).color(NamedTextColor.WHITE));
             roleTeam.prefix(Component.text("Rang: ").color(NamedTextColor.GRAY));
             roleTeam.suffix(Component.text(role.getRoleName()).color(role.getColor()));
+            plotNameTeam.prefix(Component.text(Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation())).getName()).color(NamedTextColor.YELLOW));
         }
 
     }
