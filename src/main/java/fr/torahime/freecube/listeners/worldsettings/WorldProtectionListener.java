@@ -79,6 +79,15 @@ public class WorldProtectionListener implements Listener {
     }
 
     @EventHandler
+    public void onFireChargeTouchEvent(PlayerInteractEvent event){
+        if(event.getPlayer().isOp()) return;
+        if(event.getItem() == null) return;
+        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem().getType() == Material.FIRE_CHARGE){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
     public void onEntitySpawned(EntitySpawnEvent event){
         if(event.getEntity() instanceof LivingEntity){
             if(event.getEntity().getEntitySpawnReason() != CreatureSpawnEvent.SpawnReason.COMMAND && event.getEntity().getEntitySpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM) {
@@ -173,15 +182,10 @@ public class WorldProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void onFireArrowIgniteTnt(EntityChangeBlockEvent event){
-
-        if(event.getEntity() instanceof Arrow){
-            Arrow arrow = (Arrow) event.getEntity();
-            if (event.getEntity().getType() == EntityType.ARROW && event.getBlock().getType() == Material.TNT_MINECART) {
-                cancelEvent((Player) Objects.requireNonNull(arrow.getShooter()), event.getBlock(), event);
-            }
+    public void onFireArrowIgniteTnt(ProjectileHitEvent event){
+        if(event.getEntity() instanceof Arrow && event.getHitBlock() != null && event.getHitBlock().getType() == Material.TNT){
+            cancelEvent((Player) ((Arrow) event.getEntity()).getShooter(), event.getHitBlock(), event);
         }
-
     }
 
     @EventHandler
