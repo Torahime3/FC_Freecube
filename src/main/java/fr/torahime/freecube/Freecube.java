@@ -22,14 +22,15 @@ import java.util.Objects;
 
 public final class Freecube extends JavaPlugin {
 
-    public static final String PLUGIN_NAME = "Freecube";
+    private static Freecube freecube;
 
     public static Plugin getInstance() {
-        return Objects.requireNonNull(Bukkit.getPluginManager().getPlugin(PLUGIN_NAME));
+        return freecube;
     }
 
     @Override
     public void onEnable() {
+        freecube = this;
 
         initWorld();
         initListeners();

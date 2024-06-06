@@ -17,19 +17,16 @@ public class GamePlayerLoader {
 
             if(gp == null){
                 //Create gameplayer
-                player.sendMessage(Component.text("Création de votre gameplayer").color(NamedTextColor.GREEN));
                 GamePlayer.addGamePlayer(player.getUniqueId());
                 gamePlayerService.create(GamePlayer.getPlayer(player.getUniqueId()));
             } else {
                 //Load gameplayer
                 GamePlayer.addGamePlayer(player.getUniqueId(), gp);
                 gp.initializeGamePlayer();
-                player.sendMessage(Component.text("Récupération de votre gameplayer").color(NamedTextColor.GREEN));
                 PlotLoader.loadPlotFromGamePlayer(gp, player);
             }
 
         } catch (Exception e){
-            player.sendMessage(Component.text("Erreur lors de la récupération de votre gameplayer").color(NamedTextColor.RED));
             e.printStackTrace();
         }
 

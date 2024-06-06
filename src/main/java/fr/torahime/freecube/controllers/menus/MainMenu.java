@@ -130,6 +130,7 @@ public class MainMenu extends Menu {
             for(UUID playerID : plot.getMembers()) {
                 ItemBuilder membersHead = new ItemBuilder(Material.PLAYER_HEAD);
                 OfflinePlayer member = Bukkit.getOfflinePlayer(playerID);
+                membersHead.setOwnerOfHead(member.getName());
                 String memberName = member.getName();
 
                 membersHead.setDisplayName(Component.text(memberName).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
@@ -138,9 +139,9 @@ public class MainMenu extends Menu {
                                 .append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)));
 
                 if(plot.isPlayerPresent(this.player.getUniqueId())) {
-//                    System.out.println("Le joueur est présent dans le plot -> " + this.player.getUniqueId());
-//                    System.out.println("Le joueur de la boucle est -> " + playerID);
-                    if (playerID == this.player.getUniqueId()) {
+
+
+                    if (playerID.equals(this.player.getUniqueId())) {
                         System.out.println("Et le joueur de la boucle est le joueur actuel");
                         membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)
                                         .append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA))

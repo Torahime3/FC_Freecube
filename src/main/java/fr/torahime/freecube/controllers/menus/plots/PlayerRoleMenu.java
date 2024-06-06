@@ -27,6 +27,7 @@ public class PlayerRoleMenu extends Menu {
 
         //Target head
         ItemBuilder targetHead = new ItemBuilder(Material.PLAYER_HEAD);
+        targetHead.setOwnerOfHead(target.getName());
         targetHead.setDisplayName(Component.text("Rôle de " + target.getName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD));
 
         ItemBuilder kickButton = new ItemBuilder(Material.BARRIER);
