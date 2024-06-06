@@ -10,11 +10,15 @@ This is an improved version of the original freecube, with more features. <br>
 The freecube itself has already been 100% recreated, but some details like ranks and the friend system are still missing.
 I'm working on it !
 
+## BUG FIXES
+
+- [x] Fix music transmitter not cancelling when quit plot
+- [x] Player can ignite tnt in other plot with flame bow
+- [x] Ignore case sensitivity in the command system
+
 ## TODO
 
-- [ ] Fix music transmitter not cancelling when quit plot
-- [ ] Player can ignite tnt in other plot with flame bow
-- [x] Ignore case sensitivity in the command system
+
 - [x] Data storage system
 - [x] Request lifecycle management
 - [x] Fix the permissions on the entity generator and the pvp areas
@@ -28,8 +32,7 @@ I'm working on it !
 - [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
 - [ ] Setname on the plot
 - [ ] Fix when player put the hours to 12 it doesn't change
-- [ ] Avec l'élan du fly, on peut poser des zones en dehors de son plot
-
+- 
 ## Original Features
 
 - [x] All the new blocks of the 1.20
