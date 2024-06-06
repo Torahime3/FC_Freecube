@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,6 +151,16 @@ public class ItemBuilder {
 
     public ItemBuilder setMeta(final ItemMeta meta) {
         this.item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder setOwnerOfHead(final String owner) {
+        if(this.item.getType() != Material.PLAYER_HEAD){
+            return this;
+        }
+        SkullMeta im = (SkullMeta) this.item.getItemMeta();
+        im.setOwningPlayer(org.bukkit.Bukkit.getOfflinePlayer(owner));
+        this.item.setItemMeta(im);
         return this;
     }
 
