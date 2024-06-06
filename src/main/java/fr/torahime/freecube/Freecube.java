@@ -57,6 +57,7 @@ public final class Freecube extends JavaPlugin {
         mc.addCommandExecutor("invite", new InviteCommand());
         mc.addCommandExecutor("accept", new AcceptCommand());
         mc.addCommandExecutor("setspawn", new SetSpawnCommand());
+        mc.addCommandExecutor("setname", new SetNameCommand());
 
         //Admin command
         mc.addCommandExecutor("save", new SaveCommand());

@@ -97,7 +97,7 @@ public class MainMenu extends Menu {
 
             if(plot.getMemberRole(player.getUniqueId()) == PlotRoles.CHIEF || plot.getMemberRole(player.getUniqueId()) == PlotRoles.DEPUTY) {
 
-                plotSpawnSunflower.addLore(Component.empty(), Component.text("Commandes pour changer le spawn:").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                plotSpawnSunflower.addLore(Component.empty(), Component.text("Commande pour changer le spawn:").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
                         Component.text("/fc setspawn").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                         Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
 

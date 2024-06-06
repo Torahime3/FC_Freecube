@@ -5,7 +5,7 @@
 ## Funcraft Freecube (WIP)
 
 As an old player of the freecube of Funcraft _(largest French minecraft server since its closure in August 2023)_.<br>
-I decided to recreate it identically in Minecraft 1.20.2. <br>
+I decided to recreate it identically in Minecraft 1.20.4 <br>
 This is an improved version of the original freecube, with more features. <br>
 The freecube itself has already been 100% recreated, but some details like ranks and the friend system are still missing.
 I'm working on it !
@@ -15,24 +15,26 @@ I'm working on it !
 - [x] Fix music transmitter not cancelling when quit plot
 - [x] Player can ignite tnt in other plot with flame bow
 - [x] Ignore case sensitivity in the command system
+- [x] Fix hours not changing when player put 12
+- [x] Fix the double message when player get teleported to the spawn of plot (preference called twice or more)
+- [x] Fix the permissions on the entity generator and the pvp areas
+- [x] Fix the chat system (broadcast)
+- [ ] Fix the music transmitter (and maybe the entity generator and pvp areas, could not create more than one line in inventory)
+
 
 ## TODO
 
 
 - [x] Data storage system
 - [x] Request lifecycle management
-- [x] Fix the permissions on the entity generator and the pvp areas
-- [x] Fix the chat system (broadcast)
 - [x] Manage pvp zones, and decide whether to be active only with blunt or ranged weapons
-- [ ] Fix the music transmitter (and maybe the entity generator and pvp areas, could not create more than one line in inventory)
-- [ ] Fix the double message when player get teleported to the spawn of plot (preference called twice or more)
+- [x] Setname on the plot
 - [ ] Friend system
 - [ ] Rank system
 - [ ] Report system
 - [ ] Fast editing system (SpeedEdit, Voxelsniper, etc...)
-- [ ] Setname on the plot
-- [ ] Fix when player put the hours to 12 it doesn't change
-- 
+
+
 ## Original Features
 
 - [x] All the new blocks of the 1.20
