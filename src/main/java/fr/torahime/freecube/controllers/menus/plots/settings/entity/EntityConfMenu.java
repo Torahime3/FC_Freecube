@@ -38,48 +38,14 @@ public class EntityConfMenu extends Menu {
         ItemBuilder locationB = eg.getLocationItemBuilder(LocationType.B);
 
         this.addItem(locationA.getItem(), 38, () -> {
-            int result = eg.setLocation(player.getLocation(), LocationType.A, plot);
-            switch (result) {
-                case 1:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position A a été définie.").color(NamedTextColor.WHITE)));
-                    eg.startParticleDisplay(player);
-                    this.fillInventory();
-                    break;
-                case -1:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position A ne peut pas être la même que la position B.").color(NamedTextColor.RED)));
-                    break;
-                case -2:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text(String.format("La zone est trop grande. ( >%s)", eg.getMAX_VOLUME())).color(NamedTextColor.RED)));
-                    break;
-                case -3:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location A is null, not set.").color(NamedTextColor.RED)));
-                    break;
-                case -4:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
-                    break;
+            if(eg.setLocation(player, LocationType.A, plot)){
+                this.fillInventory();
             }
         });
 
         this.addItem(locationB.getItem(), 42, () -> {
-            int result = eg.setLocation(player.getLocation(), LocationType.B, plot);
-            switch (result) {
-                case 1:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position B a été définie.").color(NamedTextColor.WHITE)));
-                    eg.startParticleDisplay(player);
-                    this.fillInventory();
-                    break;
-                case -1:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position B ne peut pas être la même que la position A.").color(NamedTextColor.RED)));
-                    break;
-                case -2:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text(String.format("La zone est trop grande. ( >%s)", eg.getMAX_VOLUME())).color(NamedTextColor.RED)));
-                    break;
-                case -3:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location B is null, not set.").color(NamedTextColor.RED)));
-                    break;
-                case -4:
-                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La location ne peut pas être en dehors de la zone concernée").color(NamedTextColor.RED)));
-                    break;
+            if(eg.setLocation(player, LocationType.B, plot)){
+                this.fillInventory();
             }
         });
 
