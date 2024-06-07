@@ -85,11 +85,6 @@ public class PlotPreferencesListener implements Listener{
                 }
 
             }
-
-        } else {
-
-                player.setAllowFlight(true);
-                player.setGameMode(GameMode.CREATIVE);
         }
     }
 

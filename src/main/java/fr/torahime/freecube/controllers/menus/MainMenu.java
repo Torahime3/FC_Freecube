@@ -12,6 +12,7 @@ import fr.torahime.freecube.controllers.menus.plots.settings.preference.Preferen
 import fr.torahime.freecube.controllers.menus.plots.settings.pvp.PvpMenu;
 import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.plots.PlotRoles;
+import fr.torahime.freecube.models.plots.PlotStates;
 import fr.torahime.freecube.utils.ItemBuilder;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
@@ -47,6 +48,10 @@ public class MainMenu extends Menu {
         freeZone.setDisplayName(Component.text("Trouver une zone libre").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
         freeZone.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour trouver une zone libre").color(NamedTextColor.WHITE)).decoration(TextDecoration.ITALIC, false));
 
+        PlotStates playerGameModeState = PlotStates.getFromGameMode(this.player.getGameMode());
+        ItemBuilder changeGamemode = new ItemBuilder(Material.ENDER_EYE);
+        changeGamemode.setDisplayName(Component.text("Changer de mode de jeu").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        changeGamemode.setLore(Component.text("> ").color(NamedTextColor.GREEN).append(Component.text("Clic gauche pour passer en ").color(NamedTextColor.WHITE).append(Component.text(PlotStates.getInverseState(playerGameModeState).getState()).color(NamedTextColor.YELLOW))).decoration(TextDecoration.ITALIC, false));
 
         // Add members heads and every info on the plot (if in plot)
         if(PlotIdentifier.isInPlot(this.player.getLocation()) && PlotIdentifier.isPlotClaimed(this.player.getLocation())) {
@@ -107,6 +112,13 @@ public class MainMenu extends Menu {
                 plotMusicsJukeBox.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
                 plotEntityEgg.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
                 plotPvpSword.addLore(Component.text("(accessible au rang Adjoint)").decoration(TextDecoration.ITALIC, true).color(NamedTextColor.GRAY));
+                this.addItem(changeGamemode.getItem(), 8, () -> {
+                    player.setGameMode(PlotStates.getInverseState(playerGameModeState).getGameMode());
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
+                            .append(Component.text("Tu es maintenant en mode de jeu ").color(NamedTextColor.WHITE)
+                                    .append(Component.text(PlotStates.getFromGameMode(player.getGameMode()).getState()).color(NamedTextColor.YELLOW))));
+                    this.fillInventory();
+                });
             }
 
             this.addItem(plotInfoGrassBlock.getItem(), 18);
@@ -142,7 +154,6 @@ public class MainMenu extends Menu {
 
 
                     if (playerID.equals(this.player.getUniqueId())) {
-                        System.out.println("Et le joueur de la boucle est le joueur actuel");
                         membersHead.setLore(Component.text("Rang: ").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)
                                         .append(Component.text(plot.getMemberRole(playerID).getRoleName()).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA))
                                 , Component.text("")

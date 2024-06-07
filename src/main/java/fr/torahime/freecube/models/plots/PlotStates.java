@@ -85,6 +85,15 @@ public enum PlotStates {
 
     }
 
+    public static PlotStates getFromGameMode(GameMode gameMode){
+        return switch (gameMode) {
+            case SURVIVAL -> SURVIVAL;
+            case CREATIVE -> CREATIVE;
+            case ADVENTURE -> ADVENTURE;
+            default -> LOW;
+        };
+    }
+
     public static String getInverseStateLiteral(PlotStates state){
         return getInverseState(state).getState();
     }
