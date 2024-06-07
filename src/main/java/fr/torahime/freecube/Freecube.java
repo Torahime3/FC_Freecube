@@ -3,6 +3,7 @@ package fr.torahime.freecube;
 import fr.torahime.freecube.commands.MainCommand;
 import fr.torahime.freecube.commands.admins.plots.ReadCommand;
 import fr.torahime.freecube.commands.admins.plots.SaveCommand;
+import fr.torahime.freecube.commands.admins.ranks.SetRankCommand;
 import fr.torahime.freecube.commands.players.*;
 import fr.torahime.freecube.commands.players.plots.*;
 import fr.torahime.freecube.controllers.generators.PlotChunkGenerator;
@@ -59,6 +60,7 @@ public final class Freecube extends JavaPlugin {
         mc.addCommandExecutor("accept", new AcceptCommand());
         mc.addCommandExecutor("setspawn", new SetSpawnCommand());
         mc.addCommandExecutor("setname", new SetNameCommand());
+        mc.addCommandExecutor("setrank", new SetRankCommand());
 
         //Admin command
         mc.addCommandExecutor("save", new SaveCommand());

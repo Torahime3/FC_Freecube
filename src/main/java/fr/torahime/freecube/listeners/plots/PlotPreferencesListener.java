@@ -62,8 +62,9 @@ public class PlotPreferencesListener implements Listener{
 
     public void updatePreferences(Player player, boolean isEnteringPlot){
 
+        Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
+
         if(canApplyPreference(player)) {
-            Plot plot = Plot.getPlot(PlotIdentifier.getPlotIndex(player.getLocation()));
 
             //FLY
             player.setAllowFlight(!plot.getPreferences().get(Preference.FLY).getCancelEvent());
@@ -85,6 +86,11 @@ public class PlotPreferencesListener implements Listener{
                 }
 
             }
+        }
+
+        if(isEnteringPlot && !plot.getMusicTransmitters().isEmpty()){
+            GamePlayer gamePlayer = GamePlayer.getPlayer(player.getUniqueId());
+            gamePlayer.playAllSoundsOfPlot(plot);
         }
     }
 

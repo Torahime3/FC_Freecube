@@ -52,6 +52,12 @@ public class MusicMenu extends Menu {
                     player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous devez être dans la zone pour créer un émetteur de musique.").color(NamedTextColor.RED)));
                     return;
                 }
+
+                if(plot.getMusicTransmitters().size() >= plot.getMAX_MUSIC_TRANSMITTERS()){
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez atteint le nombre maximum d'émetteurs de musique.").color(NamedTextColor.RED)));
+                    return;
+                }
+
                 MusicTransmitter mt = new MusicTransmitter(Music.CAT, player.getLocation(), 1, 1);
                 plot.addMusicTransmitter(mt);
                 new MusicConfMenu(player, plot, mt, this).openMenu();
