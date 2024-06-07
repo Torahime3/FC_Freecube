@@ -2,6 +2,7 @@ package fr.torahime.freecube.commands.players.plots;
 
 import fr.torahime.freecube.controllers.transaction.ClaimPlotRequest;
 import fr.torahime.freecube.controllers.transaction.Request;
+import fr.torahime.freecube.models.game.GamePlayer;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,6 +16,7 @@ public class ClaimCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String str, @NotNull String[] args) {
 
         Player player = (Player) sender;
+
         int playerPosX = player.getLocation().getBlockX();
         int playerPosZ = player.getLocation().getBlockZ();
 

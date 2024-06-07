@@ -17,13 +17,14 @@ public class PlayerChatListener implements Listener {
     public void onPlayerChat(AsyncChatEvent event) {
 
         Player player = event.getPlayer();
+        GamePlayer gp = GamePlayer.getPlayer(player.getUniqueId());
         int plotId = PlotIdentifier.getPlotIndex(player.getLocation());
         TextComponent message = (TextComponent) event.message();
 
         if(message.content().charAt(0) == '@') {
             for(Player p : player.getWorld().getPlayers()){
                 if(GamePlayer.getPlayer(p.getUniqueId()).isGeneralChatActive()){
-                    p.sendMessage(Component.text("Joueur " + player.getName()).color(NamedTextColor.GRAY)
+                    p.sendMessage(Component.text(gp.getRank() + " " + player.getName()).color(gp.getRank().getColor())
                             .append(Component.text(": ").color(NamedTextColor.WHITE))
                             .append(Component.text("@").color(NamedTextColor.AQUA))
                             .append(Component.text(message.content().substring(1)).color(NamedTextColor.WHITE)));

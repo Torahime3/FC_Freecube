@@ -232,7 +232,7 @@ public class MainMenu extends Menu {
             this.player.teleport(PlotIdentifier.getPlotCenterLocation(0));
             Bukkit.getServer().getPluginManager().callEvent(new PlotEnterEvent(this.player));
         });
-        this.addItem(myPlots.getItem(), 1, () -> new MyPlotsMenu(player).openMenu());
+        this.addItem(myPlots.getItem(), 1, () -> new MyPlotsMenu(player, this).openMenu());
         this.addItem(freeZone.getItem(), 2, () -> FindCommand.findPlot(player));
 //        this.addItem(playerHead.getItem(), 4);
 //        this.addItem(options.getItem(), 6);

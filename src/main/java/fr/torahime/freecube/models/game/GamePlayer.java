@@ -6,6 +6,7 @@ import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.musics.MusicTransmitter;
 import fr.torahime.freecube.models.plots.Plot;
 import fr.torahime.freecube.models.plots.PlotRoles;
+import fr.torahime.freecube.models.ranks.Ranks;
 import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Bukkit;
@@ -23,13 +24,20 @@ public class GamePlayer {
     @Expose
     private ArrayList<Integer> plotsIds;
     private ArrayList<Plot> plots;
-    private int overPlotId;
-    private boolean generalChatActive;
-    private Player lastPlayerWhoMessaged;
     private ArrayList<Request> pendingRequests;
+    private List<Integer> musicTaskIds;
+
+    private Ranks rank;
+    private Player lastPlayerWhoMessaged;
+
+    private boolean generalChatActive;
     private boolean isOpeningFreecubeMenu;
     private boolean isCurrentMenuFreecube;
-    private List<Integer> musicTaskIds;
+
+    private int overPlotId;
+
+    private final int MAX_PLOTS = 20;
+    private final int MAX_CHEF_PLOTS = 3;
 
 
     //    Method for when the gameplayer is loaded from the database
@@ -46,6 +54,7 @@ public class GamePlayer {
         this.isOpeningFreecubeMenu = false;
         this.isCurrentMenuFreecube = false;
         this.musicTaskIds = new ArrayList<>();
+        this.rank = Ranks.PLAYER;
     }
     //Constructor
     public GamePlayer(UUID uuid){
@@ -84,6 +93,14 @@ public class GamePlayer {
 
     public boolean isCanReceivePlotInfos() {
         return overPlotId == -1;
+    }
+
+    public Ranks getRank() {
+        return rank;
+    }
+
+    public void setRank(Ranks rank) {
+        this.rank = rank;
     }
 
     public boolean isOpeningFreecubeMenu() {
@@ -155,6 +172,14 @@ public class GamePlayer {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public int getMAX_PLOTS() {
+        return MAX_PLOTS;
+    }
+
+    public int getMAX_CHEF_PLOTS() {
+        return MAX_CHEF_PLOTS;
     }
 
     public ArrayList<Request> getPendingRequests() {

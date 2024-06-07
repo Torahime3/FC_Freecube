@@ -48,7 +48,11 @@ public class Plot {
     private InteractionsMap interactions = new InteractionsMap();
     @Expose
     private final HashMap<UUID, PlotRoles> members = new HashMap<>();
+
     private final int MAX_MEMBERS = 16;
+    private final int MAX_MUSIC_TRANSMITTERS = 8;
+    private final int MAX_ENTITY_GENERATORS = 4;
+    private final int MAX_PVP_AREAS = 4;
 
     public Plot(int id, UUID owner) {
         this.name = "";
@@ -110,6 +114,18 @@ public class Plot {
 
     public void addPvpArea(PvpArea pvpArea) {
         this.pvpAreas.add(pvpArea);
+    }
+
+    public int getMAX_MUSIC_TRANSMITTERS() {
+        return MAX_MUSIC_TRANSMITTERS;
+    }
+
+    public int getMAX_ENTITY_GENERATORS() {
+        return MAX_ENTITY_GENERATORS;
+    }
+
+    public int getMAX_PVP_AREAS() {
+        return MAX_PVP_AREAS;
     }
 
     public void removePvpArea(PvpArea pvpArea) {

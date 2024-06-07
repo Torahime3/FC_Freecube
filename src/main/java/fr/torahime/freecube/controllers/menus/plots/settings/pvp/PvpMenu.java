@@ -42,6 +42,12 @@ public class PvpMenu extends Menu {
             bannerAddMember.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
 
             this.addItem(bannerAddMember.getItem(), 0, () -> {
+
+                if(plot.getPvpAreas().size() >= plot.getMAX_PVP_AREAS()){
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez atteint le nombre maximum de zones pvp.").color(NamedTextColor.RED)));
+                    return;
+                }
+
                 PvpArea pvpArea = new PvpArea();
                 plot.addPvpArea(pvpArea);
                 new PvpConfMenu(player, plot, pvpArea, this).openMenu();

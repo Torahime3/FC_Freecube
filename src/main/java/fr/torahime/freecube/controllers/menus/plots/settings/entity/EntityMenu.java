@@ -41,6 +41,12 @@ public class EntityMenu extends Menu {
             bannerAddMember.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
 
             this.addItem(bannerAddMember.getItem(), 0, () -> {
+
+                if(plot.getEntityGenerators().size() >= plot.getMAX_ENTITY_GENERATORS()){
+                    player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Vous avez atteint le nombre maximum de générateurs d'entités.").color(NamedTextColor.RED)));
+                    return;
+                }
+
                 EntityGenerator eg = new EntityGenerator();
                 plot.addEntityGenerator(eg);
                 new EntityConfMenu(player, plot, eg, this).openMenu();

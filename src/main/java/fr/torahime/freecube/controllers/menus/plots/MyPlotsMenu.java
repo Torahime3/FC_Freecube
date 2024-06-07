@@ -19,10 +19,10 @@ import java.util.UUID;
 
 public class MyPlotsMenu extends Menu {
 
-    public MyPlotsMenu(Player player) {
+    public MyPlotsMenu(Player player, Menu lastMenu) {
         super(player,
                 !GamePlayer.getPlayer(player.getUniqueId()).getPlots().isEmpty() ? Component.text(String.format("Mes zones (Chef: %d/%d)", GamePlayer.getPlayer(player.getUniqueId()).getChefPlotsCount(), GamePlayer.getPlayer(player.getUniqueId()).getPlots().size())) : Component.text("Vous n'avez aucune zone"),
-                54);
+                54, lastMenu);
     }
 
     @Override
@@ -48,6 +48,8 @@ public class MyPlotsMenu extends Menu {
             });
             i++;
         }
+
+        super.fillInventory();
 
     }
 
