@@ -109,14 +109,24 @@ public abstract class AreaMaker {
         this.locationB = locationB;
     }
 
-    public int setLocation(Location location, LocationType locationType, Plot plot) {
 
-        if(location == null || plot == null) return -3; // Nouveau code d'erreur pour null input
+    public boolean setLocation(Player player, LocationType locationType, Plot plot) {
 
-        if(PlotIdentifier.getPlotIndex(location) != plot.getId()) return -4; // La location ne peut pas être en dehors de la zone concernée
+        Location location = player.getLocation();
+
+        if(location == null || plot == null){
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location A is null, not set.").color(NamedTextColor.RED)));
+            return false; // Nouveau code d'erreur pour null input
+        }
+
+        if(PlotIdentifier.getPlotIndex(location) != plot.getId()){
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Location A is null, not set.").color(NamedTextColor.RED)));
+            return false; // La location ne peut pas être en dehors de la zone concernée
+        }
 
         if(location.equals(locationType == LocationType.A ? this.locationB : this.locationA)){
-            return -1; // Emplacements identiques
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("La position A a été définie.").color(NamedTextColor.WHITE)));
+            return false; // La position A ne peut pas être la même que la position B
         }
 
         Location oldLocation = locationType == LocationType.A ? this.locationA : this.locationB;
@@ -127,14 +137,17 @@ public abstract class AreaMaker {
         }
         if (getTotalBlocks() > MAX_VOLUME) {
             if (locationType == LocationType.A) {
-                this.locationA = oldLocation; // Restore old location
+                this.locationA = oldLocation;
             } else {
-                this.locationB = oldLocation; // Restore old location
+                this.locationB = oldLocation;
             }
-            return -2;
+            player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text(String.format("La zone est trop grande. ( >%s)", this.MAX_VOLUME)).color(NamedTextColor.RED)));
+            return false; // Zone trop grande
         }
 
-        return 1; // Successful update
+        player.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD).append(Component.text("Position " + locationType + " définie.").color(NamedTextColor.WHITE)));
+        this.startParticleDisplay(player);
+        return true; // Successful update
 
     }
 
