@@ -25,7 +25,6 @@ public class PlotLoader {
 
         //Plot already loaded
         if(Plot.getPlot(plotId) != null) {
-            player.sendMessage(Component.text("Plot " + plotId + " already loaded").color(NamedTextColor.RED));
             gp.addPlot(Plot.getPlot(plotId));
             return null;
         }
@@ -34,7 +33,6 @@ public class PlotLoader {
 
         //Plot not found in database
         if(plot == null) {
-            player.sendMessage(Component.text("Plot " + plotId + " not found in database").color(NamedTextColor.RED));
             return null;
         }
 
@@ -47,7 +45,6 @@ public class PlotLoader {
             gp.addPlot(newPlot);
         }
 
-        player.sendMessage(Component.text("Plot " + plotId + " loaded successfully").color(NamedTextColor.GREEN));
         return newPlot;
     }
 
