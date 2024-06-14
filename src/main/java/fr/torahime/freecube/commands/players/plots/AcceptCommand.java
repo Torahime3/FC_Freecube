@@ -4,6 +4,7 @@ import fr.torahime.freecube.controllers.transaction.ClaimPlotRequest;
 import fr.torahime.freecube.controllers.transaction.InviteOnPlotRequest;
 import fr.torahime.freecube.controllers.transaction.Request;
 import fr.torahime.freecube.models.game.GamePlayer;
+import fr.torahime.freecube.utils.PlotIdentifier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
@@ -28,11 +29,20 @@ public class AcceptCommand implements CommandExecutor {
         int id = Integer.parseInt(args[1]);
         Request request = GamePlayer.getPlayer(player.getUniqueId()).getPendingRequest(id);
 
-        //Check if player has not achieved his max chief plots
-        if(request instanceof ClaimPlotRequest && gp.getChefPlotsCount() >= gp.getMAX_CHEF_PLOTS()) {
-            player.sendMessage("§cTu as atteint le nombre maximum de zones chef");
-            gp.removeRequest(request);
-            return true;
+        if(request instanceof ClaimPlotRequest cpr){
+            //Check if plot is already claimed
+            if(PlotIdentifier.isPlotClaimed(cpr.getPlotIndex())){
+                player.sendMessage("§cLa zone est déjà prise");
+                gp.removeRequest(request);
+                return true;
+            }
+
+            //Check if player has not achieved his max plots
+            if(gp.getChefPlotsCount() >= gp.getMAX_CHEF_PLOTS()){
+                player.sendMessage("§cTu as atteint le nombre maximum de zones chef");
+                gp.removeRequest(request);
+                return true;
+            }
         }
 
         //Check if player has not achieved his max plots

@@ -14,8 +14,8 @@ public enum Ranks {
     private final NamedTextColor color;
     private final String[] permissions;
 
-    Ranks(String name, NamedTextColor color, String[] permissions) {
-        this.prefix = name;
+    Ranks(String prefix, NamedTextColor color, String[] permissions) {
+        this.prefix = prefix;
         this.color = color;
         this.permissions = permissions;
     }

@@ -29,6 +29,7 @@ public class ClaimPlotRequest extends Request{
 
     }
 
+
     @Override
     public void acceptRequestAsync() {
         new Thread(this::acceptRequest).start();
@@ -46,5 +47,9 @@ public class ClaimPlotRequest extends Request{
         GamePlayer.getPlayer(receiver.getUniqueId()).removeRequest(this);
         receiver.sendMessage(Component.text("[Freecube] ").color(NamedTextColor.GOLD)
                 .append(Component.text("Tu as obtenu la zone. Amuses-toi bien !!").color(NamedTextColor.WHITE)));
+    }
+
+    public int getPlotIndex() {
+        return plotIndex;
     }
 }
