@@ -24,7 +24,7 @@ public class PlayerChatListener implements Listener {
         if(message.content().charAt(0) == '@') {
             for(Player p : player.getWorld().getPlayers()){
                 if(GamePlayer.getPlayer(p.getUniqueId()).isGeneralChatActive()){
-                    p.sendMessage(Component.text(gp.getRank() + " " + player.getName()).color(gp.getRank().getColor())
+                    p.sendMessage(Component.text(gp.getRank().getPrefix() + " " + player.getName()).color(gp.getRank().getColor())
                             .append(Component.text(": ").color(NamedTextColor.WHITE))
                             .append(Component.text("@").color(NamedTextColor.AQUA))
                             .append(Component.text(message.content().substring(1)).color(NamedTextColor.WHITE)));
@@ -39,7 +39,7 @@ public class PlayerChatListener implements Listener {
 
             for (Player p : player.getWorld().getPlayers()) {
                 if (PlotIdentifier.isInPlot(p.getLocation()) && plotId == PlotIdentifier.getPlotIndex(p.getLocation())) {
-                    sendMessageFcFormat(player, p, plotId, message);
+                    sendMessageFcFormat(gp, player, p, plotId, message);
                 }
             }
 
@@ -47,7 +47,7 @@ public class PlayerChatListener implements Listener {
 
             for (Player p : player.getWorld().getPlayers()) {
                 if (!PlotIdentifier.isInPlot(p.getLocation())) {
-                    sendMessageFcFormat(player, p, -1, message);
+                    sendMessageFcFormat(gp, player, p, -1, message);
                 }
             }
 
@@ -57,13 +57,13 @@ public class PlayerChatListener implements Listener {
 
     }
 
-    public static void sendMessageFcFormat(Player player, Player target, int plotId, Component message){
-        sendMessageFcFormat(player, target, plotId, message, false);
+    public static void sendMessageFcFormat(GamePlayer playerGp, Player player, Player target, int plotId, Component message){
+        sendMessageFcFormat(playerGp, player, target, plotId, message, false);
     }
 
-    public static void sendMessageFcFormat(Player player, Player target, int plotId, Component message, boolean privateMessage){
+    public static void sendMessageFcFormat(GamePlayer playerGp, Player player, Player target, int plotId, Component message, boolean privateMessage){
         target.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
-                .append(Component.text("Joueur " + player.getName()).color(NamedTextColor.GRAY))
+                .append(Component.text( playerGp.getRank().getPrefix() + " " + player.getName()).color(playerGp.getRank().getColor()))
                 .append(Component.text(" -> ").color(NamedTextColor.GOLD))
                 .append(Component.text(privateMessage ? "Moi" : plotId == -1 ? "Route" : plotId == 0 ? "Spawn" : String.valueOf(plotId)).color(plotId == 0 ? NamedTextColor.YELLOW : NamedTextColor.GRAY))
                 .append(Component.text("]").color(NamedTextColor.GOLD))
@@ -72,11 +72,12 @@ public class PlayerChatListener implements Listener {
 
 
         if(privateMessage) {
-            GamePlayer.getPlayer(target.getUniqueId()).setLastPlayerWhoMessaged(player);
+            GamePlayer targetGamePlayer = GamePlayer.getPlayer(target.getUniqueId());
+            targetGamePlayer.setLastPlayerWhoMessaged(player);
             player.sendMessage(Component.text("[").color(NamedTextColor.GOLD)
                     .append(Component.text("Moi").color(NamedTextColor.GRAY))
                     .append(Component.text(" -> ").color(NamedTextColor.GOLD))
-                    .append(Component.text("Joueur " + target.getName()).color(NamedTextColor.GRAY))
+                    .append(Component.text(targetGamePlayer.getRank().getPrefix() + " " + target.getName()).color(targetGamePlayer.getRank().getColor()))
                     .append(Component.text("]").color(NamedTextColor.GOLD))
                     .append(Component.text(" ").append(message.color(NamedTextColor.WHITE))));
         }

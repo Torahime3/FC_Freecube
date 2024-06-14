@@ -11,6 +11,7 @@ import fr.torahime.freecube.services.gameplayers.GamePlayerService;
 import fr.torahime.freecube.utils.PlotIdentifier;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 import java.util.*;
 
@@ -27,7 +28,9 @@ public class GamePlayer {
     private ArrayList<Request> pendingRequests;
     private List<Integer> musicTaskIds;
 
+
     private Ranks rank;
+    private PermissionAttachment permissionAttachment;
     private Player lastPlayerWhoMessaged;
 
     private boolean generalChatActive;
@@ -36,38 +39,33 @@ public class GamePlayer {
 
     private int overPlotId;
 
-    private final int MAX_PLOTS = 20;
+    private final int MAX_PLOTS = 30;
     private final int MAX_CHEF_PLOTS = 3;
 
 
-    //    Method for when the gameplayer is loaded from the database
-    public void initializeGamePlayer(){
-        if(plots == null ){
-            plots = new ArrayList<>();
+    private void initializeFields(boolean isNewPlayer) {
+        if (isNewPlayer || this.plotsIds == null) {
+            this.plotsIds = new ArrayList<>();
         }
-        if(pendingRequests == null){
-            pendingRequests = new ArrayList<>();
-        }
+        this.plots = new ArrayList<>();
+        this.pendingRequests = new ArrayList<>();
+        this.musicTaskIds = new ArrayList<>();
         this.overPlotId = -1;
         this.generalChatActive = true;
         this.lastPlayerWhoMessaged = null;
         this.isOpeningFreecubeMenu = false;
         this.isCurrentMenuFreecube = false;
-        this.musicTaskIds = new ArrayList<>();
         this.rank = Ranks.PLAYER;
     }
+
     //Constructor
     public GamePlayer(UUID uuid){
         this.uuid = uuid;
-        this.plotsIds = new ArrayList<>();
-        this.plots = new ArrayList<>();
-        this.pendingRequests = new ArrayList<>();
-        this.overPlotId = -1;
-        this.generalChatActive = true;
-        this.lastPlayerWhoMessaged = null;
-        this.isOpeningFreecubeMenu = false;
-        this.isCurrentMenuFreecube = false;
-        this.musicTaskIds = new ArrayList<>();
+        initializeFields(true);
+    }
+
+    public void initializeGamePlayer(){
+        initializeFields(false);
     }
 
     //Methods
@@ -93,6 +91,14 @@ public class GamePlayer {
 
     public boolean isCanReceivePlotInfos() {
         return overPlotId == -1;
+    }
+
+    public void setPermissionAttachment(PermissionAttachment permissionAttachment) {
+        this.permissionAttachment = permissionAttachment;
+    }
+
+    public PermissionAttachment getPermissionAttachment() {
+        return permissionAttachment;
     }
 
     public Ranks getRank() {

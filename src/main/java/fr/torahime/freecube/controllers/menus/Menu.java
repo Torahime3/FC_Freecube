@@ -34,7 +34,6 @@ public class Menu implements Listener {
     public Menu(){
         this(null, Component.text("Menu"), 9, null);
     }
-
     public Menu(Player player, TextComponent invName, int size){
         this(player, invName, size, null);
     }

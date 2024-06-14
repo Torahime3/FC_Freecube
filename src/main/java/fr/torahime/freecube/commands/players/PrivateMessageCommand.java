@@ -18,6 +18,7 @@ public class PrivateMessageCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String str, @NotNull String[] args) {
 
         Player player = (Player) sender;
+        GamePlayer gp = GamePlayer.getPlayer(player);
 
         if(cmd.getName().equals("msg") || cmd.getName().equals("m")){
 
@@ -33,7 +34,7 @@ public class PrivateMessageCommand implements CommandExecutor {
             }
 
             String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-            PlayerChatListener.sendMessageFcFormat(player, target, -1, Component.text(message, NamedTextColor.WHITE), true);
+            PlayerChatListener.sendMessageFcFormat(gp, player, target, -1, Component.text(message, NamedTextColor.WHITE), true);
 
             return true;
         }
@@ -47,7 +48,7 @@ public class PrivateMessageCommand implements CommandExecutor {
             }
 
             String message = String.join(" ", args);
-            PlayerChatListener.sendMessageFcFormat(player, target, -1, Component.text(message, NamedTextColor.WHITE), true);
+            PlayerChatListener.sendMessageFcFormat(gp, player, target, -1, Component.text(message, NamedTextColor.WHITE), true);
 
         }
 
